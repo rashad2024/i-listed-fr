@@ -10,9 +10,7 @@ import "@/styles/pages/home.scss";
 
 export default function HeaderPage({
   pageType,
-}: {
-  pageType: string | undefined;
-}) {
+}: any) {
   return (
     <AuthGuard>
       <main>
