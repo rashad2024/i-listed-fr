@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "../store";
 
-import "../styles/globals.css";
+import "../styles/globals.scss";
 import "@radix-ui/themes/styles.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
