@@ -1,0 +1,107 @@
+.signup-page-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+  .signup-page,
+  .otp-validate-form,
+  .set-password-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    background: #fff;
+    border-radius: 24px;
+    padding: 60px 38px;
+    top: 50%;
+    position: relative;
+    width: 540px;
+    height: auto;
+
+    h2 {
+      margin-top: 0;
+      font-family: var(--font-inter);
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 100%;
+    }
+
+    > div {
+      margin-bottom: 1rem;
+      width: 100%;
+
+      > div {
+        &.rt-TextFieldRoot {
+          min-height: 48px;
+        }
+      }
+
+      input {
+        border-radius: 12px;
+        min-height: 48px;
+      }
+
+      button {
+        &.rt-SelectTrigger {
+          min-height: 48px;
+        }
+
+        &:not(.rt-SelectTrigger) {
+          min-height: 48px;
+          margin-top: 1rem;
+        }
+      }
+    }
+
+    .signup-footer {
+      font-size: 16px;
+      font-family: var(--font-inter);
+      font-weight: 400;
+      line-height: 150%;
+      width: 100%;
+      text-align: center;
+      color: #444444;
+
+      a {
+        font-weight: 600 !important;
+        color: #000 !important;
+      }
+    }
+  }
+  .otp-validate-form {
+    h2 {
+      margin: 0;
+    }
+
+    p {
+      margin-top: 0.5rem;
+    }
+
+    .otp-footer {
+      margin-top: 1rem;
+      width: 100%;
+
+      > .rt-Text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    .text-red.form-error {
+      margin: 0;
+      height: 32px;
+    }
+    input {
+      text-indent: unset !important;
+    }
+    > div {
+      margin-bottom: 0 !important;
+    }
+    .send-again-link {
+      min-height: unset !important;
+    }
+  }
+}

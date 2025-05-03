@@ -1,0 +1,41 @@
+.stepper {
+  display: flex;
+  overflow: hidden;
+  gap: 12px;
+  position: relative;
+  border-top: 1px solid #eaedf0;
+  width: calc(100% - 48px);
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.step {
+  flex: 1;
+  padding: 12px 16px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  font-family: var(---inter);
+  position: relative;
+  background-color: #f4f4f6;
+  color: #000;
+  clip-path: polygon(0% 0%, 95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%);
+
+  &:first-child {
+    border-top-left-radius: 9999px;
+    border-bottom-left-radius: 9999px;
+    clip-path: polygon(0 0, 95% 0, 100% 50%, 95% 100%, 0% 100%);
+  }
+
+  &:last-child {
+    clip-path: none;
+    border-top-right-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+    clip-path: polygon(0% 0%, 100% 0, 100% 100%, 95% 100%, 0% 100%, 5% 50%);
+  }
+  &.active {
+    background-color: #0c121b;
+    color: #fff;
+  }
+}

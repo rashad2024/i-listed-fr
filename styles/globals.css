@@ -1,0 +1,22 @@
+/* @import "./base/variables";
+@import "./base/globals"; */
+@import "./components/_button.scss";
+@import "./components/_input.scss";
+@import "./components/_header.scss";
+@import "./components/_sidebar.scss";
+@import "./utils//_variables.scss";
+/* @import "./layout/layout"; */
+
+:root {
+  --font-inter: "Inter", sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-inter);
+  background-color: #f5f5f5;
+
+  > div[data-is-root-theme] {
+    background-color: #f5f5f5;
+  }
+}

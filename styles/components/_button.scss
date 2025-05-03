@@ -1,0 +1,25 @@
+.btn-primary {
+  border-radius: 12px !important;
+  min-height: 48px !important;
+  background: #1e1e1e !important;
+  cursor: pointer !important;
+  color: #fff !important;
+
+  &[disabled] {
+    background: #0000004d !important;
+    pointer-events: none !important;
+  }
+}
+
+.btn-link {
+  background: none !important;
+  cursor: pointer !important;
+  margin: 0 !important;
+  line-height: normal !important;
+  padding: 0 !important;
+
+  &.link-blue {
+    color: #005bd3 !important;
+    text-decoration: underline !important;
+  }
+}

@@ -1,0 +1,56 @@
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: #ffffff;
+  gap: 16px;
+  height: 80px;
+  width: 100%;
+
+  .search-input {
+    .rt-TextFieldRoot {
+      border-radius: 12px;
+      min-height: 40px;
+      background: #f9f9f9;
+
+      input {
+        padding: 8px;
+      }
+    }
+  }
+  .header-profile-notification-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+
+    svg {
+      padding: 8px;
+      background: #f9f9f9;
+      border-radius: 12px;
+    }
+
+    .currency-language-selector {
+      display: flex;
+      gap: 16px;
+      > div {
+        min-height: 40px !important;
+
+        button {
+          min-height: 40px;
+          border-radius: 12px;
+          background: #f9f9f9;
+          gap: 16px;
+        }
+      }
+    }
+    .profile-section {
+      display: flex;
+      border-left: 1px solid #e9e9e9;
+      padding-left: 1rem;
+      margin-left: 8px;
+      justify-content: start;
+      align-items: center;
+    }
+  }
+}
