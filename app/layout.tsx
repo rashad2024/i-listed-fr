@@ -18,10 +18,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export default function RootLayout({
   children,
-  value,
 }: {
   children: React.ReactNode;
-  value: any;
 }) {
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
