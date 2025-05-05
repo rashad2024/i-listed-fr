@@ -24,7 +24,6 @@ export default function SelectField({
   size?: "2" | "1" | "3" | undefined;
   placeholder?: string;
 }) {
-  console.log("value", value);
   return (
     <Flex direction="column" gap={gap}>
       <Text>{label}</Text>

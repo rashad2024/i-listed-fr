@@ -27,3 +27,8 @@ button[role="checkbox"]:before {
   border-style: solid !important;
   border-color: #7d7d7d !important;
 }
+
+.rt-TextFieldRoot,
+.rt-SelectTrigger {
+  border-radius: 8px !important;
+}

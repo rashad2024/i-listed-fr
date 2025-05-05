@@ -1,4 +1,4 @@
-import { Flex, Text, TextField, IconButton } from "@radix-ui/themes";
+import { Flex, Text, TextField, TextArea } from "@radix-ui/themes";
 
 import Icon from "./Icon";
 
@@ -19,7 +19,7 @@ export default function InputField({
 }: {
   id: string;
   gap: string;
-  label: string;
+  label?: string;
   type:
     | "number"
     | "search"
@@ -36,7 +36,11 @@ export default function InputField({
     | "week"
     | undefined;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
   placeholder?: string;
   errors?: any;
   iconName?: string;
@@ -55,25 +59,37 @@ export default function InputField({
   return (
     <Flex direction="column" gap={gap}>
       <Text>{label}</Text>
-      <TextField.Root
-        id={id}
-        placeholder={placeholder}
-        size={size}
-        value={value}
-        type={type}
-        style={{ borderRadius: radius }}
-        onChange={(e) => onChange(e)}
-      >
-        {iconName && iconPosition && (
-          <TextField.Slot
-            side={iconPosition}
-            onClick={handleClick}
-            style={{ cursor: "pointer" }}
-          >
-            <Icon name={iconName} size={16} />
-          </TextField.Slot>
-        )}
-      </TextField.Root>
+      {type === "text" || type === "date" ? (
+        <TextField.Root
+          id={id}
+          placeholder={placeholder}
+          size={size}
+          value={value}
+          type={type}
+          style={{ borderRadius: radius }}
+          onChange={(e) => onChange(e)}
+        >
+          {iconName && iconPosition && (
+            <TextField.Slot
+              side={iconPosition}
+              onClick={handleClick}
+              style={{ cursor: "pointer" }}
+            >
+              <Icon name={iconName} size={16} />
+            </TextField.Slot>
+          )}
+        </TextField.Root>
+      ) : (
+        <TextArea
+          key={id}
+          id={id}
+          placeholder={placeholder}
+          size={size}
+          value={value}
+          style={{ borderRadius: radius }}
+          onChange={onChange}
+        />
+      )}
       {errors && <p className="text-red form-error">{errors.message}</p>}
     </Flex>
   );

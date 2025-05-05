@@ -13,6 +13,7 @@ import store, { persistor } from "../store";
 
 import "../styles/globals.scss";
 import "@radix-ui/themes/styles.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 

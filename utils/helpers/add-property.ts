@@ -308,75 +308,458 @@ export const prepareBasicInfo = (data: any) => {
   ];
 };
 
-export const locationInfo = [
-  {
-    title: "Address",
-    inputInfo: {
-      type: "text",
-      label: "Location",
-      placeholder: "Address of your property",
-      id: "address",
-      value: "",
+export const prepareLocationInfo = (data: any) => {
+  const {
+    address,
+    location,
+    zipCode,
+    zone,
+    mapLink,
+    rowCount,
+    shoppingCenter,
+    touristsAttractions,
+    restaurantsCafe,
+    beaches,
+  } = data || {};
+
+  return [
+    {
+      title: "Address",
+      inputInfo: {
+        type: "text",
+        label: "Location",
+        placeholder: "Address of your property",
+        id: "address",
+        value: address,
+      },
     },
-  },
-  {
-    title: "Location",
-    inputInfo: {
-      type: "text",
-      label: "Location",
-      placeholder: "Enter Location",
-      id: "location",
-      value: "",
+    {
+      title: "Location",
+      inputInfo: {
+        type: "text",
+        label: "Location",
+        placeholder: "Enter Location",
+        id: "location",
+        value: location,
+      },
     },
-  },
-  {
-    title: "Zip code",
-    inputInfo: {
-      type: "text",
-      label: "Zip code",
-      placeholder: "Enter zip code",
-      id: "zipCode",
-      value: "",
+    {
+      title: "Zip code",
+      inputInfo: {
+        type: "text",
+        label: "Zip code",
+        placeholder: "Enter zip code",
+        id: "zipCode",
+        value: zipCode,
+      },
     },
-  },
-  {
-    title: "Zone",
-    inputInfo: {
-      type: "text",
-      label: "Zone",
-      placeholder: "Select zone",
-      id: "zone",
-      value: "",
+    {
+      title: "Zone",
+      inputInfo: {
+        type: "text",
+        label: "Zone",
+        placeholder: "Select zone",
+        id: "zone",
+        value: zone,
+        iconName: "ZoneIcon",
+        iconPosition: "right",
+      },
     },
-  },
-  {
-    title: "Google map link",
-    inputInfo: {
-      type: "text",
-      label: "Google map link",
-      placeholder: "Enter google map link",
-      id: "mapLink",
-      value: "",
+    {
+      title: "Google map link",
+      inputInfo: {
+        type: "text",
+        label: "Google map link",
+        placeholder: "Enter google map link",
+        id: "mapLink",
+        value: mapLink,
+      },
     },
-  },
-  {
-    title: "Road access",
-    inputInfo: {
-      type: "text",
-      label: "Road access",
-      placeholder: "Select road access",
-      id: "roadAccess",
-      value: "",
+    {
+      title: "Road access",
+      inputInfo: {
+        type: "select",
+        label: "Road Access",
+        placeholder: "Please select Road access",
+        id: "roadAccess",
+        options: [
+          {
+            label: "Please select Road access",
+            value: "defaultRoadAccess",
+            id: "defaultRoadAccess",
+          },
+          { label: "Excellent", value: "excellent", id: "excellent" },
+          { label: "Good", value: "good", id: "good" },
+          { label: "Bad", value: "bad", id: "bad" },
+          { label: "Worst", value: "worst", id: "worst" },
+        ],
+        value: "",
+      },
     },
-  },
-  {
-    title: "Nearby points of Interest",
-    inputInfo: {
-      type: "text",
-      label: "Landmark",
-      placeholder: "Select landmark",
-      id: "landmark",
-      value: "",
+    {
+      title: "Nearby points of Interest",
+      inputInfo: {
+        label: "Nearby points of Interest",
+        placeholder: "Nearby points of Interest",
+        id: "nearbyPoint",
+        inputGroups: [
+          {
+            count: 1,
+            rows: [
+              {
+                type: "text",
+                placeholder: "Shoping Center",
+                id: "shoppingCenter",
+                value: shoppingCenter,
+              },
+              {
+                type: "text",
+                placeholder: "Tourists Attractions",
+                id: "touristsAttractions",
+                value: touristsAttractions,
+              },
+              {
+                type: "text",
+                placeholder: "Restaurants & Cafes",
+                id: "restaurantsCafe",
+                value: restaurantsCafe,
+              },
+              {
+                type: "text",
+                placeholder: "Beaches",
+                id: "beaches",
+                value: beaches,
+              },
+              {
+                type: "button",
+                // placeholder: "Beaches",
+                id: "addButton",
+                value: "+",
+              },
+            ],
+          },
+        ],
+      },
     },
-  },
-];
+  ];
+};
+
+export const prepareInputFields = (
+  inputGroups: Array<{ count: number; rows: any }>
+) => {
+  const inputs: any = [];
+
+  // inputGroups.map((inputGroup: any) => {
+  for (const inputGroup of inputGroups) {
+    // console.log("inputGroup", inputGroup);
+    for (const input of inputGroup.rows) {
+      input.rowNumber = inputGroup.count;
+
+      // console.log("input", input);
+
+      inputs.push(input);
+    }
+  }
+  // inputGroup.rows.map((input: any) => {
+  // });
+  // });
+  return inputs;
+};
+
+export const addNewRowsToData = (id: string, locationInfo: any) => {
+  const inputData: any = locationInfo.map((locationData: any) => {
+    const lengthCount = locationData.inputInfo.inputGroups?.length;
+    if (lengthCount) {
+      const input = locationData.inputInfo.inputGroups[lengthCount - 1];
+      const countNo = input.count + 1;
+
+      if (input) {
+        const inputData = {
+          count: countNo,
+          rows: input.rows.map((data: any) => ({
+            ...data,
+            rowNumber: countNo,
+          })),
+        };
+        locationData.inputInfo.inputGroups.push(inputData);
+      }
+    }
+    return locationData;
+  });
+
+  return inputData;
+};
+
+export const preparePropertyDetails = (data: any) => {
+  const {
+    landSize,
+    builtUpArea,
+    pricePerAreaUnit,
+    totalPrice,
+    numberOfFloors,
+    maxRooms,
+    beds,
+    baths,
+    furnishing,
+    parkingSpace,
+    buildingYear,
+    propertyAvailableDate,
+    havePool,
+    poolType,
+    poolSize,
+  } = data;
+
+  return [
+    {
+      title: "Land Size",
+      inputInfo: {
+        type: "select",
+        label: "Land Size",
+        placeholder: "Land Size",
+        id: "landSize",
+        value: landSize,
+        options: [
+          {
+            label: "Please select Land Size",
+            value: "defaultLandSize",
+            id: "defaultLandSize",
+          },
+          { label: "600 sq ft", value: "600", id: "600" },
+          { label: "1000 sq ft", value: "1000", id: "1000" },
+          { label: "1200 sq ft", value: "1200", id: "1200" },
+          { label: "1500 sq ft", value: "1500", id: "1500" },
+        ],
+      },
+    },
+    {
+      title: "Built-Up Area",
+      inputInfo: {
+        type: "text",
+        label: "Built-Up Area",
+        placeholder: "Built-Up Area",
+        id: "builtUpArea",
+        value: builtUpArea,
+      },
+    },
+    {
+      title: "Price Per Area Unit",
+      inputInfo: {
+        type: "text",
+        label: "Price Per Area Unit",
+        placeholder: "Price Per Area Unit",
+        id: "pricePerAreaUnit",
+        value: pricePerAreaUnit,
+      },
+    },
+    {
+      title: "Total Price",
+      inputInfo: {
+        type: "text",
+        label: "Total Price",
+        placeholder: "Total Price",
+        id: "totalPrice",
+        value: totalPrice,
+      },
+    },
+    {
+      title: "Numbers Of Floors",
+      inputInfo: {
+        type: "text",
+        label: "Numbers Of Floors",
+        placeholder: "Numbers Of Floors",
+        id: "numberOfFloors",
+        value: numberOfFloors,
+      },
+    },
+    {
+      title: "Max Rooms",
+      inputInfo: {
+        type: "text",
+        label: "Max Rooms",
+        placeholder: "Max Rooms",
+        id: "maxRooms",
+        value: maxRooms,
+      },
+    },
+    {
+      title: "Beds",
+      inputInfo: {
+        type: "text",
+        label: "Beds",
+        placeholder: "Beds",
+        id: "beds",
+        value: beds,
+      },
+    },
+    {
+      title: "Baths",
+      inputInfo: {
+        type: "text",
+        label: "Baths",
+        placeholder: "Baths",
+        id: "baths",
+        value: baths,
+      },
+    },
+    {
+      title: "Furnishing",
+      inputInfo: {
+        type: "select",
+        label: "Furnishing",
+        placeholder: "Furnishing",
+        id: "furnishing",
+        value: furnishing,
+        options: [
+          {
+            label: "Please select Furnished Type",
+            value: "defaultFurnishing",
+            id: "defaultFurnishing",
+          },
+          { label: "Unfurnished", value: "Unfurnished", id: "Unfurnished" },
+          {
+            label: "Semi-furnished",
+            value: "Semi-furnished",
+            id: "Semi-furnished",
+          },
+          {
+            label: "Fully-furnished",
+            value: "Fully-furnished",
+            id: "Fully-furnished",
+          },
+        ],
+      },
+    },
+    {
+      title: "Parking Space",
+      inputInfo: {
+        type: "select",
+        label: "Parking Space",
+        placeholder: "Parking Space",
+        id: "parkingSpace",
+        value: parkingSpace,
+        options: [
+          {
+            label: "Please select Parking Space",
+            value: "defaultParkingSpace",
+            id: "defaultParkingSpace",
+          },
+          { label: "Car", value: "Car", id: "Car" },
+          { label: "Bike", value: "Bike", id: "Bike" },
+          { label: "Cycle", value: "Cycle", id: "Cycle" },
+          { label: "Garage", value: "Garage", id: "Garage" },
+        ],
+      },
+    },
+    {
+      title: "Building Year",
+      inputInfo: {
+        type: "date",
+        label: "Building Year",
+        placeholder: "Building Year",
+        id: "buildingYear",
+        value: buildingYear,
+        iconName: "CalendarIcon",
+        iconPosition: "right",
+      },
+    },
+    {
+      title: "Property Available Date",
+      inputInfo: {
+        type: "date",
+        label: "Property Available Date",
+        placeholder: "Property Available Date",
+        id: "propertyAvailableDate",
+        value: propertyAvailableDate,
+        iconName: "CalendarIcon",
+        iconPosition: "right",
+      },
+    },
+    {
+      title: "Have Pool",
+      inputInfo: {
+        type: "select",
+        label: "Have Pool",
+        placeholder: "Have Pool",
+        id: "havePool",
+        value: havePool,
+        options: [
+          {
+            label: "Please select One",
+            value: "defaultHavePool",
+            id: "defaultHavePool",
+          },
+          { label: "Yes", value: "yes", id: "yes" },
+          { label: "No", value: "no", id: "no" },
+        ],
+      },
+    },
+    {
+      title: "Pool Type",
+      inputInfo: {
+        type: "select",
+        label: "Pool Type",
+        placeholder: "Pool Type",
+        id: "poolType",
+        value: poolType,
+        options: [
+          {
+            label: "Please select One",
+            value: "defaultHavePool",
+            id: "defaultHavePool",
+          },
+          { label: "In Ground", value: "inGround", id: "inGround" },
+          { label: "Rooftop Pool", value: "rooftopPool", id: "rooftopPool" },
+          { label: "Infinity Pool", value: "infinityPool", id: "infinityPool" },
+          { label: "Kids' Pool", value: "kidsPool", id: "kidsPool" },
+        ],
+      },
+    },
+    {
+      title: "Pool Size",
+      inputInfo: {
+        type: "text",
+        label: "Pool Size",
+        placeholder: "Pool Size",
+        id: "poolSize",
+        value: poolSize,
+      },
+    },
+  ];
+};
+
+export const prepareDescriptionAndMediaInfo = (data: any) => {
+  const { description, media, videoLink } = data;
+
+  return [
+    {
+      title: "Description",
+      inputInfo: {
+        type: "textarea",
+        label: "Description",
+        placeholder: "",
+        id: "description",
+        value: description,
+      },
+    },
+    {
+      title: "Media",
+      inputInfo: {
+        type: "media",
+        label: "Media",
+        placeholder: "Drag or Upload image",
+        id: "media",
+        value: media,
+      },
+    },
+    {
+      title: "Video",
+      inputInfo: {
+        type: "text",
+        label: "Video(mp4)",
+        placeholder: "mp4 video link",
+        id: "videoLink",
+        value: videoLink,
+      },
+    },
+  ];
+};

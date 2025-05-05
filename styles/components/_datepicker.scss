@@ -1,0 +1,32 @@
+.custom-date-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .custom-date-input {
+    padding: 10px 36px 10px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+  }
+
+  .calendar-icon {
+    position: absolute;
+    right: 10px;
+    pointer-events: none;
+    color: #666;
+  }
+}
+
+.react-datepicker-wrapper {
+  display: flex;
+  .react-datepicker__input-container {
+    height: 40px;
+
+    .rt-Flex.rt-r-fd-column.rt-r-gap-3 {
+      gap: 0;
+      width: 100%;
+    }
+  }
+}

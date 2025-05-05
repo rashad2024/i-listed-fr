@@ -1,5 +1,6 @@
 import { Flex, Button } from "@radix-ui/themes";
 
+import "@/styles/components/_button.scss";
 export default function ButtonInput({
   gap,
   type,
