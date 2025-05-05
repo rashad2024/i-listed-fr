@@ -97,7 +97,11 @@ export default function SetPassword({
   const checkSpecialCharacters = (password: string) =>
     !!/[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     if (e.target.id === "password") {
       setPassword(e.target.value);
       setShowValidation(true);
