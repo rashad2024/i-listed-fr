@@ -34,6 +34,7 @@ export default function InputField({
     | "month"
     | "password"
     | "week"
+    | "textarea"
     | undefined;
   value: string;
   onChange: (
@@ -59,7 +60,17 @@ export default function InputField({
   return (
     <Flex direction="column" gap={gap}>
       <Text>{label}</Text>
-      {type === "text" || type === "date" ? (
+      {type === "textarea" ? (
+        <TextArea
+          key={id}
+          id={id}
+          placeholder={placeholder}
+          size={size}
+          value={value}
+          style={{ borderRadius: radius }}
+          onChange={onChange}
+        />
+      ) : (
         <TextField.Root
           id={id}
           placeholder={placeholder}
@@ -79,16 +90,6 @@ export default function InputField({
             </TextField.Slot>
           )}
         </TextField.Root>
-      ) : (
-        <TextArea
-          key={id}
-          id={id}
-          placeholder={placeholder}
-          size={size}
-          value={value}
-          style={{ borderRadius: radius }}
-          onChange={onChange}
-        />
       )}
       {errors && <p className="text-red form-error">{errors.message}</p>}
     </Flex>
