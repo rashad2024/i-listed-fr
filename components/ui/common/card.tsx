@@ -29,7 +29,7 @@ export default function CardView({
         rowNumber,
       } = input;
       return (
-        (input.type === "text" && (
+        ( (type === "text" || type === "checkbox") && (
           <InputField
             key={`${id}-${rowNumber}`}
             id={`${id}-${rowNumber}`}

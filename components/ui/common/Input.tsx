@@ -1,4 +1,10 @@
-import { Flex, Text, TextField, TextArea } from "@radix-ui/themes";
+import {
+  Flex,
+  Text,
+  TextField,
+  TextArea,
+  Checkbox
+} from "@radix-ui/themes";
 
 import Icon from "./Icon";
 
@@ -22,26 +28,26 @@ export default function InputField({
   gap: string;
   label?: string;
   type:
-    | "number"
-    | "search"
-    | "time"
-    | "text"
-    | "hidden"
-    | "tel"
-    | "url"
-    | "email"
-    | "date"
-    | "datetime-local"
-    | "month"
-    | "password"
-    | "week"
-    | "textarea"
-    | undefined;
+  | "number"
+  | "search"
+  | "time"
+  | "text"
+  | "hidden"
+  | "tel"
+  | "url"
+  | "email"
+  | "date"
+  | "datetime-local"
+  | "month"
+  | "password"
+  | "week"
+  | "textarea"
+  | undefined;
   value: string;
   onChange: (
     e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
+    | React.ChangeEvent < HTMLInputElement >
+    | React.ChangeEvent < HTMLTextAreaElement >
   ) => void;
   placeholder?: string;
   errors?: any;
@@ -62,38 +68,46 @@ export default function InputField({
   return (
     <Flex direction="column" gap={gap}>
       <Text>{label}</Text>
-      {type === "textarea" ? (
+      {type === "textarea" && (
         <TextArea
           key={id}
           id={id}
           placeholder={placeholder}
           size={size}
           value={value}
-          style={{ borderRadius: radius }}
+          style={ { borderRadius: radius }}
           onChange={onChange}
-        />
-      ) : (
+          />
+      ) || (type === "checkbox" && <Text as="label" size={size}>
+          <Flex gap={gap}>
+            <Checkbox chekced={value} onChange={onChange} />
+            {label}
+          </Flex>
+        </Text>) || (
         <TextField.Root
           id={id}
           placeholder={placeholder}
           size={size}
           value={value}
           type={type}
-          style={{ borderRadius: radius }}
+          style={ { borderRadius: radius }}
           onChange={(e) => onChange(e)}
-        >
+          >
           {iconName && iconPosition && (
             <TextField.Slot
               side={iconPosition}
               onClick={handleClick}
-              style={{ cursor: "pointer" }}
-            >
+              style={ { cursor: "pointer" }}
+              >
               <Icon name={iconName} size={16} />
             </TextField.Slot>
           )}
         </TextField.Root>
       )}
-      {errors && <p className="text-red form-error">{errors.message}</p>}
+      {errors && <p className="text-red form-error">
+        {errors.message}
+      </p>
+      }
     </Flex>
   );
 }

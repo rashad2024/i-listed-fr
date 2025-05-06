@@ -6,13 +6,14 @@ import { Text } from "@radix-ui/themes";
 import Stages from "@/components/ui/common/Stages";
 import BasicInformation from "./basic-info";
 import DescriptionMedia from "./description-media";
+import ExtrasFeatures from "./extras-features";
 import PropertyActions from "./property-actions";
 
 export default function PropertyForm() {
   const [activeStep, setActiveStep] = useState(0);
   const formSubmit = (type: string) => {
     console.log(type);
-    if (type === "next") setActiveStep(1);
+    if (type === "next") setActiveStep(activeStep+1);
     if (type === "previous") setActiveStep(activeStep - 1);
     // if(type === "drafts")setActiveStep(1);
   };
@@ -26,6 +27,7 @@ export default function PropertyForm() {
 
       {activeStep === 0 && <BasicInformation setActiveStep={setActiveStep} />}
       {activeStep === 1 && <DescriptionMedia setActiveStep={setActiveStep} />}
+{activeStep === 2 && <ExtrasFeatures setActiveStep={setActiveStep} />}
 
       <PropertyActions
         activeStep={activeStep}
