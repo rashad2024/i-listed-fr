@@ -28,6 +28,7 @@ export default function PropertyActions({ activeStep, handleClick }: any) {
       ) : null}
       <ButtonInput
         gap={"3"}
+        direction={"row"}
         className="btn-secondary btn-draft"
         onClick={() => handleClick("drafts")}
       >
@@ -35,6 +36,7 @@ export default function PropertyActions({ activeStep, handleClick }: any) {
       </ButtonInput>
       <ButtonInput
         gap={"3"}
+        direction={"row"}
         className="btn-secondary btn-next"
         onClick={() => handleClick("next")}
       >
