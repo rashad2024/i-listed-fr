@@ -29,4 +29,43 @@
       width: 100%;
     }
   }
+
+  //   .react-datepicker__year-option {
+  //     padding: 10px;
+  //     color: #333;
+  //     cursor: pointer;
+  //     transition: background-color 0.3s ease;
+  //     border-radius: 4px;
+  //   }
+
+  //   .react-datepicker__year-option:hover {
+  //     background-color: #f0f0f0;
+  //   }
+
+  //   /* Selected year */
+  //   .react-datepicker__year-option--selected {
+  //     background-color: #4a90e2;
+  //     color: white;
+  //   }
+}
+
+.react-datepicker__year-wrapper {
+  max-width: 210px;
+
+  .react-datepicker__year-text {
+    background-color: #011c28;
+    color: #f4f4f6;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: #011c28;
+      color: #f4f4f6;
+      opacity: 0.8;
+    }
+
+    &.react-datepicker__year-text--selected {
+      background-color: #d7d7d7;
+      color: #011c28;
+    }
+  }
 }

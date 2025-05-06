@@ -20,6 +20,7 @@ interface DateInputWithIconProps {
   iconName?: string;
   iconPosition?: string;
   size?: string;
+  format?: string;
 }
 
 // const CustomInput = forwardRef<HTMLInputElement, any>(
@@ -67,8 +68,6 @@ const DateInputWithIcon: React.FC<DateInputWithIconProps> = ({
   value,
   onChange,
   label,
-  minDate,
-  maxDate,
   id,
   gap,
   type,
@@ -77,6 +76,8 @@ const DateInputWithIcon: React.FC<DateInputWithIconProps> = ({
   iconPosition,
   size,
 }) => {
+  const dateFormat = id === "buildingYear" ? "yyyy" : "dd-MM-YYYY";
+  const showYearPicker = id === "buildingYear";
   return (
     <Flex direction="column" gap={gap}>
       <Text>{label}</Text>
@@ -95,7 +96,10 @@ const DateInputWithIcon: React.FC<DateInputWithIconProps> = ({
             value={value}
           />
         }
-        dateFormat="dd/MM/yyyy"
+        showYearPicker={showYearPicker}
+        dateFormat={dateFormat}
+        // minDate={new Date(1900, 0, 1)}
+        // maxDate={new Date()}
       />
     </Flex>
   );

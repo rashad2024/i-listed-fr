@@ -9,6 +9,7 @@ import { setProperty } from "@/features/auth/redux/Property/propertySlice";
 import { Text } from "@radix-ui/themes";
 
 import CardView from "../../components/ui/common/card";
+
 import PropertyActions from "./property-actions";
 
 import { prepareDescriptionAndMediaInfo } from "@/utils/helpers/add-property";
@@ -59,10 +60,10 @@ export default function DescriptionMedia({ setActiveStep }: any) {
         id="location-info-card"
         handleChange={handleChange}
       /> */}
-      <PropertyActions
+      {/* <PropertyActions
         pageType={"description-and-media"}
         handleClick={(type: string) => formSubmit(type)}
-      />
+      /> */}
     </div>
   );
 }

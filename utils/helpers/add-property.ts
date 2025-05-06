@@ -507,7 +507,7 @@ export const preparePropertyDetails = (data: any) => {
     havePool,
     poolType,
     poolSize,
-  } = data;
+  } = data || {};
 
   return [
     {
@@ -701,6 +701,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Pool Type",
         id: "poolType",
         value: poolType,
+        hidden: !["yes"].find((poolType) => poolType === havePool),
         options: [
           {
             label: "Please select One",
@@ -722,13 +723,14 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Pool Size",
         id: "poolSize",
         value: poolSize,
+        hidden: !["yes"].find((poolSize) => poolSize === havePool),
       },
     },
   ];
 };
 
 export const prepareDescriptionAndMediaInfo = (data: any) => {
-  const { description, media, videoLink } = data;
+  const { description, media, videoLink } = data || {};
 
   return [
     {

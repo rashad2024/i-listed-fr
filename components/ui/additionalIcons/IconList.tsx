@@ -113,3 +113,57 @@ export const LeftArrowIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
     />
   </svg>
 );
+export const CustomUploadIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
+  props
+) => (
+  <svg
+    viewBox="0 0 48 40"
+    fill="none"
+    stroke="currentColor"
+    width="48"
+    height="48"
+    {...props}
+  >
+    <g clipPath="url(#clip0_385_32739)">
+      <path
+        d="M31.9999 32L23.9999 24M23.9999 24L15.9999 32M23.9999 24V42M40.7799 36.78C42.7306 35.7165 44.2716 34.0337 45.1597 31.9972C46.0477 29.9607 46.2323 27.6864 45.6843 25.5333C45.1363 23.3803 43.8869 21.471 42.1333 20.1069C40.3796 18.7427 38.2216 18.0014 35.9999 18H33.4799C32.8746 15.6585 31.7462 13.4846 30.1798 11.642C28.6134 9.79927 26.6496 8.33567 24.4361 7.36118C22.2226 6.3867 19.817 5.92669 17.4002 6.01573C14.9833 6.10478 12.6181 6.74057 10.4823 7.8753C8.34649 9.01003 6.49574 10.6142 5.06916 12.5671C3.64259 14.5201 2.6773 16.771 2.24588 19.1508C1.81446 21.5305 1.92813 23.977 2.57835 26.3065C3.22856 28.6359 4.3984 30.7877 5.99992 32.6"
+        stroke="#1E1E1E"
+        strokeWidth="4"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_385_32739">
+        <rect width="48" height="48" fill="white" />
+      </clipPath>
+    </defs>
+  </svg>
+);
+export const CustomDeleteIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
+  props
+) => (
+  <svg viewBox="0 0 24 24" fill="none" width="24" height="24" {...props}>
+    <path
+      d="M7 21C6.45 21 5.97917 20.8042 5.5875 20.4125C5.19583 20.0208 5 19.55 5 19V6H4V4H9V3H15V4H20V6H19V19C19 19.55 18.8042 20.0208 18.4125 20.4125C18.0208 20.8042 17.55 21 17 21H7ZM17 6H7V19H17V6ZM9 17H11V8H9V17ZM13 17H15V8H13V17Z"
+      fill="#852221"
+    />
+  </svg>
+);
+
+export const CustomCrossIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
+  props
+) => (
+  <svg viewBox="0 0 14 14" fill="none" width="14" height="14" {...props}>
+    <path
+      d="M1 1L13 13"
+      stroke="#595959"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <path
+      d="M1 13L13 1"
+      stroke="#595959"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+  </svg>
+);

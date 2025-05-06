@@ -11,7 +11,7 @@ import {
   resetPassword,
 } from "@/features/auth/redux/Auth/authThunks";
 
-import { Flex, Text } from "@radix-ui/themes";
+import { Flex, Text, Spinner } from "@radix-ui/themes";
 
 import ButtonInput from "../../components/ui/common/Button";
 import InputField from "@/components/ui/common/Input";
@@ -95,7 +95,7 @@ export default function SetPassword({
   const checkNumberOfCharacters = (password: string) =>
     !!(password.length >= 8);
   const checkSpecialCharacters = (password: string) =>
-    !!/[!@#$%^&*(),.?":{}|<>]/.test(password);
+    !!/[!@#$%^&*(),.?":{}|<>0-9]/.test(password);
 
   const handleChange = (
     e:
@@ -190,10 +190,10 @@ export default function SetPassword({
         gap="3"
         direction="column"
         onClick={onSubmit}
-        disabled={!passwordMatched ? true : false}
+        disabled={!passwordMatched || loading ? true : false}
         className="btn-primary"
       >
-        <span>Set Password</span>
+        <span>{loading ? <Spinner size="2" /> : "Set Password"}</span>
       </ButtonInput>
     </div>
   );

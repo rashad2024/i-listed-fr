@@ -4,6 +4,7 @@ import InputField from "./Input";
 import SelectField from "./Select";
 import ButtonInput from "./Button";
 import DateInput from "./DateInput";
+import CustomFileUploader from "./CustomFileUploader";
 
 import { prepareInputFields } from "@/utils/helpers/add-property";
 
@@ -73,9 +74,9 @@ export default function CardView({
               inputGroups,
               hidden,
             } = inputInfo;
-
+            console.log("hidden", hidden);
             return (
-              ((type === "text" || type === "textarea") && (
+              ((type === "text" || type === "textarea") && !hidden && (
                 <InputField
                   key={id}
                   id={id}
@@ -88,6 +89,7 @@ export default function CardView({
                   iconName={iconName}
                   iconPosition={iconPosition}
                   size={"3"}
+                  // hidden={hidden}
                 />
               )) ||
               (type === "select" && !hidden && (
@@ -110,8 +112,6 @@ export default function CardView({
                     value={value}
                     onChange={(val) => handleChange(id, val?.toISOString())}
                     label={label}
-                    minDate={new Date(1900, 0, 1)}
-                    maxDate={new Date()}
                     id={id}
                     gap={"3"}
                     type={type}
@@ -120,6 +120,11 @@ export default function CardView({
                     iconPosition={iconPosition}
                     size={"3"}
                   />
+                </Flex>
+              )) ||
+              (type === "media" && (
+                <Flex key={id} gap={"3"} direction={"column"} className="">
+                  <CustomFileUploader />
                 </Flex>
               )) ||
               (inputGroups && inputGroups.length && (

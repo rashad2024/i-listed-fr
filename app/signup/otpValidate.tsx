@@ -11,7 +11,7 @@ import {
   forgotPasswordVerify,
 } from "@/features/auth/redux/Auth/authThunks";
 
-import { Flex, TextField, Text, Strong } from "@radix-ui/themes";
+import { Flex, TextField, Text, Strong, Spinner } from "@radix-ui/themes";
 
 import ButtonInput from "../../components/ui/common/Button";
 
@@ -159,8 +159,21 @@ export default function OtpInput({
     <div className="otp-validate-form">
       <h2>Check your inbox</h2>
       <p>
-        Enter the 6-digit code we sent to <Strong>{registerEmail}</Strong> to
-        finish your sign up.
+        {isForgotPassword ? (
+          <Text>
+            {" "}
+            Enter the 6-digit code we sent to
+            <Strong> {registerEmail} </Strong>
+            to finish creating your new password.
+          </Text>
+        ) : (
+          <Text>
+            {" "}
+            Enter the 6-digit code we sent to
+            <Strong> {registerEmail} </Strong>
+            to finish your sign up.{" "}
+          </Text>
+        )}
       </p>
       <Strong>6-digit code</Strong>
       <Flex gap="3">
@@ -188,7 +201,7 @@ export default function OtpInput({
             gap="3"
             direction="column"
             onClick={handleResend}
-            disabled={false}
+            disabled={!!loading}
             className="btn-link link-blue send-again-link"
           >
             <span>Send again</span>
@@ -201,10 +214,10 @@ export default function OtpInput({
         gap="3"
         direction="column"
         onClick={onSubmit}
-        disabled={false}
+        disabled={!!loading}
         className="btn-primary"
       >
-        <span>Verify OTP</span>
+        <span>{loading ? <Spinner size="2" /> : "Verify OTP"}</span>
       </ButtonInput>
 
       <Text className="otp-footer">
@@ -218,11 +231,11 @@ export default function OtpInput({
               gap="3"
               direction="row"
               onClick={handleResend}
-              disabled={false}
+              disabled={!!loading}
               className="btn-link"
               styles={{ marginLeft: "4px" }}
             >
-              <span> Resend OTP </span>
+              <span>Resend OTP</span>
             </ButtonInput>
           </Text>
         )}

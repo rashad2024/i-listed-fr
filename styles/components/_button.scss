@@ -31,4 +31,8 @@
   border-radius: 8px;
   height: 40px;
   background: #fafafa;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }

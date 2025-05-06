@@ -84,10 +84,10 @@ export default function BasicInformation({ setActiveStep }: any) {
         id="property-details-card"
         handleChange={handleChange}
       />
-      <PropertyActions
+      {/* <PropertyActions
         pageType={"basic"}
         handleClick={(type: string) => formSubmit(type)}
-      />
+      /> */}
     </div>
   );
 }

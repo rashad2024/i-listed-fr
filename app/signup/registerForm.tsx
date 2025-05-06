@@ -9,8 +9,9 @@ import {
   registerInitiate,
   forgotPasswordInitiate,
 } from "@/features/auth/redux/Auth/authThunks";
+import { getRoles } from "@/utils/helpers/user";
 
-import { Text, Link } from "@radix-ui/themes";
+import { Text, Link, Spinner } from "@radix-ui/themes";
 
 import InputField from "@/components/ui/common/Input";
 import SelectField from "@/components/ui/common/Select";
@@ -38,6 +39,8 @@ export default function RegisterForm({
   );
 
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
+  const [optionList] = useState(getRoles());
   const {
     register,
     setValue,
@@ -49,8 +52,14 @@ export default function RegisterForm({
   });
 
   const handleChange = (e: any) => {
-    setEmail(e?.target?.value);
-    setValue("email", e.target.value, { shouldValidate: true });
+    const key = e.target.id;
+
+    if (key === "email") {
+      setEmail(e?.target?.value);
+      setValue("email", e.target.value, { shouldValidate: true });
+    } else {
+      setRole(e?.target?.value);
+    }
   };
 
   const onSubmit = async (data: FormData) => {
@@ -71,7 +80,7 @@ export default function RegisterForm({
           console.error("Registration error:", err);
         });
     } else {
-      await dispatch(registerInitiate({ email, role: "ADMIN" }))
+      await dispatch(registerInitiate({ email, role }))
         .unwrap()
         .then((data) => {
           console.log("Success:", data);
@@ -91,6 +100,7 @@ export default function RegisterForm({
 
         {!isForgotPassword && (
           <SelectField
+            id={"accountType"}
             gap={"2"}
             label="Account type"
             optionList={[{ label: "Admin", value: "Admin" }]}
@@ -118,10 +128,10 @@ export default function RegisterForm({
           gap="3"
           direction="column"
           onClick={() => onSubmit}
-          disabled={errors.email ? true : false}
+          disabled={errors.email || loading ? true : false}
           className="btn-primary"
         >
-          <span>{loading ? "Loading..." : "Continue with email"}</span>
+          <span>{loading ? <Spinner size="2" /> : "Continue with email"}</span>
         </ButtonInput>
 
         {!isForgotPassword && (

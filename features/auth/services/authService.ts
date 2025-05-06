@@ -31,3 +31,16 @@ export const logoutService = async () => {
     throw new Error(error.message || "Logout failed");
   }
 };
+
+// export const retrieveUserRoles = async () => {
+//   try {
+//     const response = await axiosInstance.get("/auth/login");
+//     const roleData = response.data;
+
+//     console.log(response.data);
+
+//     return roleData; // Return the response data
+//   } catch (error: any) {
+//     throw new Error(error.message || "User role retrieve failed");
+//   }
+// };

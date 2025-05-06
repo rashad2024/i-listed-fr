@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { login } from "@/features/auth/redux/Auth/authThunks";
 
-import { Text, Link, Flex, Checkbox } from "@radix-ui/themes";
+import { Text, Link, Flex, Checkbox, Spinner } from "@radix-ui/themes";
 
 import InputField from "../../components/ui/common/Input";
 import ButtonInput from "../../components/ui/common/Button";
@@ -150,10 +150,12 @@ export default function LoginForm() {
             gap="3"
             direction="column"
             onClick={() => onSubmit}
-            disabled={errors.email || errors.password ? true : false}
+            disabled={errors.email || errors.password || loading ? true : false}
             className="btn-primary"
           >
-            <span>Continue with email</span>
+            <span>
+              {loading ? <Spinner size="2" /> : "Continue with email"}
+            </span>
           </ButtonInput>
         </Flex>
 

@@ -16,6 +16,7 @@ export default function InputField({
   iconClick,
   radius = "4px",
   size = "2",
+  hidden,
 }: {
   id: string;
   gap: string;
@@ -49,6 +50,7 @@ export default function InputField({
   iconClick?: any;
   radius?: string;
   size?: "2" | "1" | "3" | undefined;
+  hidden?: boolean;
 }) {
   const handleClick = () => {
     if (iconName === "EyeNoneIcon") {
