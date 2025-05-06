@@ -52,7 +52,7 @@ export default function RegisterForm({
   });
 
   const handleChange = (e: any) => {
-    const key = e.target.id;
+    const key = e?.target?.id;
 
     if (key === "email") {
       setEmail(e?.target?.value);
@@ -100,12 +100,12 @@ export default function RegisterForm({
 
         {!isForgotPassword && (
           <SelectField
-            id={"accountType"}
+            id={"role"}
             gap={"2"}
             label="Account type"
             optionList={[{ label: "Admin", value: "ADMIN" }]}
             onChange={handleChange}
-            value={"Admin"}
+            value={"ADMIN"}
             position="popper"
           />
         )}
