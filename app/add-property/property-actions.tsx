@@ -6,12 +6,13 @@ import Icon from "@/components/ui/common/Icon";
 
 import ButtonInput from "@/components/ui/common/Button";
 
-export default function PropertyActions({ activeStep, handleClick }) {
+export default function PropertyActions({ activeStep, handleClick }: any) {
   return (
     <Flex direction={"row"} gap={"3"} style={{ justifyContent: "flex-end" }}>
       {activeStep !== 0 ? (
         <ButtonInput
           gap={"3"}
+          direction={"row"}
           className="btn-secondary btn-previous"
           onClick={() => handleClick("previous")}
         >
