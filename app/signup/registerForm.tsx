@@ -80,7 +80,7 @@ export default function RegisterForm({
           console.error("Registration error:", err);
         });
     } else {
-      await dispatch(registerInitiate({ email, role }))
+      await dispatch(registerInitiate({ email, role: "ADMIN" }))
         .unwrap()
         .then((data) => {
           console.log("Success:", data);
@@ -103,7 +103,7 @@ export default function RegisterForm({
             id={"accountType"}
             gap={"2"}
             label="Account type"
-            optionList={[{ label: "Admin", value: "Admin" }]}
+            optionList={[{ label: "Admin", value: "ADMIN" }]}
             onChange={handleChange}
             value={"Admin"}
             position="popper"

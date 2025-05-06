@@ -1,6 +1,7 @@
 .info-container {
   &.basic-info,
-  &.description-media {
+  &.description-media,
+  &.extras-features {
     .rt-Text {
       font-size: 16px;
       font-weight: 600;
@@ -12,7 +13,8 @@
     #basic-info-card,
     #location-info-card,
     #property-details-card,
-    #description-media-card {
+    #description-media-card,
+    #extras-features-card {
       background: #fff;
       border-radius: 8px;
       width: 100%;

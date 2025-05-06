@@ -28,8 +28,10 @@ export default function CardView({
         iconPosition,
         rowNumber,
       } = input;
+
+      console.log("input", input);
       return (
-        ( (type === "text" || type === "checkbox") && (
+        ((type === "text" || type === "checkbox") && (
           <InputField
             key={`${id}-${rowNumber}`}
             id={`${id}-${rowNumber}`}
