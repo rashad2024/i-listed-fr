@@ -40,7 +40,7 @@
 
         .input-groups {
           display: flex;
-          justify-content: space-between;
+          // justify-content: space-between;
           flex-wrap: wrap;
 
           .rt-Flex.rt-r-fd-column.rt-r-gap-3:not(:last-child) {
@@ -49,9 +49,11 @@
           button.rt-Button {
             height: 40px;
             width: 40px;
-            margin-top: 12px;
+            // margin-top: 12px;
             color: #ffffff;
             background: #444444;
+            cursor: pointer;
+
             span {
               color: #ffffff;
               font-family: var(--font-inter);
@@ -68,6 +70,40 @@
       > div {
         flex: 0 0 100%;
         max-width: 100%;
+      }
+    }
+
+    #extras-features-card {
+      gap: 32px;
+      label.rt-Text {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 100%;
+        font-family: var(--font-inter);
+        color: #444444;
+      }
+      .input-groups-container {
+        gap: 20px;
+        .input-groups {
+          justify-content: flex-start;
+          gap: 20px;
+          .rt-Flex.rt-r-fd-column.rt-r-gap-3:not(:last-child) {
+            min-width: auto !important;
+            height: 28px;
+            border-radius: 4px;
+          }
+
+          button.rt-Button {
+            background: #000000;
+            border-radius: 4px;
+            height: 28px;
+            width: 28px;
+            margin-top: 0;
+            span {
+              font-size: 14px;
+            }
+          }
+        }
       }
     }
   }

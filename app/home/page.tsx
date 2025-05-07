@@ -8,9 +8,7 @@ import Sidebar from "@/components/layout/Sidebar";
 
 import "@/styles/pages/home.scss";
 
-export default function HeaderPage({
-  pageType,
-}: any) {
+export default function HeaderPage({ pageType }: any) {
   return (
     <AuthGuard>
       <main>

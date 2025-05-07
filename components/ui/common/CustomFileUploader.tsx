@@ -33,18 +33,19 @@ type UploadProgress = {
 const FILE_LIMIT = 8;
 const MAX_FILE_SIZE_MB = 20;
 
-const UploadProgressList = () => {
+const UploadProgressList = ({ id, handleChange, prevFiles }: any) => {
   const [files, setFiles] = useState([]);
 
   useItemStartListener((item: any) => {
     setFiles(
-      (prev): SetStateAction<any> => [
+      (prev: any): SetStateAction<any> => [
         ...prev,
         {
           id: item.id,
           name: item.file.name,
           progress: 0,
           size: (item.file.size / 1024 / 1024).toFixed(2).toString(),
+          type: item.file.type,
         },
       ]
     );
@@ -65,12 +66,16 @@ const UploadProgressList = () => {
         f.id === item.id ? { ...f, done: true, previewUrl } : f
       )
     );
+
+    handleChange(id, files);
   });
 
   const removeFile = (id: string) => {
     setFiles((prev: SetStateAction<any>) =>
       prev.filter((f: any) => f.id !== id)
     );
+
+    handleChange(id, files);
   };
 
   return (
@@ -112,7 +117,7 @@ const UploadProgressList = () => {
                   >
                     {" "}
                     {file.done ? (
-                      <Icon name="CustomDeleteIcon" size={24} />
+                      <Icon name="CustomDeleteIcon" size={24} color="" />
                     ) : (
                       <Icon name="CustomCrossIcon" size={14} />
                     )}
@@ -161,7 +166,7 @@ const UploadProgressList = () => {
   );
 };
 
-const CustomFileUploader = () => {
+const CustomFileUploader = ({ id, handleChange, prevFiles, disabled }: any) => {
   const [error, setError] = useState<string | null>(null);
 
   const maxFiles = 8;
@@ -208,7 +213,11 @@ const CustomFileUploader = () => {
           <Text> Supported formats: JPG, PNG, JPEG </Text>
           <Text> Max size: 20MB </Text>
         </Text>
-        <UploadProgressList />
+        <UploadProgressList
+          id={id}
+          handleChange={handleChange}
+          prevFiles={prevFiles}
+        />
       </Uploady>
     </Flex>
   );

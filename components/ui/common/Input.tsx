@@ -3,6 +3,7 @@ import { Flex, Text, TextField, TextArea, Checkbox } from "@radix-ui/themes";
 import Icon from "./Icon";
 
 export default function InputField({
+  key,
   id,
   gap,
   label,
@@ -16,17 +17,17 @@ export default function InputField({
   iconClick,
   radius = "4px",
   size = "2",
-  hidden,
+  disabled = false,
 }: {
+  key?: string;
   id: string;
   gap: string;
   label?: string;
-  type:
+  type?:
     | "number"
     | "search"
     | "time"
     | "text"
-    | "checkbox"
     | "hidden"
     | "tel"
     | "url"
@@ -36,7 +37,6 @@ export default function InputField({
     | "month"
     | "password"
     | "week"
-    | "textarea"
     | undefined;
   value: string | any;
   onChange: (
@@ -52,7 +52,7 @@ export default function InputField({
   iconClick?: any;
   radius?: string;
   size?: "2" | "1" | "3" | undefined;
-  hidden?: boolean;
+  disabled?: boolean;
 }) {
   const handleClick = () => {
     if (iconName === "EyeNoneIcon") {
@@ -63,46 +63,29 @@ export default function InputField({
   };
   return (
     <Flex direction="column" gap={gap}>
-      <Text>{label}</Text>
-      {(type === "textarea" && (
-        <TextArea
-          key={id}
+      {label && <Text>{label}</Text>}
+      {
+        <TextField.Root
           id={id}
           placeholder={placeholder}
           size={size}
           value={value}
+          type={type}
           style={{ borderRadius: radius }}
-          onChange={onChange}
-        />
-      )) ||
-        (type === "checkbox" && (
-          <Text as="label" size={size}>
-            <Flex gap={gap}>
-              <Checkbox checked={value} onClick={onChange} />
-              {label}
-            </Flex>
-          </Text>
-        )) || (
-          <TextField.Root
-            id={id}
-            placeholder={placeholder}
-            size={size}
-            value={value}
-            // type={type}
-            style={{ borderRadius: radius }}
-            onChange={(e) => onChange(e)}
-          >
-            {iconName && iconPosition && (
-              <TextField.Slot
-                side={iconPosition}
-                onClick={handleClick}
-                style={{ cursor: "pointer" }}
-              >
-                <Icon name={iconName} size={16} />
-              </TextField.Slot>
-            )}
-          </TextField.Root>
-        )}
+          onChange={(e) => onChange(e)}
+          disabled={disabled}
+        >
+          {iconName && iconPosition && (
+            <TextField.Slot
+              side={iconPosition}
+              onClick={handleClick}
+              style={{ cursor: "pointer" }}
+            >
+              <Icon name={iconName} size={16} />
+            </TextField.Slot>
+          )}
+        </TextField.Root>
+      }
       {errors && <p className="text-red form-error">{errors.message}</p>}
     </Flex>
   );

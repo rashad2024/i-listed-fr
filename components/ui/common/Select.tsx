@@ -13,6 +13,8 @@ export default function SelectField({
   position,
   size = "2",
   placeholder,
+  disabled = false,
+  errors,
 }: {
   id?: string;
   gap: string;
@@ -23,6 +25,8 @@ export default function SelectField({
   position: "item-aligned" | "popper" | undefined;
   size?: "2" | "1" | "3" | undefined;
   placeholder?: string;
+  disabled?: boolean;
+  errors?: any;
 }) {
   return (
     <Flex direction="column" gap={gap}>
@@ -32,6 +36,7 @@ export default function SelectField({
         size={size}
         value={value}
         onValueChange={(data) => onChange(data)}
+        disabled={disabled}
       >
         <Select.Trigger placeholder={placeholder}></Select.Trigger>
         <Select.Content position={position}>
@@ -45,6 +50,7 @@ export default function SelectField({
           )}
         </Select.Content>
       </Select.Root>
+      {errors && <p className="text-red form-error">{errors.message}</p>}
     </Flex>
   );
 }

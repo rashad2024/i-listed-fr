@@ -34,15 +34,23 @@ export default function PropertyActions({ activeStep, handleClick }: any) {
       >
         <span>Save Draft</span>
       </ButtonInput>
+
       <ButtonInput
         gap={"3"}
+        type="submit"
         direction={"row"}
         className="btn-secondary btn-next"
-        onClick={() => handleClick("next")}
+        onClick={() => handleClick(activeStep !== 2 ? "next" : "preview")}
       >
-        <span>
-          Next <Icon name={"RightArrowIcon"} size={10} />
-        </span>
+        {activeStep < 2 ? (
+          <span>
+            Next <Icon name={"RightArrowIcon"} size={10} color="white" />
+          </span>
+        ) : activeStep === 2 ? (
+          "Preview"
+        ) : (
+          "Submit"
+        )}
       </ButtonInput>
     </Flex>
   );

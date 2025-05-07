@@ -35,4 +35,15 @@
   &:hover {
     opacity: 0.8;
   }
+
+  &.btn-next,
+  &.btn-edit {
+    background: #000000 !important;
+    color: #fff !important;
+  }
+}
+
+button[role="checkbox"]:before {
+  border-color: #a3a3a3 !important;
+  box-shadow: none !important;
 }

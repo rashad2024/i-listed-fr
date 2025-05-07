@@ -21,6 +21,7 @@ interface DateInputWithIconProps {
   iconPosition?: string;
   size?: string;
   format?: string;
+  disabled?: boolean;
 }
 
 // const CustomInput = forwardRef<HTMLInputElement, any>(
@@ -43,10 +44,11 @@ const CustomInput = forwardRef<HTMLInputElement, any>(
       value,
       onChange,
       onClick,
+      disabled,
     },
     ref
   ) => (
-    <Flex direction="row" gap={gap} onClick={onClick}>
+    <Flex direction="row" gap={gap} onClick={onClick} aria-disabled={disabled}>
       <InputField
         key={id}
         id={id}
@@ -59,6 +61,7 @@ const CustomInput = forwardRef<HTMLInputElement, any>(
         size={size}
         value={value}
         onChange={onChange}
+        disabled={disabled}
       />
     </Flex>
   )
@@ -75,6 +78,7 @@ const DateInputWithIcon: React.FC<DateInputWithIconProps> = ({
   iconName,
   iconPosition,
   size,
+  disabled,
 }) => {
   const dateFormat = id === "buildingYear" ? "yyyy" : "dd-MM-YYYY";
   const showYearPicker = id === "buildingYear";
@@ -84,6 +88,7 @@ const DateInputWithIcon: React.FC<DateInputWithIconProps> = ({
       <DatePicker
         selected={value}
         onChange={onChange}
+        disabled={disabled}
         customInput={
           <CustomInput
             key={id}
@@ -94,6 +99,7 @@ const DateInputWithIcon: React.FC<DateInputWithIconProps> = ({
             iconPosition={iconPosition}
             size={size}
             value={value}
+            disabled={disabled}
           />
         }
         showYearPicker={showYearPicker}

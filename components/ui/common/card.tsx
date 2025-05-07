@@ -1,69 +1,62 @@
-import { Flex, Text } from "@radix-ui/themes";
+import { Flex, Text, Checkbox, TextArea } from "@radix-ui/themes";
 
 import InputField from "./Input";
 import SelectField from "./Select";
-import ButtonInput from "./Button";
 import DateInput from "./DateInput";
 import CustomFileUploader from "./CustomFileUploader";
-
-import { prepareInputFields } from "@/utils/helpers/add-property";
+import UploadedFilePreview from "./UploadFilePreview";
+import DynamicInputList from "./DynamicInputList";
 
 export default function CardView({
   formData,
   id,
   handleChange,
-  addInputRow,
-}: any) {
-  const groupInput = (inputGroups: any) => {
-    const inputFields = prepareInputFields(inputGroups);
+  isPreview,
+  errors,
+  validation,
+}: // addInputRow,
+any) {
+  // const groupInput = (inputGroups: any) => {
+  //   const inputFields = inputGroups;
 
-    return (inputFields || []).map((input: any) => {
-      const {
-        id,
-        label,
-        value,
-        type,
-        placeholder,
-        iconName,
-        iconPosition,
-        rowNumber,
-      } = input;
+  //   return <DynamicInputList inputs={inputFields} inputInfo={inputInfo}/>
+  //   return (inputFields || []).map((input: any) => {
+  //     const {
+  //       id,
+  //       label,
+  //       value,
+  //       type,
+  //       placeholder,
+  //       iconName,
+  //       iconPosition,
+  //       index,
+  //     } = input;
 
-      console.log("input", input);
-      return (
-        ((type === "text" || type === "checkbox") && (
-          <InputField
-            key={`${id}-${rowNumber}`}
-            id={`${id}-${rowNumber}`}
-            gap={"3"}
-            label={label}
-            value={value}
-            type={type}
-            onChange={(e) => handleChange(`${id}-${rowNumber}`, e.target.value)}
-            placeholder={placeholder}
-            iconName={iconName}
-            iconPosition={iconPosition}
-            size={"3"}
-          />
-        )) || (
-          <ButtonInput
-            key={`${id}-${rowNumber}`}
-            direction={"row"}
-            gap={"3"}
-            onClick={() => addInputRow(`${id}-${rowNumber}`)}
-          >
-            <span>{input.value}</span>
-          </ButtonInput>
-        )
-      );
-    });
-  };
+  //     return (
+  //       (type === "text" || type === "checkbox") && (
+  //         <InputField
+  //           key={`${id}-${index}`}
+  //           id={`${id}`}
+  //           gap={"3"}
+  //           label={label}
+  //           value={value ? value[index] : ""}
+  //           type={type}
+  //           onChange={(e) => handleChange(`${id}`, e.target.value, index)}
+  //           placeholder={placeholder}
+  //           iconName={iconName}
+  //           iconPosition={iconPosition}
+  //           size={"3"}
+  //         />
+  //       )
+  //     );
+  //   });
+  // };
 
   return (
     <Flex gap={"3"} id={id}>
       {formData && formData.length
         ? formData.map((item: any) => {
-            const { inputInfo } = item;
+            const { inputInfo, inputGroups } = item;
             const {
               id,
               type,
@@ -73,26 +66,51 @@ export default function CardView({
               options,
               iconName,
               iconPosition,
-              inputGroups,
               hidden,
             } = inputInfo;
-            console.log("hidden", hidden);
+
             return (
-              ((type === "text" || type === "textarea") && !hidden && (
+              (id === "videoLink" && isPreview && (
+                <Flex key={id} gap={"3"} direction={"column"} className="">
+                  <Text>{label}</Text>
+                  <UploadedFilePreview
+                    key={id}
+                    files={[{ previewUrl: value, type: "video" }]}
+                  />
+                </Flex>
+              )) ||
+              ((type === "text" || type === "number") && !hidden && (
                 <InputField
                   key={id}
                   id={id}
                   gap={"3"}
                   label={label}
-                  value={value}
                   type={type}
-                  onChange={(e) => handleChange(id, e.target.value)}
                   placeholder={placeholder}
                   iconName={iconName}
                   iconPosition={iconPosition}
                   size={"3"}
-                  // hidden={hidden}
+                  disabled={isPreview}
+                  errors={errors && errors[id]}
+                  {...validation(id)}
+                  value={value}
+                  onChange={(e) => handleChange(id, e.target.value)}
                 />
+              )) ||
+              (type === "textarea" && (
+                <Flex key={id} gap={"3"} direction={"column"} className="">
+                  <Text>{label}</Text>
+                  <TextArea
+                    key={id}
+                    id={id}
+                    placeholder={placeholder}
+                    size={"3"}
+                    value={value}
+                    style={{ borderRadius: "4px" }}
+                    onChange={(e) => handleChange(id, e?.target?.value)}
+                    disabled={isPreview}
+                  />
+                </Flex>
               )) ||
               (type === "select" && !hidden && (
                 <SelectField
@@ -101,11 +119,14 @@ export default function CardView({
                   gap={"3"}
                   label={label}
                   optionList={options}
-                  onChange={(e: any) => handleChange(id, e)}
-                  value={value}
                   placeholder={placeholder}
                   position={"popper"}
                   size={"3"}
+                  disabled={isPreview}
+                  errors={errors && errors[id]}
+                  {...validation(id)}
+                  onChange={(e: any) => handleChange(id, e)}
+                  value={value}
                 />
               )) ||
               (type === "date" && (
@@ -121,27 +142,38 @@ export default function CardView({
                     iconName={iconName}
                     iconPosition={iconPosition}
                     size={"3"}
+                    disabled={isPreview}
                   />
                 </Flex>
               )) ||
               (type === "media" && (
                 <Flex key={id} gap={"3"} direction={"column"} className="">
-                  <CustomFileUploader />
+                  {isPreview ? (
+                    <>
+                      {" "}
+                      <Text>{label}</Text>
+                      <UploadedFilePreview key={id} files={value} />
+                    </>
+                  ) : (
+                    <>
+                      <Text>{label}</Text>
+                      <CustomFileUploader
+                        id={id}
+                        prevFiles={value}
+                        handleChange={handleChange}
+                        disabled={isPreview}
+                      />
+                    </>
+                  )}
                 </Flex>
               )) ||
               (inputGroups && inputGroups.length && (
-                <Flex
-                  key={id}
-                  gap={"3"}
-                  direction={"column"}
-                  className="input-groups-container"
-                >
-                  <Text>{label}</Text>
-                  <Flex gap={"3"} className="input-groups">
-                    {" "}
-                    {groupInput(inputGroups)}{" "}
-                  </Flex>
-                </Flex>
+                <DynamicInputList
+                  inputGroups={inputGroups}
+                  inputInfo={inputInfo}
+                  handleChange={handleChange}
+                  disabled={isPreview}
+                />
               ))
             );
           })
