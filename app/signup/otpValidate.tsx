@@ -71,7 +71,11 @@ export default function OtpInput({
         })
         .catch((err) => {
           console.error("Registration error:", err);
-          setInvalidOtp(err);
+          const { errors } = JSON.parse(err);
+
+          errors.map((err: any) => {
+            setInvalidOtp(err.messages.join("."));
+          });
         });
       return;
     } else {
@@ -87,8 +91,11 @@ export default function OtpInput({
         })
         .catch((err) => {
           console.error("Registration error:", err);
-          console.error("Registration error:", err);
-          setInvalidOtp(err);
+          const { errors } = JSON.parse(err);
+
+          errors.map((err: any) => {
+            setInvalidOtp(err.messages.join("."));
+          });
         });
     }
   };
@@ -125,7 +132,11 @@ export default function OtpInput({
         })
         .catch((err) => {
           console.error("Registration error:", err);
-          setInvalidOtp(err);
+          const { errors } = JSON.parse(err);
+
+          errors.map((err: any) => {
+            setInvalidOtp(err.messages.join("."));
+          });
         });
     } else {
       await dispatch(registerInitiate({ email: registerEmail, role: "ADMIN" }))
@@ -137,7 +148,11 @@ export default function OtpInput({
         })
         .catch((err) => {
           console.error("Registration error:", err);
-          setInvalidOtp(err);
+          const { errors } = JSON.parse(err);
+
+          errors.map((err: any) => {
+            setInvalidOtp(err.messages.join("."));
+          });
         });
     }
   };

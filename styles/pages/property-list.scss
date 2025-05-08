@@ -1,0 +1,30 @@
+.property-list-container {
+  padding: 24px;
+  .preview-header {
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+
+  .preview-subtitle {
+    color: #444444;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%;
+  }
+
+  a {
+    width: auto;
+    background: #fff;
+    max-width: 180px;
+    border-radius: 8px;
+    border: 1px solid #e9e9e9;
+    padding: 10px 32px;
+    font-size: 14px;
+    color: #444444;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    margin: 2rem 0;
+  }
+}

@@ -5,6 +5,23 @@
   min-height: 100vh;
   justify-content: center;
   align-items: center;
+  position: relative;
+
+  .page-logo {
+    position: absolute;
+    top: 70px;
+    right: 70px;
+    font-size: 24px;
+    font-weight: 900;
+    font-family: var(---font-inter);
+    line-height: 100%;
+  }
+
+  > svg {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
 
   .login-page {
     display: flex;

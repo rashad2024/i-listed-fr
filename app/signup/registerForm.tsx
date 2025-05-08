@@ -2,7 +2,7 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 
 import { AppDispatch, RootState } from "@/store";
 import {
@@ -28,10 +28,12 @@ type FormData = z.infer<typeof registerFormSchema>;
 
 export default function RegisterForm({
   setRegisterEmail,
+  setUserRole,
   isForgotPassword,
 }: {
   setRegisterEmail: any;
   isForgotPassword?: boolean;
+  setUserRole?: any;
 }) {
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error, data } = useSelector(
@@ -40,12 +42,13 @@ export default function RegisterForm({
 
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
-  const [optionList] = useState(getRoles());
-  const {
+  const [optionList, setOptionList] = useState<SetStateAction<any>>([]);
+  let {
     register,
     setValue,
     handleSubmit,
-    formState: { errors },
+    setError,
+    formState: { errors: formErrors },
   } = useForm<FormData>({
     resolver: zodResolver(registerFormSchema),
     mode: "onChange",
@@ -58,7 +61,8 @@ export default function RegisterForm({
       setEmail(e?.target?.value);
       setValue("email", e.target.value, { shouldValidate: true });
     } else {
-      setRole(e?.target?.value);
+      setRole(e);
+      setValue("role", e, { shouldValidate: true });
     }
   };
 
@@ -74,24 +78,63 @@ export default function RegisterForm({
         .then((data) => {
           console.log("Success:", data);
           // Do something after store is updated
-          if (data.success) setRegisterEmail(email);
+          if (data.success) {
+            setRegisterEmail(email);
+            // setUserRole(role);
+          }
         })
         .catch((err) => {
           console.error("Registration error:", err);
+          const { errors } = JSON.parse(err);
+
+          errors.map((err: any) => {
+            // if (!Object.keys(formErrors).length) {
+            setError(err.field, {
+              type: "manual",
+              message: err.messages.join("."),
+            });
+          });
         });
     } else {
-      await dispatch(registerInitiate({ email, role: "ADMIN" }))
+      await dispatch(registerInitiate({ email, role }))
         .unwrap()
         .then((data) => {
           console.log("Success:", data);
           // Do something after store is updated
-          if (data.success) setRegisterEmail(email);
+          if (data.success) {
+            setUserRole(role);
+            setRegisterEmail(email);
+          }
         })
         .catch((err) => {
-          console.error("Registration error:", err);
+          const { errors } = JSON.parse(err);
+
+          errors.map((err: any) => {
+            // if (!Object.keys(formErrors).length) {
+            setError(err.field, {
+              type: "manual",
+              message: err.messages.join("."),
+            });
+          });
         });
     }
   };
+
+  useEffect(() => {
+    const fetchOptions = async () => {
+      try {
+        const roleInfo = await getRoles();
+
+        console.log(roleInfo);
+
+        setOptionList(roleInfo);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchOptions();
+  }, []);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -103,9 +146,11 @@ export default function RegisterForm({
             id={"role"}
             gap={"2"}
             label="Account type"
-            optionList={[{ label: "Admin", value: "ADMIN" }]}
-            onChange={handleChange}
-            value={"ADMIN"}
+            placeholder="Please select an account type"
+            optionList={optionList}
+            onChange={(e: any) => handleChange(e)}
+            value={role}
+            errors={formErrors.role}
             position="popper"
           />
         )}
@@ -117,7 +162,7 @@ export default function RegisterForm({
           type={"email"}
           value={email}
           placeholder={"Email"}
-          errors={errors.email}
+          errors={formErrors.email}
           {...register("email")}
           onChange={handleChange}
           radius="12px"
@@ -128,7 +173,7 @@ export default function RegisterForm({
           gap="3"
           direction="column"
           onClick={() => onSubmit}
-          disabled={errors.email || loading ? true : false}
+          disabled={formErrors.email || loading ? true : false}
           className="btn-primary"
         >
           <span>{loading ? <Spinner size="2" /> : "Continue with email"}</span>

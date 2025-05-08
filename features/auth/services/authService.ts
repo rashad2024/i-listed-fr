@@ -32,15 +32,12 @@ export const logoutService = async () => {
   }
 };
 
-// export const retrieveUserRoles = async () => {
-//   try {
-//     const response = await axiosInstance.get("/auth/login");
-//     const roleData = response.data;
+export const retrieveUserRoles = async () => {
+  try {
+    const response = await axiosInstance.get("/auth/register/roles");
 
-//     console.log(response.data);
-
-//     return roleData; // Return the response data
-//   } catch (error: any) {
-//     throw new Error(error.message || "User role retrieve failed");
-//   }
-// };
+    return response.data; // Return the response data
+  } catch (error: any) {
+    throw new Error(error.message || "User role retrieve failed");
+  }
+};

@@ -1,17 +1,21 @@
 // app/login/page.tsx
 "use client";
 
-import { useState } from "react";
+import Icon from "@/components/ui/common/Icon";
 
 import LoginForm from "./loginForm";
-import RegisterForm from "../signup/registerForm";
+
+import TableWithPagination from "@/app/property-list/all-properties";
 
 import "../../styles/pages/login.scss";
 
 export default function LoginPage({ setRegisterEmail }: any) {
   return (
     <div className="login-page-container">
+      <h1 className="page-logo">iListed</h1>
+      <Icon name="CustomLogoIcon" />
       <LoginForm />
+      {/* <TableWithPagination /> */}
     </div>
   );
 }

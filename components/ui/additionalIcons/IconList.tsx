@@ -267,3 +267,31 @@ export const CustomEditIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
     />
   </svg>
 );
+
+export const CustomLogoIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
+  props
+) => (
+  <svg
+    width="241"
+    height="183"
+    viewBox="0 0 241 183"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="-59" cy="230" r="230" fill="url(#paint0_linear_0_1)" />
+    <circle cx="131" cy="218" r="110" fill="black" fill-opacity="0.31" />
+    <defs>
+      <linearGradient
+        id="paint0_linear_0_1"
+        x1="171"
+        y1="0"
+        x2="-289"
+        y2="460"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#052054" />
+        <stop offset="1" stop-color="#0B47BA" />
+      </linearGradient>
+    </defs>
+  </svg>
+);

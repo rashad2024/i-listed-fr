@@ -18,6 +18,8 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
+
+    config.headers["Content-Type"] = "application/json";
     return config;
   },
   (error) => Promise.reject(error)
@@ -30,7 +32,9 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       // Server-side error
       console.error("API error: ", error.response.data);
-      throw new Error(error.response.data.message || "Something went wrong.");
+      throw new Error(
+        JSON.stringify(error.response.data) || "Something went wrong."
+      );
     } else if (error.request) {
       // No response from server
       console.error("No response from server");

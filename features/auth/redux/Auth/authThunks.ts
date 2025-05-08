@@ -41,7 +41,7 @@ export const registerInitiate = createAsyncThunk(
       const response = await api.post("/auth/register/initiate", payload);
       return response.data;
     } catch (err: any) {
-      return rejectWithValue(err?.message || "Registration failed");
+      return rejectWithValue(err.message || "Registration failed");
     }
   }
 );
@@ -72,6 +72,7 @@ export const registerUser = createAsyncThunk(
       const response = await api.post("/auth/register", payload);
       return response.data;
     } catch (err: any) {
+      console.log("err: ", err?.message, err);
       return rejectWithValue(err?.message || "Registration failed");
     }
   }

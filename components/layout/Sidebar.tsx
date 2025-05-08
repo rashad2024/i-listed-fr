@@ -53,8 +53,8 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
                 <Text>Drafts</Text>
               </Link>
               <Link
-                href="/listings"
-                className={pageType === "listings" ? "active" : ""}
+                href="/property-list"
+                className={pageType === "property-list" ? "active" : ""}
               >
                 <Text>Listings</Text>
               </Link>

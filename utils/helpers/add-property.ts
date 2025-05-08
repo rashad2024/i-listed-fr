@@ -333,7 +333,6 @@ export const prepareLocationInfo = (data: any) => {
     zipCode,
     zone,
     mapLink,
-    rowCount,
     nearByPoints,
     roadAccess,
     // touristsAttractions,
@@ -846,7 +845,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           value: ac,
           isDefault: true,
         },
-        ...(livingSpace?.length
+        ...(livingSpace.length
           ? livingSpace.map((item: any) => ({
               type: "text",
               placeholder: "",

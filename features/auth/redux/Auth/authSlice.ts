@@ -11,7 +11,7 @@ import {
 
 interface AuthState {
   loading: boolean;
-  error: string | null;
+  error: any | null;
   data: any | null;
 }
 
@@ -53,7 +53,7 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       });
 
     builder
@@ -65,9 +65,9 @@ const authSlice = createSlice({
         state.loading = false;
         // state.data = action.payload;
       })
-      .addCase(registerInitiate.rejected, (state, action) => {
+      .addCase(registerInitiate.rejected, (state, action: any) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       });
 
     builder
@@ -81,7 +81,7 @@ const authSlice = createSlice({
       })
       .addCase(registerVerify.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       });
 
     builder
@@ -91,11 +91,11 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
-        // state.data = action.payload;
+        state.data = action.payload;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       });
 
     builder
@@ -109,7 +109,7 @@ const authSlice = createSlice({
       })
       .addCase(forgotPasswordInitiate.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       });
 
     builder
@@ -123,7 +123,7 @@ const authSlice = createSlice({
       })
       .addCase(forgotPasswordVerify.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       });
 
     builder

@@ -21,10 +21,12 @@ export default function SetPassword({
   registerEmail,
   otp,
   isForgotPassword,
+  userRole,
 }: {
   registerEmail: string;
   otp: string;
   isForgotPassword?: boolean;
+  userRole: string;
 }) {
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error, data } = useSelector(
@@ -32,7 +34,6 @@ export default function SetPassword({
   );
   const router = useRouter();
 
-  console.log(otp);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordIconState, setPasswordIconState] = useState("EyeNoneIcon");
@@ -43,9 +44,19 @@ export default function SetPassword({
   const [specialCharacterCheck, setSpecialCharacterCheck] = useState(false);
   const [passwordMatched, setPasswordMatched] = useState(true);
   const [showValidation, setShowValidation] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(
+    "the password entered doesn't match"
+  );
 
   const onSubmit = async () => {
     // Handle form submission here
+    // if (!showValidation) {
+    //   setPasswordMatched(false);
+    //   setErrorMessage(
+    //     "Password must have 8 or more characters and at least 1 number or special character"
+    //   );
+    //   return;
+    // }
     if (password !== confirmPassword) {
       setPasswordMatched(false);
       return;
@@ -73,7 +84,7 @@ export default function SetPassword({
           email: registerEmail,
           code: otp,
           password,
-          role: "ADMIN",
+          role: userRole,
         })
       )
         .unwrap()
@@ -107,7 +118,12 @@ export default function SetPassword({
       setShowValidation(true);
     } else if (e.target.id === "confirmPassword") {
       setConfirmPassword(e.target.value);
-      setShowValidation(false);
+      if (
+        !checkSpecialCharacters(e.target.value) ||
+        !checkNumberOfCharacters(e.target.value)
+      ) {
+        setShowValidation(false);
+      }
     }
 
     setCharacterCheck(checkNumberOfCharacters(e.target.value));
@@ -180,9 +196,7 @@ export default function SetPassword({
       />
       {!passwordMatched && (
         <Flex gap="3" justify={"between"}>
-          <p className="text-red form-error">
-            the password entered doesn't match
-          </p>
+          <p className="text-red form-error">{errorMessage}</p>
         </Flex>
       )}
 
