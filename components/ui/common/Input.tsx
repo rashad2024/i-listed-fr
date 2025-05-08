@@ -1,4 +1,4 @@
-import { Flex, Text, TextField, TextArea, Checkbox } from "@radix-ui/themes";
+import { Flex, Strong, TextField } from "@radix-ui/themes";
 
 import Icon from "./Icon";
 
@@ -63,7 +63,7 @@ export default function InputField({
   };
   return (
     <Flex direction="column" gap={gap}>
-      {label && <Text>{label}</Text>}
+      {label && <Strong className="form-label">{label}</Strong>}
       {
         <TextField.Root
           id={id}
@@ -71,7 +71,9 @@ export default function InputField({
           size={size}
           value={value}
           type={type}
-          style={{ borderRadius: radius }}
+          style={{
+            borderRadius: radius,
+          }}
           onChange={(e) => onChange(e)}
           disabled={disabled}
         >

@@ -59,7 +59,6 @@ export default function SetPassword({
     // }
     if (password !== confirmPassword) {
       setPasswordMatched(false);
-
       return;
     }
 
@@ -115,23 +114,31 @@ export default function SetPassword({
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     if (e.target.id === "password") {
+      console.log("e.target.value: ", e.target.value);
       setPassword(e.target.value);
-      setShowValidation(true);
-    } else if (e.target.id === "confirmPassword") {
-      setConfirmPassword(e.target.value);
+      // setShowValidation(true);
+
       if (
         !checkSpecialCharacters(e.target.value) ||
         !checkNumberOfCharacters(e.target.value)
       ) {
+        setShowValidation(true);
+      } else {
         setShowValidation(false);
       }
+
+      setCharacterCheck(checkNumberOfCharacters(e.target.value));
+      setSpecialCharacterCheck(checkSpecialCharacters(e.target.value));
+      // setPasswordMatched(true);
+    } else if (e.target.id === "confirmPassword") {
+      setConfirmPassword(e.target.value);
+
+      setPasswordMatched(true);
     }
 
-    setShowValidation(false);
+    console.log("e.target.value: ", e.target.value);
 
-    setCharacterCheck(checkNumberOfCharacters(e.target.value));
-    setSpecialCharacterCheck(checkSpecialCharacters(e.target.value));
-    setPasswordMatched(true);
+    // setShowValidation(false);
   };
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { Select, Flex, Text } from "@radix-ui/themes";
+import { Select, Flex, Strong } from "@radix-ui/themes";
 import { useState } from "react";
 
 export default function SelectField({
@@ -30,7 +30,7 @@ export default function SelectField({
 }) {
   return (
     <Flex direction="column" gap={gap}>
-      <Text>{label}</Text>
+      <Strong className="form-label">{label}</Strong>
       <Select.Root
         key={id}
         size={size}

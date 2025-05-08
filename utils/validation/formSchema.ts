@@ -8,7 +8,7 @@ export const registerFormSchema = z.object({
     })
     .email({ message: "Please enter a valid email" }),
   role: z.string({
-    required_error: "Please enter a valid email",
+    required_error: "Please select a valid role",
   }),
 });
 
