@@ -131,6 +131,7 @@ export default function SetPassword({
 
     setCharacterCheck(checkNumberOfCharacters(e.target.value));
     setSpecialCharacterCheck(checkSpecialCharacters(e.target.value));
+    setPasswordMatched(true);
   };
 
   return (
@@ -207,7 +208,7 @@ export default function SetPassword({
         gap="3"
         direction="column"
         onClick={onSubmit}
-        disabled={loading ? true : false}
+        disabled={!passwordMatched || loading ? true : false}
         className="btn-primary"
       >
         <span>{loading ? <Spinner size="2" /> : "Set Password"}</span>
