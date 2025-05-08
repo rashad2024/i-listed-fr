@@ -153,9 +153,7 @@ export default function LoginForm() {
             disabled={errors.email || errors.password || loading ? true : false}
             className="btn-primary"
           >
-            <span>
-              {loading ? <Spinner size="2" /> : "Continue with email"}
-            </span>
+            <span>{loading ? <Spinner size="2" /> : "Sign in"}</span>
           </ButtonInput>
         </Flex>
 

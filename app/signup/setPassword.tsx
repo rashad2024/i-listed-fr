@@ -26,7 +26,7 @@ export default function SetPassword({
   registerEmail: string;
   otp: string;
   isForgotPassword?: boolean;
-  userRole: string;
+  userRole?: any;
 }) {
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error, data } = useSelector(
