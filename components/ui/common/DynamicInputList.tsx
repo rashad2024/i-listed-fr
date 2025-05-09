@@ -15,7 +15,7 @@ const DynamicInputList = ({
 
   let fieldId = "";
 
-  const { id, value, label } = inputInfo;
+  const { id, value, label, type } = inputInfo;
   const handleChangeEvent = (index: number, event: any) => {
     const id = event.target.id;
     const value = event.target.value;
@@ -34,14 +34,13 @@ const DynamicInputList = ({
     );
   };
 
-  const handleClick = (event: any) => {
-    const value = event.target.value;
-
-    console.log("handleClick", id, value);
+  const handleClick = (id: any, value: any) => {
+    handleChange(id, value);
+    // console.log("handleClick", id, value);
   };
 
-  const handleAddInput = () => {
-    setInputs([...inputs, {}]);
+  const handleAddInput = (isDefault: boolean) => {
+    setInputs([...inputs, { isDefault: !isDefault }]);
   };
 
   return (
@@ -62,9 +61,12 @@ const DynamicInputList = ({
             placeholder,
             iconName,
             iconPosition,
-            index,
+            isDefault,
+            category,
           } = input;
           fieldId = id || fieldId;
+
+          // console.log("input", input);
           return (
             (type === "checkbox" && (
               <Flex gap={"3"} direction={"row"} key={id}>
@@ -79,8 +81,9 @@ const DynamicInputList = ({
                       id={id}
                       defaultChecked={value === "on" ? true : false}
                       disabled={disabled}
+                      name={placeholder}
                       onClick={(e: any) =>
-                        handleChange(
+                        handleClick(
                           e.target?.id,
                           e.target.getAttribute("data-state") === "checked"
                             ? false
@@ -116,7 +119,8 @@ const DynamicInputList = ({
             key={id}
             direction={"row"}
             gap={"3"}
-            onClick={() => handleAddInput()}
+            type={type}
+            onClick={() => handleAddInput(false)}
           >
             <span>{value}</span>
           </ButtonInput>

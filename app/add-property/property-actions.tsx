@@ -6,7 +6,13 @@ import Icon from "@/components/ui/common/Icon";
 
 import ButtonInput from "@/components/ui/common/Button";
 
-export default function PropertyActions({ activeStep, handleClick }: any) {
+import { getButtonText } from "@/utils/helpers/add-property";
+
+export default function PropertyActions({
+  activeStep,
+  handleClick,
+  selectedCategory,
+}: any) {
   return (
     <Flex direction={"row"} gap={"3"} style={{ justifyContent: "flex-end" }}>
       {activeStep !== 0 ? (
@@ -14,7 +20,7 @@ export default function PropertyActions({ activeStep, handleClick }: any) {
           gap={"3"}
           direction={"row"}
           className="btn-secondary btn-previous"
-          onClick={() => handleClick("previous")}
+          onClick={() => handleClick("Previous")}
         >
           <span>
             <Icon
@@ -37,20 +43,12 @@ export default function PropertyActions({ activeStep, handleClick }: any) {
 
       <ButtonInput
         gap={"3"}
-        type="submit"
         direction={"row"}
+        type={activeStep > 2 ? "submit" : "button"}
         className="btn-secondary btn-next"
-        onClick={() => handleClick(activeStep !== 2 ? "next" : "preview")}
+        onClick={() => handleClick(getButtonText(activeStep, selectedCategory))}
       >
-        {activeStep < 2 ? (
-          <span>
-            Next <Icon name={"RightArrowIcon"} size={10} color="white" />
-          </span>
-        ) : activeStep === 2 ? (
-          "Preview"
-        ) : (
-          "Submit"
-        )}
+        {getButtonText(activeStep, selectedCategory)}
       </ButtonInput>
     </Flex>
   );

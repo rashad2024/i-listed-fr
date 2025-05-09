@@ -1,4 +1,4 @@
-import { retrieveUserRoles } from "@/features/auth/services/authService";
+import { retrieveUserRoles } from "@/features/services/authService";
 
 export const getRoles = async () => {
   const userRoles = await retrieveUserRoles();

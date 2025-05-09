@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { Text, Flex } from "@radix-ui/themes";
 
-import CardView from "@/components/ui/common/card";
+import CardView from "@/components/ui/common/CardView";
 import ButtonInput from "@/components/ui/common/Button";
 import Icon from "@/components/ui/common/Icon";
 
@@ -34,19 +34,8 @@ export default function ExtrasFeatures({
   );
 
   const editSection = (type: string) => {
-    console.log(type);
     setPreviewExtraFeatures(!previewExtraFeatures);
   };
-
-  // const handleChange = (key: any, value: string) => {
-  //   // key = key.target.id || key;
-  //   console.log(key, value);
-  //   dispatch(
-  //     setProperty({
-  //       [key]: value,
-  //     })
-  //   );
-  // };
 
   useEffect(() => {
     setExtraFeaturesInfo(prepareExtrasFeaturesInfo(data));
@@ -72,7 +61,7 @@ export default function ExtrasFeatures({
         formData={extraFeaturesInfo}
         id="extras-features-card"
         handleChange={handleChange}
-        isPreview={previewExtraFeatures}
+        isPreview={data?.showPreview}
         errors={errors}
         validation={validation}
       />

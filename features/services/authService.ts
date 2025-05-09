@@ -1,5 +1,5 @@
 // features/auth/services/authService.ts
-import axiosInstance from "../../../utils/axios";
+import axiosInstance from "../../utils/axios";
 
 export const loginService = async (
   email: string,
@@ -25,7 +25,7 @@ export const loginService = async (
 
 export const logoutService = async () => {
   try {
-    await axiosInstance.post("/logout");
+    await axiosInstance.post("/auth/logout");
     return true; // Log out successful
   } catch (error: any) {
     throw new Error(error.message || "Logout failed");

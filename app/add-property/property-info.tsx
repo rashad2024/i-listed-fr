@@ -2,9 +2,13 @@
 
 import { useEffect, useState } from "react";
 
+import { useSelector } from "react-redux";
+
+import { RootState } from "@/store";
+
 import { Flex, Text } from "@radix-ui/themes";
 
-import CardView from "@/components/ui/common/card";
+import CardView from "@/components/ui/common/CardView";
 import ButtonInput from "@/components/ui/common/Button";
 import Icon from "@/components/ui/common/Icon";
 
@@ -47,7 +51,6 @@ export default function PropertyInformation({
     setLocationInfo(prepareLocationInfo(data));
     setPropertyDetails(preparePropertyDetails(data));
   }, [data]);
-  console.log("editMode activeStep", previewBasic);
   return (
     <div className="info-container basic-info">
       <Flex gap={"3"} align={"center"} justify={"between"}>
@@ -71,7 +74,7 @@ export default function PropertyInformation({
         errors={errors}
         isPreview={previewBasic}
         validation={validation}
-      />
+      ></CardView>
       <Text>Location Information</Text>
       <CardView
         formData={locationInfo}

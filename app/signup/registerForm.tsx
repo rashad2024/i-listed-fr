@@ -8,7 +8,7 @@ import { AppDispatch, RootState } from "@/store";
 import {
   registerInitiate,
   forgotPasswordInitiate,
-} from "@/features/auth/redux/Auth/authThunks";
+} from "@/features/redux/Auth/authThunks";
 import { getRoles } from "@/utils/helpers/user";
 
 import { Text, Link, Spinner } from "@radix-ui/themes";
@@ -67,7 +67,6 @@ export default function RegisterForm({
   };
 
   const onSubmit = async (data: FormData) => {
-    console.log("Form submitted:", data);
     // handleSubmit((data) => {
     //   console.log("Form submitted:", data);
     // });
@@ -172,7 +171,7 @@ export default function RegisterForm({
           type="submit"
           gap="3"
           direction="column"
-          onClick={() => onSubmit}
+          onClick={() => onSubmit(data)}
           disabled={formErrors.email || loading ? true : false}
           className="btn-primary"
         >

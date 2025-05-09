@@ -9,7 +9,7 @@ import {
   forgotPasswordInitiate,
   registerVerify,
   forgotPasswordVerify,
-} from "@/features/auth/redux/Auth/authThunks";
+} from "@/features/redux/Auth/authThunks";
 
 import { Flex, TextField, Text, Strong, Spinner } from "@radix-ui/themes";
 

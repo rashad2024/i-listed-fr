@@ -9,7 +9,7 @@ import "@/styles/components/_datepicker.scss";
 
 interface DateInputWithIconProps {
   value: Date | null;
-  onChange: (date: Date | null) => void;
+  onChange: (date: any) => void;
   placeholder?: string;
   label?: string;
   minDate?: Date;
@@ -82,19 +82,22 @@ const DateInputWithIcon: React.FC<DateInputWithIconProps> = ({
 }) => {
   const dateFormat = id === "buildingYear" ? "yyyy" : "dd-MM-YYYY";
   const showYearPicker = id === "buildingYear";
+
   return (
     <Flex direction="column" gap={gap}>
       <Text>{label}</Text>
       <DatePicker
-        selected={value}
-        onChange={onChange}
+        selected={showYearPicker ? new Date(`${value}-01-01`) : value}
+        onChange={(date) =>
+          onChange(showYearPicker ? date?.getFullYear() : date?.toISOString())
+        }
         disabled={disabled}
+        placeholderText={placeholder}
         customInput={
           <CustomInput
             key={id}
             id={id}
             gap={gap}
-            placeholder={placeholder}
             iconName={iconName}
             iconPosition={iconPosition}
             size={size}

@@ -1,14 +1,52 @@
 "use client";
 
+import { persistor } from "@/store";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { AppDispatch, RootState } from "@/store";
+import { useRouter } from "next/navigation";
+
 import { Text, Link } from "@radix-ui/themes";
 import * as Accordion from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 
 import Icon from "../ui/common/Icon";
+import ButtonInput from "@/components/ui/common/Button";
+
+import { logout } from "@/features/redux/Auth/authThunks";
 
 import "../../styles/components/_sidebar.scss";
 
 export default function Sidebar({ pageType }: { pageType?: string }) {
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, error, data } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const router = useRouter();
+
+  const logoutUser = async () => {
+    await dispatch(logout())
+      .unwrap()
+      .then((data) => {
+        console.log("Success:", data);
+        // Do something after store is updated
+
+        if (data) {
+          // Purge persisted state
+          persistor.purge();
+
+          // Optional: Clear other storage
+          localStorage.clear();
+
+          router.push("/login"); // Redirect to /property-list
+        }
+      })
+      .catch((err) => {
+        console.error("Registration error:", err);
+      });
+  };
+
   return (
     <div className="sidebar">
       <div className="logo">iListed</div>
@@ -59,6 +97,22 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
                 <Text>Listings</Text>
               </Link>
             </Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item value="item-2" className="accordionItem">
+            <Accordion.Header>
+              {/* <Accordion.Trigger className="accordionTrigger"> */}
+              <ButtonInput
+                type="button"
+                gap={"3"}
+                className="btn-primary"
+                direction={"column"}
+                onClick={() => logoutUser()}
+                disabled={loading}
+              >
+                <span>Logout</span>
+              </ButtonInput>
+              {/* </Accordion.Trigger> */}
+            </Accordion.Header>
           </Accordion.Item>
         </Accordion.Root>
       </div>

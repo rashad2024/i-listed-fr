@@ -67,19 +67,22 @@
     display: flex;
     gap: 12px;
     position: relative;
-    margin: 8px 0;
+    margin: 2rem 0 0;
 
     a.view-picture-link {
       position: absolute;
       right: 0;
       bottom: 0;
-      transform: translateY(calc(100% + 8px));
       text-decoration: underline;
       cursor: pointer !important;
       font-size: 12px !important;
       font-weight: 400 !important;
       font-family: var(--font-inter) !important;
       color: #0066fe !important;
+      border: none;
+      background: none;
+      transform: translateY(100%);
+      margin: 0;
     }
   }
 }

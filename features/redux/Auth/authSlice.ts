@@ -7,7 +7,7 @@ import {
   forgotPasswordInitiate,
   forgotPasswordVerify,
   resetPassword,
-} from "./authThunks";
+} from "@/features/redux/Auth/authThunks";
 
 interface AuthState {
   loading: boolean;
@@ -48,8 +48,9 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
+        const { data } = action.payload;
         state.loading = false;
-        state.data = action.payload;
+        state.data = data;
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
@@ -90,8 +91,9 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
+        const { data } = action.payload;
         state.loading = false;
-        state.data = action.payload;
+        state.data = data?.data;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;

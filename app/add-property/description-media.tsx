@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, SetStateAction } from "react";
 
 import { Flex, Text } from "@radix-ui/themes";
 
-import CardView from "../../components/ui/common/card";
+import CardView from "@/components/ui/common/CardView";
+
 import ButtonInput from "../../components/ui/common/Button";
 import Icon from "../../components/ui/common/Icon";
 
@@ -20,26 +21,19 @@ export default function DescriptionMedia({
   handleChange,
   data,
 }: any) {
-  // const dispatch = useDispatch<AppDispatch>();
-  // const { loading, error, data } = useSelector(
-  //   (state: RootState) => state.property || {}
-  // );
-
   const [descriptionMedia, setDescriptionMedia] = useState(
     prepareDescriptionAndMediaInfo(data)
   );
   const [previewDescMedia, setPreviewDescMedia] = useState(isPreview);
-
-  // const handleChange = (key: any, value: string) => {
-  //   // key = key.target.id || key;
-  //   console.log(key, value);
-  //   // dispatch(setProperty({ [key]: value }));
-  // };
+  const [_, forRender] = useState<SetStateAction<any>>();
 
   const editSection = (type: string) => {
-    console.log(type);
     setPreviewDescMedia(!previewDescMedia);
   };
+
+  useEffect(() => {
+    setDescriptionMedia(prepareDescriptionAndMediaInfo(data));
+  }, [data, isPreview]);
 
   return (
     <div className="info-container description-media">
@@ -61,7 +55,7 @@ export default function DescriptionMedia({
         formData={descriptionMedia}
         id="description-media-card"
         handleChange={handleChange}
-        isPreview={previewDescMedia}
+        isPreview={data?.showPreview}
         errors={errors}
         validation={validation}
       />

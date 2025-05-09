@@ -3,7 +3,6 @@ import { Flex, Strong, TextField } from "@radix-ui/themes";
 import Icon from "./Icon";
 
 export default function InputField({
-  key,
   id,
   gap,
   label,

@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch, RootState } from "@/store";
-import { login } from "@/features/auth/redux/Auth/authThunks";
+import { login } from "@/features/redux/Auth/authThunks";
 
 import { Text, Link, Flex, Checkbox, Spinner } from "@radix-ui/themes";
 
@@ -42,6 +42,7 @@ export default function LoginForm() {
     register,
     setValue,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(loginFormSchema),
@@ -75,13 +76,15 @@ export default function LoginForm() {
         }
       })
       .catch((err) => {
-        const emailRegex = new RegExp("email", "i");
-        const passwordRegex = new RegExp("password", "i");
-        if (emailRegex.test(err)) {
-          setEmailError(err);
-        } else if (passwordRegex.test(err)) {
-          setPasswordError(err);
-        }
+        const { errors } = JSON.parse(err);
+
+        errors.map((err: any) => {
+          // if (!Object.keys(formErrors).length) {
+          setError(err.field, {
+            type: "manual",
+            message: err.messages.join("."),
+          });
+        });
       });
   };
 

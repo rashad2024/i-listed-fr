@@ -6,10 +6,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch, RootState } from "@/store";
-import {
-  registerUser,
-  resetPassword,
-} from "@/features/auth/redux/Auth/authThunks";
+import { registerUser, resetPassword } from "@/features/redux/Auth/authThunks";
 
 import { Flex, Text, Spinner } from "@radix-ui/themes";
 

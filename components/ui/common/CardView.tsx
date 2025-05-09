@@ -81,7 +81,7 @@ any) {
               )) ||
               ((type === "text" || type === "number") && !hidden && (
                 <InputField
-                  key={id}
+                  key={`${label}-${id}`}
                   id={id}
                   gap={"3"}
                   label={label}
@@ -98,7 +98,7 @@ any) {
                 />
               )) ||
               (type === "textarea" && (
-                <Flex key={id} gap={"3"} direction={"column"} className="">
+                <Flex gap={"3"} direction={"column"} className="">
                   <Text>{label}</Text>
                   <TextArea
                     key={id}
@@ -107,7 +107,7 @@ any) {
                     size={"3"}
                     value={value}
                     style={{ borderRadius: "4px" }}
-                    onChange={(e) => handleChange(id, e?.target?.value)}
+                    onChange={(e) => handleChange(id, e.target.value)}
                     disabled={isPreview}
                   />
                 </Flex>
@@ -133,7 +133,7 @@ any) {
                 <Flex key={id} gap={"3"} direction={"column"} className="">
                   <DateInput
                     value={value}
-                    onChange={(val) => handleChange(id, val?.toISOString())}
+                    onChange={(val) => handleChange(id, val)}
                     label={label}
                     id={id}
                     gap={"3"}
@@ -169,6 +169,7 @@ any) {
               )) ||
               (inputGroups && inputGroups.length && (
                 <DynamicInputList
+                  key={id}
                   inputGroups={inputGroups}
                   inputInfo={inputInfo}
                   handleChange={handleChange}

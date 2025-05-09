@@ -23,4 +23,5 @@ export const propertyFormSchema = z.object({
   totalPrice: z.string({ required_error: "Please enter a valid total price" }),
   beds: z.string({ required_error: "Please enter a valid number of beds" }),
   baths: z.string({ required_error: "Please enter a valid number of baths" }),
+  showPreview: z.boolean().optional(),
 });

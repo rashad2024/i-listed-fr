@@ -1,14 +1,14 @@
-import { Label } from "@radix-ui/themes/components/context-menu";
+import { retrievePropertyOptions } from "@/features/services/propertyServices";
 
 export const prepareBasicInfo = (data: any) => {
   const {
-    title,
-    category,
-    subcategories,
-    ownershipType,
-    transactionType,
-    propertyStatus,
-    buildingPermit,
+    title = "",
+    categoryId = "",
+    subcategoryId = "",
+    ownershipTypeId = "",
+    transactionTypeId = "",
+    propertyStatusId = "",
+    buildingPermitId = "",
   } = data || {};
 
   return [
@@ -18,8 +18,8 @@ export const prepareBasicInfo = (data: any) => {
         type: "text",
         label: "Title",
         placeholder: "Luxury Villa in Seminyak",
+        value: title || "",
         id: "title",
-        value: title,
       },
     },
     {
@@ -28,7 +28,8 @@ export const prepareBasicInfo = (data: any) => {
         type: "select",
         label: "Category",
         placeholder: "Please select category",
-        id: "category",
+        id: "categoryId",
+        value: categoryId || "",
         options: [
           {
             label: "Please select Category",
@@ -37,26 +38,25 @@ export const prepareBasicInfo = (data: any) => {
           },
           {
             label: "Residential",
-            value: "residential",
+            value: 1,
             id: "residential",
           },
           {
             label: "Land",
-            value: "land",
-            id: "residential",
+            value: 2,
+            id: "land",
           },
           {
             label: "Commercial",
-            value: "commercial",
+            value: 3,
             id: "commercial",
           },
           {
             label: "Development",
-            value: "development",
+            value: 4,
             id: "development",
           },
         ],
-        value: category,
       },
     },
     {
@@ -65,8 +65,8 @@ export const prepareBasicInfo = (data: any) => {
         type: "select",
         label: "Subcategories",
         placeholder: "Please select subcategories",
-        id: "subcategories",
-        value: subcategories,
+        id: "subcategoryId",
+        value: subcategoryId,
         options: [
           {
             label: "Please select Subcategories",
@@ -75,75 +75,75 @@ export const prepareBasicInfo = (data: any) => {
           },
           {
             label: "Villa",
-            value: "villa",
+            value: 1,
             id: "villa",
-            hidden: !["residential"].find((cat) => cat === category),
+            hidden: ![1].find((cat) => cat == categoryId),
           },
           {
             label: "House",
-            value: "house",
+            value: 2,
             id: "house",
-            hidden: !["residential"].find((cat) => cat === category),
+            hidden: ![1].find((cat) => cat == categoryId),
           },
           {
             label: "Apartment",
-            value: "apartment",
             id: "apartment",
-            hidden: !["residential"].find((cat) => cat === category),
+            value: 3,
+            hidden: ![1].find((cat) => cat == categoryId),
           },
           {
             label: "Townhouse",
-            value: "townhouse",
-            id: "townhouse",
-            hidden: !["residential"].find((cat) => cat === category),
+            id: "townHouse",
+            value: 4,
+            hidden: ![1].find((cat) => cat == categoryId),
           },
           {
             label: "Development Land",
-            value: "developmentLand",
             id: "developmentLand",
-            hidden: !["land"].find((cat) => cat === category),
+            value: 5,
+            hidden: ![2].find((cat) => cat == categoryId),
           },
           {
             label: "Agricultural Land",
-            value: "agriculturalLand",
+            value: 6,
             id: "agriculturalLand",
-            hidden: !["land"].find((cat) => cat === category),
+            hidden: ![2].find((cat) => cat == categoryId),
           },
           {
             label: "Rice Field",
-            value: "riceField",
+            value: 7,
             id: "riceField",
-            hidden: !["land"].find((cat) => cat === category),
+            hidden: ![2].find((cat) => cat == categoryId),
           },
           {
             label: "Shop",
-            value: "shop",
+            value: 8,
             id: "shop",
-            hidden: !["commercial"].find((cat) => cat === category),
+            hidden: ![3].find((cat) => cat == categoryId),
           },
           {
             label: "Restaurant",
-            value: "restaurant",
+            value: 9,
             id: "restaurant",
-            hidden: !["commercial"].find((cat) => cat === category),
+            hidden: ![3].find((cat) => cat == categoryId),
           },
           {
             label: "Cafe",
-            value: "cafe",
+            value: 10,
             id: "cafe",
-            hidden: !["commercial"].find((cat) => cat === category),
+            hidden: ![3].find((cat) => cat == categoryId),
           },
           {
             label: "Ruko",
-            value: "ruko",
+            value: 11,
             id: "ruko",
-            hidden: !["commercial"].find((cat) => cat === category),
+            hidden: !["commercial"].find((cat) => cat == categoryId),
           },
           {
             label: "Off-Plan Projects",
-            value: "offPlanProjects",
+            value: 12,
             id: "offPlanProjects",
-            hidden: !["development"].find((cat) => cat === category),
+            hidden: ![4].find((cat) => cat == categoryId),
           },
         ],
       },
@@ -154,8 +154,8 @@ export const prepareBasicInfo = (data: any) => {
         type: "select",
         label: "Ownership Type",
         placeholder: "Please select Ownership Type",
-        id: "ownershipType",
-        value: ownershipType,
+        id: "ownershipTypeId",
+        value: ownershipTypeId,
         options: [
           {
             label: "Please select Ownership Type",
@@ -164,43 +164,33 @@ export const prepareBasicInfo = (data: any) => {
           },
           {
             label: "Freehold (Hak Milik)",
-            value: "freehold",
+            value: 1,
             id: "freehold",
-            hidden: !["residential", "land", "commercial", "development"].find(
-              (cat) => cat === category
-            ),
+            hidden: ![1, 2, 3, 4].find((cat) => cat == categoryId),
           },
           {
             label: "Leasehold (Hak Sewa)",
-            value: "leasehold",
+            value: 2,
             id: "leasehold",
-            hidden: !["residential", "land", "commercial", "development"].find(
-              (cat) => cat === category
-            ),
+            hidden: ![1, 2, 3, 4].find((cat) => cat == categoryId),
           },
           {
             label: "Right of Use (Hak Pakai)",
-            value: "rightOfUse",
+            value: 3,
             id: "rightOfUse",
-            hidden: !["residential", "land", "commercial"].find(
-              (cat) => cat === category
-            ),
+            hidden: ![1, 2, 3].find((cat) => cat == categoryId),
           },
           {
             label: "Strata Title",
-            value: "strataTitle",
+            value: 4,
             id: "strataTitle",
-            hidden: !["residential", "commercial"].find(
-              (cat) => cat === category
-            ),
+            hidden: ![2, 3].find((cat) => cat == categoryId),
           },
           {
             label: "Right to Build (HGB / Hak Guna Bangunan)",
-            value: "rightToBuild",
+            value: 5,
             id: "rightToBuild",
-            hidden: !["residential", "land", "commercial", "development"].find(
-              (cat) => cat === category
-            ),
+            hidden: ![1, 2, 3, 4].find((cat) => cat == categoryId),
           },
         ],
       },
@@ -211,8 +201,8 @@ export const prepareBasicInfo = (data: any) => {
         type: "select",
         label: "Transaction Type",
         placeholder: "Please select Transaction Type",
-        id: "transactionType",
-        value: transactionType,
+        id: "transactionTypeId",
+        value: transactionTypeId,
         options: [
           {
             label: "Please select Transaction Type",
@@ -221,19 +211,15 @@ export const prepareBasicInfo = (data: any) => {
           },
           {
             label: "Sale",
-            value: "sale",
+            value: 1,
             id: "sale",
-            hidden: !["residential", "land", "commercial", "development"].find(
-              (cat) => cat === category
-            ),
+            hidden: ![1, 2, 3, 4].find((cat) => cat == categoryId),
           },
           {
             label: "Rental",
-            value: "rental",
+            value: 2,
             id: "rental",
-            hidden: !["residential", "commercial"].find(
-              (cat) => cat === category
-            ),
+            hidden: ![1, 2].find((cat) => cat == categoryId),
           },
         ],
       },
@@ -244,8 +230,8 @@ export const prepareBasicInfo = (data: any) => {
         type: "select",
         label: "Property Status",
         placeholder: "Please select Property Status",
-        id: "propertyStatus",
-        value: propertyStatus,
+        id: "propertyStatusId",
+        value: propertyStatusId,
         options: [
           {
             label: "Please select Property Status",
@@ -254,37 +240,37 @@ export const prepareBasicInfo = (data: any) => {
           },
           {
             label: "Freehold",
-            value: "freehold",
+            value: 1,
             id: "pr-freehold",
-            categoryIds: ["residential", "land", "commercial", "development"],
-            hidden: !["sale"].find((cat) => cat === category),
+            hidden:
+              [1, 2, 3, 4].find((cat) => cat == categoryId) &&
+              [1].find((cat) => cat == transactionTypeId),
           },
           {
             label: "Leasehold",
-            value: "leasehold",
+            value: "2",
             id: "pr-leasehold",
             hidden: !(
-              ["residential", "land", "commercial", "development"].find(
-                (cat) => cat === category
-              ) && ["sale"].find((cat) => cat === transactionType)
+              [1, 2, 3, 4].find((cat) => cat == categoryId) &&
+              [1].find((cat) => cat == transactionTypeId)
             ),
           },
           {
             label: "Monthly",
-            value: "monthly",
+            value: 3,
             id: "monthly",
             hidden: !(
-              ["residential", "commercial"].find((cat) => cat === category) &&
-              ["rental"].find((cat) => cat === transactionType)
+              [1, 2].find((cat) => cat == categoryId) &&
+              [2].find((cat) => cat == transactionTypeId)
             ),
           },
           {
             label: "Yearly",
-            value: "yearly",
+            value: 4,
             id: "yearly",
             hidden: !(
-              ["residential", "commercial"].find((cat) => cat === category) &&
-              ["rental"].find((cat) => cat === transactionType)
+              [1, 2].find((cat) => cat == categoryId) &&
+              [2].find((cat) => cat == transactionTypeId)
             ),
           },
         ],
@@ -296,8 +282,8 @@ export const prepareBasicInfo = (data: any) => {
         type: "select",
         label: "Building Permit",
         placeholder: "Please select Building Type",
-        id: "buildingPermit",
-        value: buildingPermit,
+        id: "buildingPermitId",
+        value: buildingPermitId,
         options: [
           {
             label: "Please select Building Type",
@@ -306,19 +292,15 @@ export const prepareBasicInfo = (data: any) => {
           },
           {
             label: "PBG (Persetujuan Bangunan Gedung)",
-            value: "pbg",
+            value: 1,
             id: "pbg",
-            hidden: !["residential", "commercial", "development"].find(
-              (cat) => cat === category
-            ),
+            hidden: ![1, 2, 3].find((cat) => cat == categoryId),
           },
           {
             label: "SLF (Sertifikat Laik Fungsi)",
-            value: "slf",
+            value: 2,
             id: "slf",
-            hidden: !["residential", "commercial", "development"].find(
-              (cat) => cat === category
-            ),
+            hidden: ![1, 2, 3].find((cat) => cat == categoryId),
           },
         ],
       },
@@ -328,13 +310,13 @@ export const prepareBasicInfo = (data: any) => {
 
 export const prepareLocationInfo = (data: any) => {
   const {
-    address,
-    location,
-    zipCode,
-    zone,
-    mapLink,
-    nearByPoints,
-    roadAccess,
+    address = "",
+    location = "",
+    zipCode = "",
+    zoneId = "",
+    mapLink = "",
+    nearByPoints = "",
+    roadAccessId = "",
     // touristsAttractions,
     // restaurantsCafe,
     // beaches,
@@ -374,13 +356,56 @@ export const prepareLocationInfo = (data: any) => {
     {
       title: "Zone",
       inputInfo: {
-        type: "text",
         label: "Zone",
         placeholder: "Select zone",
-        id: "zone",
-        value: zone,
+        id: "zoneId",
+        value: zoneId,
         iconName: "ZoneIcon",
         iconPosition: "right",
+        type: "select",
+        options: [
+          {
+            label: "Please select Zone",
+            value: "defaultZone",
+            id: "defaultZone",
+          },
+          {
+            label: "Green Zone",
+            value: 1,
+            id: "greenZone",
+            // hidden: ![1, 2, 3, 4].find((cat) => cat ==categoryId),
+          },
+          {
+            label: "Yellow Zone",
+            value: 2,
+            id: "yellowZone",
+            // hidden: ![1, 2, 3, 4].find((cat) => cat ==categoryId),
+          },
+          {
+            label: "Red Zone",
+            value: 3,
+            id: "redZone",
+            // hidden: ![1, 2, 3].find((cat) => cat ==categoryId),
+          },
+          {
+            label: "Pink Zone",
+            value: 4,
+            id: "pinkZone",
+            // hidden: ![2, 3].find((cat) => cat ==categoryId),
+          },
+          {
+            label: "Orange Zone",
+            value: 5,
+            id: "orangeZone",
+            // hidden: ![1, 2, 3, 4].find((cat) => cat ==categoryId),
+          },
+          {
+            label: "Blue Zone",
+            value: 6,
+            id: "blueZone",
+            // hidden: ![1, 2, 3, 4].find((cat) => cat ==categoryId),
+          },
+        ],
       },
     },
     {
@@ -399,7 +424,7 @@ export const prepareLocationInfo = (data: any) => {
         type: "select",
         label: "Road Access",
         placeholder: "Please select Road access",
-        id: "roadAccess",
+        id: "roadAccessId",
         options: [
           {
             label: "Please select Road access",
@@ -407,27 +432,32 @@ export const prepareLocationInfo = (data: any) => {
             id: "defaultRoadAccess",
           },
           {
-            label: "Excellent",
-            value: "excellent",
-            id: "excellent",
+            label: "Direct Public Road Access",
+            value: 1,
+            id: "directPublicRoadAccess",
           },
           {
-            label: "Good",
-            value: "good",
-            id: "good",
+            label: "Direct Private Road Access",
+            value: 2,
+            id: "directPrivateRoadAccess",
           },
           {
-            label: "Bad",
-            value: "bad",
-            id: "bad",
+            label: "Shared Access",
+            value: 3,
+            id: "sharedAccess",
           },
           {
-            label: "Worst",
-            value: "worst",
-            id: "worst",
+            label: "Gated Access",
+            value: 4,
+            id: "gatedAccess",
+          },
+          {
+            label: "No Direct Road Access",
+            value: 5,
+            id: "noDirectRoadAccess",
           },
         ],
-        value: roadAccess,
+        value: roadAccessId,
       },
     },
     {
@@ -436,14 +466,14 @@ export const prepareLocationInfo = (data: any) => {
         ? nearByPoints.map((item: any) => ({
             type: "text",
             placeholder: "Nearby points",
-            id: "nearByPoints",
+            id: "nearbyPoints",
             value: item,
           }))
         : [
             {
               type: "text",
               placeholder: "Nearby points",
-              id: "nearByPoints",
+              id: "nearbyPoints",
               value: nearByPoints,
             },
           ],
@@ -459,21 +489,22 @@ export const prepareLocationInfo = (data: any) => {
 
 export const preparePropertyDetails = (data: any) => {
   const {
-    landSize,
-    builtUpArea,
-    pricePerAreaUnit,
-    totalPrice,
-    numberOfFloors,
-    maxRooms,
-    beds,
-    baths,
-    furnishing,
-    parkingSpace,
-    buildingYear,
-    propertyAvailableDate,
-    havePool,
-    poolType,
-    poolSize,
+    landSizeId = "",
+    builtUpArea = "",
+    pricePerUnit = "",
+    totalPrice = "",
+    numberOfFloors = "",
+    maxRooms = "",
+    beds = "",
+    baths = "",
+    furnishingId = "",
+    parkingSpaceId = "",
+    buildingYear = "",
+    availableDate = "",
+    pool = "",
+    poolTypeId = "",
+    poolSize = "",
+    categoryId = "",
   } = data || {};
 
   return [
@@ -483,8 +514,8 @@ export const preparePropertyDetails = (data: any) => {
         type: "select",
         label: "Land Size",
         placeholder: "Land Size",
-        id: "landSize",
-        value: landSize,
+        id: "landSizeId",
+        value: landSizeId,
         options: [
           {
             label: "Please select Land Size",
@@ -492,24 +523,19 @@ export const preparePropertyDetails = (data: any) => {
             id: "defaultLandSize",
           },
           {
-            label: "600 sq ft",
-            value: "600",
-            id: "600",
+            label: "are (a)",
+            value: 1,
+            id: "area",
           },
           {
-            label: "1000 sq ft",
-            value: "1000",
-            id: "1000",
+            label: "m²",
+            value: 2,
+            id: "m2",
           },
           {
-            label: "1200 sq ft",
-            value: "1200",
-            id: "1200",
-          },
-          {
-            label: "1500 sq ft",
-            value: "1500",
-            id: "1500",
+            label: "ft²",
+            value: 3,
+            id: "ft",
           },
         ],
       },
@@ -530,8 +556,8 @@ export const preparePropertyDetails = (data: any) => {
         type: "text",
         label: "Price Per Area Unit",
         placeholder: "Price Per Area Unit",
-        id: "pricePerAreaUnit",
-        value: pricePerAreaUnit,
+        id: "pricePerUnit",
+        value: pricePerUnit,
       },
     },
     {
@@ -552,6 +578,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Numbers Of Floors",
         id: "numberOfFloors",
         value: numberOfFloors,
+        hidden: ![2, 4].find((cat) => cat == categoryId),
       },
     },
     {
@@ -562,6 +589,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Max Rooms",
         id: "maxRooms",
         value: maxRooms,
+        hidden: [2, 4].find((cat) => cat == categoryId),
       },
     },
     {
@@ -572,6 +600,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Beds",
         id: "beds",
         value: beds,
+        hidden: [2, 4].find((cat) => cat == categoryId),
       },
     },
     {
@@ -582,6 +611,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Baths",
         id: "baths",
         value: baths,
+        hidden: [2, 4].find((cat) => cat == categoryId),
       },
     },
     {
@@ -590,8 +620,9 @@ export const preparePropertyDetails = (data: any) => {
         type: "select",
         label: "Furnishing",
         placeholder: "Furnishing",
-        id: "furnishing",
-        value: furnishing,
+        id: "furnishingId",
+        value: furnishingId,
+        hidden: [2, 4].find((cat) => cat == categoryId),
         options: [
           {
             label: "Please select Furnished Type",
@@ -599,19 +630,14 @@ export const preparePropertyDetails = (data: any) => {
             id: "defaultFurnishing",
           },
           {
+            label: "Furnished",
+            value: 1,
+            id: "furnished",
+          },
+          {
             label: "Unfurnished",
-            value: "Unfurnished",
-            id: "Unfurnished",
-          },
-          {
-            label: "Semi-furnished",
-            value: "Semi-furnished",
-            id: "Semi-furnished",
-          },
-          {
-            label: "Fully-furnished",
-            value: "Fully-furnished",
-            id: "Fully-furnished",
+            value: 2,
+            id: "unfurnished",
           },
         ],
       },
@@ -622,8 +648,9 @@ export const preparePropertyDetails = (data: any) => {
         type: "select",
         label: "Parking Space",
         placeholder: "Parking Space",
-        id: "parkingSpace",
-        value: parkingSpace,
+        id: "parkingSpaceId",
+        value: parkingSpaceId,
+        hidden: ![2].find((cat) => cat == categoryId),
         options: [
           {
             label: "Please select Parking Space",
@@ -632,23 +659,13 @@ export const preparePropertyDetails = (data: any) => {
           },
           {
             label: "Car",
-            value: "Car",
+            value: 1,
             id: "Car",
           },
           {
             label: "Bike",
-            value: "Bike",
+            value: 2,
             id: "Bike",
-          },
-          {
-            label: "Cycle",
-            value: "Cycle",
-            id: "Cycle",
-          },
-          {
-            label: "Garage",
-            value: "Garage",
-            id: "Garage",
           },
         ],
       },
@@ -663,6 +680,7 @@ export const preparePropertyDetails = (data: any) => {
         value: buildingYear,
         iconName: "CalendarIcon",
         iconPosition: "right",
+        hidden: ![2, 4].find((cat) => cat == categoryId),
       },
     },
     {
@@ -671,8 +689,8 @@ export const preparePropertyDetails = (data: any) => {
         type: "date",
         label: "Property Available Date",
         placeholder: "Property Available Date",
-        id: "propertyAvailableDate",
-        value: propertyAvailableDate,
+        id: "availableDate",
+        value: availableDate,
         iconName: "CalendarIcon",
         iconPosition: "right",
       },
@@ -683,8 +701,9 @@ export const preparePropertyDetails = (data: any) => {
         type: "select",
         label: "Have Pool",
         placeholder: "Have Pool",
-        id: "havePool",
-        value: havePool,
+        id: "pool",
+        value: pool,
+        hidden: [2, 4].find((cat) => cat == categoryId),
         options: [
           {
             label: "Please select One",
@@ -710,9 +729,11 @@ export const preparePropertyDetails = (data: any) => {
         type: "select",
         label: "Pool Type",
         placeholder: "Pool Type",
-        id: "poolType",
-        value: poolType,
-        hidden: !["yes"].find((poolType) => poolType === havePool),
+        id: "poolTypeId",
+        value: poolTypeId,
+        hidden:
+          !["yes"].find((poolType) => poolType == pool) ||
+          ![2, 4].find((cat) => cat == categoryId),
         options: [
           {
             label: "Please select One",
@@ -721,23 +742,13 @@ export const preparePropertyDetails = (data: any) => {
           },
           {
             label: "In Ground",
-            value: "inGround",
+            value: 1,
             id: "inGround",
           },
           {
-            label: "Rooftop Pool",
-            value: "rooftopPool",
-            id: "rooftopPool",
-          },
-          {
-            label: "Infinity Pool",
-            value: "infinityPool",
-            id: "infinityPool",
-          },
-          {
-            label: "Kids' Pool",
-            value: "kidsPool",
-            id: "kidsPool",
+            label: "Above-ground",
+            value: 2,
+            id: "aboveGround",
           },
         ],
       },
@@ -750,14 +761,16 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Pool Size",
         id: "poolSize",
         value: poolSize,
-        hidden: !["yes"].find((poolSize) => poolSize === havePool),
+        hidden:
+          !["yes"].find((poolSize) => poolSize == pool) ||
+          ![2, 4].find((cat) => cat == categoryId),
       },
     },
   ];
 };
 
 export const prepareDescriptionAndMediaInfo = (data: any) => {
-  const { description, media, videoLink } = data || {};
+  const { description = "", images = [], videoLink = "" } = data || {};
 
   return [
     {
@@ -776,8 +789,8 @@ export const prepareDescriptionAndMediaInfo = (data: any) => {
         type: "media",
         label: "Media",
         placeholder: "Drag or Upload image",
-        id: "media",
-        value: media,
+        id: "images",
+        value: images,
       },
     },
     {
@@ -797,11 +810,6 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
     ac,
     enclosed,
     openPlan,
-    livingSpace,
-    kitchen,
-    utilitiesIncluded,
-    servicesIncluded,
-    additionalFeatures,
     fullyEquipped,
     fridge,
     oven,
@@ -818,6 +826,43 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
     balcony,
     laundryService,
     elevatorLift,
+    livingSpace,
+    // = [
+    //   { name: "Enclosed", value: enclosed, isDefault: true },
+    //   { name: "Open-Plan", value: openPlan, isDefault: true },
+    //   { name: "AC", value: ac, isDefault: true },
+    //   { name: "custom-field", value: "", isDefault: false },
+    // ],
+    kitchen,
+    // = [
+    //   { name: "Fully Equipped", value: fullyEquipped, isDefault: true },
+    //   { name: "Fridge", value: fridge, isDefault: true },
+    //   { name: "Oven", value: oven, isDefault: true },
+    //   { name: "Stoves", value: stoves, isDefault: true },
+    //   { name: "custom-field", value: "", isDefault: false },
+    // ],
+    utilitiesIncluded,
+    // =
+    // [
+    //   { name: "Electric", value: electric, isDefault: true },
+    //   { name: "Water", value: water, isDefault: true },
+    //   { name: "Wifi", value: wifi, isDefault: true },
+    // ],
+    servicesIncluded,
+    // = [
+    //   { name: "Cleaning", value: cleaning, isDefault: true },
+    //   { name: "Abcd", value: abcd, isDefault: true },
+    //   { name: "adcb", value: adcb, isDefault: true },
+    // ],
+    additionalFeatures,
+    // = [
+    //   { name: "Emergency Exit", value: emergencyExit, isDefault: true },
+    //   { name: "CCTV", value: cctv, isDefault: true },
+    //   { name: "Security Guard", value: securityGuard, isDefault: true },
+    //   { name: "Balcony", value: balcony, isDefault: true },
+    //   { name: "Laundry Service", value: laundryService, isDefault: true },
+    //   { name: "Elevator Lift", value: elevatorLift, isDefault: true },
+    // ],
   } = data || {};
 
   return [
@@ -830,6 +875,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "enclosed",
           value: enclosed,
           isDefault: true,
+          category: "livingSpace",
         },
         {
           type: "checkbox",
@@ -837,6 +883,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "openPlan",
           value: openPlan,
           isDefault: true,
+          category: "livingSpace",
         },
         {
           type: "checkbox",
@@ -844,22 +891,30 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "ac",
           value: ac,
           isDefault: true,
+          category: "livingSpace",
         },
-        ...(livingSpace.length
-          ? livingSpace.map((item: any) => ({
-              type: "text",
-              placeholder: "",
-              id: "livingSpace",
-              value: item,
-            }))
-          : [
-              {
-                type: "text",
-                placeholder: "",
-                id: "livingSpace",
-                value: livingSpace,
-              },
-            ]),
+        {
+          type: "text",
+          placeholder: "",
+          id: "livingSpace",
+          value: livingSpace,
+          category: "livingSpace",
+        },
+        // ...(livingSpace?.length
+        //   ? livingSpace.map((item: any) => ({
+        //       type: item.isDefault ? "checkbox" : "text",
+        //       placeholder: item.isDefault ? item.name : "",
+        //       id: "livingSpace",
+        //       value: item.value,
+        //     }))
+        //   : [
+        //       {
+        //         type: "text",
+        //         placeholder: "",
+        //         id: "livingSpace",
+        //         value: livingSpace,
+        //       },
+        //     ]),
       ],
       inputInfo: {
         label: "Living Space",
@@ -879,6 +934,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "fullyEquipped",
           value: fullyEquipped,
           isDefault: true,
+          category: "kitchen",
         },
         {
           type: "checkbox",
@@ -886,6 +942,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "fridge",
           value: fridge,
           isDefault: true,
+          category: "kitchen",
         },
         {
           type: "checkbox",
@@ -893,6 +950,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "oven",
           value: oven,
           isDefault: true,
+          category: "kitchen",
         },
         {
           type: "checkbox",
@@ -900,6 +958,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "stoves",
           value: stoves,
           isDefault: true,
+          category: "kitchen",
         },
         {
           type: "text",
@@ -907,7 +966,24 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "kitchen",
           value: kitchen,
           isDefault: true,
+          category: "utilitiesIncluded",
         },
+
+        // ...(kitchen?.length
+        //   ? kitchen.map((item: any) => ({
+        //       type: item.isDefault ? "checkbox" : "text",
+        //       placeholder: item.isDefault ? item.name : "",
+        //       id: "kitchen",
+        //       value: item.value,
+        //     }))
+        //   : [
+        //       {
+        //         type: "text",
+        //         placeholder: "",
+        //         id: "kitchen",
+        //         value: kitchen,
+        //       },
+        //     ]),
       ],
       inputInfo: {
         label: "Kitchen",
@@ -926,6 +1002,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "electric",
           value: electric,
           isDefault: true,
+          category: "utilitiesIncluded",
         },
         {
           type: "checkbox",
@@ -933,6 +1010,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "water",
           value: water,
           isDefault: true,
+          category: "utilitiesIncluded",
         },
         {
           type: "checkbox",
@@ -940,6 +1018,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "wifi",
           value: wifi,
           isDefault: true,
+          category: "utilitiesIncluded",
         },
         {
           type: "text",
@@ -947,6 +1026,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "utilitiesIncluded",
           value: utilitiesIncluded,
           isDefault: true,
+          category: "utilitiesIncluded",
         },
       ],
       inputInfo: {
@@ -965,6 +1045,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "cleaning",
           value: cleaning,
           isDefault: true,
+          category: "servicesIncluded",
         },
         {
           type: "checkbox",
@@ -972,6 +1053,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "adcb",
           value: adcb,
           isDefault: true,
+          category: "servicesIncluded",
         },
         {
           type: "checkbox",
@@ -979,6 +1061,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "abcd",
           value: abcd,
           isDefault: true,
+          category: "servicesIncluded",
         },
         {
           type: "text",
@@ -986,6 +1069,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "servicesIncluded",
           value: servicesIncluded,
           isDefault: true,
+          category: "servicesIncluded",
         },
       ],
       inputInfo: {
@@ -1004,6 +1088,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "emergencyExit",
           value: emergencyExit,
           isDefault: true,
+          category: "additionalFeatures",
         },
         {
           type: "checkbox",
@@ -1011,6 +1096,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "cctv",
           value: cctv,
           isDefault: true,
+          category: "additionalFeatures",
         },
         {
           type: "checkbox",
@@ -1018,6 +1104,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "securityGuard",
           value: securityGuard,
           isDefault: true,
+          category: "additionalFeatures",
         },
         {
           type: "checkbox",
@@ -1025,6 +1112,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "balcony",
           value: balcony,
           isDefault: true,
+          category: "additionalFeatures",
         },
         {
           type: "checkbox",
@@ -1032,6 +1120,7 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "laundryService",
           value: laundryService,
           isDefault: true,
+          category: "additionalFeatures",
         },
         {
           type: "checkbox",
@@ -1039,13 +1128,16 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
           id: "elevatorLift",
           value: elevatorLift,
           isDefault: true,
+          category: "additionalFeatures",
         },
+
         {
           type: "text",
           placeholder: "",
           id: "additionalFeatures",
           value: additionalFeatures,
           isDefault: true,
+          category: "additionalFeatures",
         },
       ],
       inputInfo: {
@@ -1056,4 +1148,181 @@ export const prepareExtrasFeaturesInfo = (data: any) => {
       },
     },
   ];
+};
+
+export const getFieldOptions = async () => {
+  const userRoles = await retrievePropertyOptions();
+
+  const options: Array<{ label: string; value: string }> = [];
+  if (userRoles?.data?.length) {
+    userRoles.data.map((role: any) => {
+      const { name, id } = role;
+      options.push({ label: name, value: id });
+    });
+  }
+  return options;
+};
+
+export const prepareFormData = (data: any) => {
+  const payload: Record<string, any> = {};
+
+  const livingSpace = [];
+  const kitchen = [];
+  const utilitiesIncluded = [];
+  const servicesIncluded = [];
+  const additionalFeatures = [];
+
+  // Living space options start
+  if (data.enclosed) {
+    livingSpace.push({ value: "Enclosed", isDefault: true });
+  }
+  if (data.openPlan) {
+    livingSpace.push({ value: "Open-Plan", isDefault: true });
+  }
+  if (data.ac) {
+    livingSpace.push({ value: "AC", isDefault: true });
+  }
+
+  // Living space options end
+
+  // Kitchen options start
+
+  if (data.fullyEquipped) {
+    kitchen.push({ value: "Fully equipped", isDefault: true });
+  }
+  if (data.fridge) {
+    kitchen.push({ value: "Fridge", isDefault: true });
+  }
+  if (data.oven) {
+    kitchen.push({ value: "Oven", isDefault: true });
+  }
+  if (data.stove) {
+    kitchen.push({ value: "Stove", isDefault: true });
+  }
+
+  // Kitchen options end
+
+  // Utilities included options start
+
+  if (data.electric) {
+    utilitiesIncluded.push({ value: "Fully equipped", isDefault: true });
+  }
+  if (data.water) {
+    utilitiesIncluded.push({ value: "Fridge", isDefault: true });
+  }
+  if (data.wifi) {
+    utilitiesIncluded.push({ value: "Oven", isDefault: true });
+  }
+
+  // Utilities included options end
+
+  // Services Included options start
+
+  if (data.cleaning) {
+    servicesIncluded.push({ value: "Stove", isDefault: true });
+  }
+  if (data.abcd) {
+    servicesIncluded.push({ value: "Stove", isDefault: true });
+  }
+  if (data.adcb) {
+    servicesIncluded.push({ value: "Stove", isDefault: true });
+  }
+  if (data.emergencyExit) {
+    additionalFeatures.push({ value: "Stove", isDefault: true });
+  }
+  if (data.cctv) {
+    additionalFeatures.push({ value: "Stove", isDefault: true });
+  }
+  if (data.securityGuard) {
+    additionalFeatures.push({ value: "Stove", isDefault: true });
+  }
+  if (data.balcony) {
+    additionalFeatures.push({ value: "Stove", isDefault: true });
+  }
+  if (data.laundryService) {
+    additionalFeatures.push({ value: "Stove", isDefault: true });
+  }
+  if (data.elevatorLift) {
+    additionalFeatures.push({ value: "Stove", isDefault: true });
+  }
+
+  if (data.title) payload.title = data.title;
+  if (data.categoryId) payload.categoryId = parseInt(data.categoryId);
+  if (data.subcategoryId) payload.subcategoryId = parseInt(data.subcategoryId);
+  if (data.ownershipTypeId)
+    payload.ownershipTypeId = parseInt(data.ownershipTypeId);
+  if (data.transactionTypeId)
+    payload.transactionTypeId = parseInt(data.transactionTypeId);
+  if (data.propertyStatusId)
+    payload.propertyStatusId = parseInt(data.propertyStatusId);
+  if (data.buildingPermitId)
+    payload.buildingPermitId = parseInt(data.buildingPermitId);
+  if (data.address) payload.address = data.address;
+  if (data.location) payload.location = data.location;
+  if (data.zipCode) payload.zipCode = data.zipCode;
+  if (data.roadAccessId) payload.roadAccessId = parseInt(data.roadAccessId);
+  if (data.nearbyPoints) payload.nearbyPoints = data.nearbyPoints;
+  if (data.zoneId) payload.zoneId = parseInt(data.zoneId);
+  if (data.landSizeId) payload.landSizeId = parseInt(data.landSizeId);
+  if (data.builtUpArea) payload.builtUpArea = data.builtUpArea;
+  if (data.pricePerUnit) payload.pricePerUnit = parseInt(data.pricePerUnit);
+  if (data.totalPrice) payload.totalPrice = parseInt(data.totalPrice);
+  if (data.pricePerYear) payload.pricePerYear = parseInt(data.pricePerYear);
+  if (data.numberOfFloors)
+    payload.numberOfFloors = parseInt(data.numberOfFloors);
+  if (data.maxRooms) payload.maxRooms = parseInt(data.maxRooms);
+  if (data.beds) payload.beds = parseInt(data.beds);
+  if (data.baths) payload.baths = parseInt(data.baths);
+  if (data.furnishingId) payload.furnishingId = parseInt(data.furnishingId);
+  if (data.buildingYear) payload.buildingYear = data.buildingYear;
+  if (data.availableDate) payload.availableDate = data.availableDate;
+  if (data.pool === "yes") payload.pool = true;
+  if (data.poolTypeId) payload.poolTypeId = parseInt(data.poolTypeId);
+  if (data.poolSize) payload.poolSize = data.poolSize;
+  if (data.parkingSpaceId)
+    payload.parkingSpaceId = parseInt(data.parkingSpaceId);
+  if (data.description) payload.description = data.description;
+  if (Array.isArray(data.images) && data.images.length)
+    payload.images = data.images.map((image: any) => image.name);
+  if (data.videoLink) payload.videoLink = data.videoLink;
+  if (livingSpace) payload.livingSpace = livingSpace;
+  if (kitchen) payload.kitchen = kitchen;
+  if (utilitiesIncluded && utilitiesIncluded.length)
+    payload.utilitiesIncluded = utilitiesIncluded;
+  if (servicesIncluded && servicesIncluded.length)
+    payload.servicesIncluded = servicesIncluded;
+  if (additionalFeatures && additionalFeatures.length)
+    payload.additionalFeatures = additionalFeatures;
+
+  return payload;
+};
+
+export const getButtonText = (activeStep: number, selectedCategory: string) => {
+  if (activeStep === 0 || !selectedCategory) {
+    return "Next";
+  }
+  if (activeStep === 1) {
+    if (selectedCategory === "1" || selectedCategory === "3") {
+      return "Next";
+    } else if (selectedCategory === "2" || selectedCategory === "4") {
+      return "Preview";
+    }
+  }
+
+  if (activeStep === 2) {
+    if (selectedCategory === "2" || selectedCategory === "4") {
+      return "Submit";
+    } else if (selectedCategory === "1" || selectedCategory === "3") {
+      {
+        return "Preview";
+      }
+    }
+
+    if (activeStep === 2 && selectedCategory === "4") {
+      return "Next";
+    }
+  }
+  if (activeStep === 3) {
+    return "Submit";
+  }
 };

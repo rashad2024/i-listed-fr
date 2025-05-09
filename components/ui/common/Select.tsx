@@ -36,9 +36,12 @@ export default function SelectField({
         size={size}
         value={value}
         onValueChange={(data) => onChange(data)}
+        defaultValue=""
         disabled={disabled}
       >
-        <Select.Trigger placeholder={placeholder}></Select.Trigger>
+        <Select.Trigger placeholder={placeholder}>
+          {optionList.find((option) => option.value == value)?.label}
+        </Select.Trigger>
         <Select.Content position={position}>
           {optionList.map(
             (option) =>

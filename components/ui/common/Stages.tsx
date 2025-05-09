@@ -1,34 +1,3 @@
-// import { Flex, Box, Text, Card } from "@radix-ui/themes";
-
-// export default function Stages() {
-//   return (
-//     <div>
-//       <Text>Stages</Text>
-
-//       <Box pt="3">
-//         <Flex>
-//           <Card variant="surface">
-//             <Text as="div" size="2" weight="bold">
-//               Property Information
-//             </Text>
-//           </Card>
-//           <Card variant="surface">
-//             <Text as="div" size="2" weight="bold">
-//               Description & Media
-//             </Text>
-//           </Card>
-//           <Card variant="surface">
-//             <Text as="div" size="2" weight="bold">
-//               Extras Features
-//             </Text>
-//           </Card>
-//         </Flex>
-//       </Box>
-//     </div>
-//   );
-// }
-
-// components/ui/ProgressStepper.tsx
 "use client";
 
 import React from "react";
@@ -43,21 +12,30 @@ const steps = [
 
 type ProgressStepperProps = {
   activeStep: number;
+  selectedCategory: string;
 };
 
-export default function Stages({ activeStep }: ProgressStepperProps) {
+export default function Stages({
+  activeStep,
+  selectedCategory,
+}: ProgressStepperProps) {
   return (
     <div className="stages-container">
       <div className="title">Stages</div>
       <div className="stepper">
         {steps.map((step, index) => {
           return (
-            <div
-              key={step}
-              className={`step ${index === activeStep ? "active" : ""}`}
-            >
-              {step}
-            </div>
+            (!(selectedCategory === "4" || selectedCategory === "2") ||
+              ((selectedCategory === "4" || selectedCategory === "2") &&
+                step !== "Extras Features") ||
+              !selectedCategory) && (
+              <div
+                key={step}
+                className={`step ${index === activeStep ? "active" : ""}`}
+              >
+                {step}
+              </div>
+            )
           );
         })}
       </div>

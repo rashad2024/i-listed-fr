@@ -34,7 +34,7 @@ const FILE_LIMIT = 8;
 const MAX_FILE_SIZE_MB = 20;
 
 const UploadProgressList = ({ id, handleChange, prevFiles }: any) => {
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState<SetStateAction<any>>([]);
 
   useItemStartListener((item: any) => {
     setFiles(
@@ -82,7 +82,6 @@ const UploadProgressList = ({ id, handleChange, prevFiles }: any) => {
     <Flex direction="column" gap={"3"} className="upload-list-container">
       <DataList.Root orientation={"vertical"} size={"3"}>
         {files.map((file: any) => {
-          console.log(file);
           return (
             <DataList.Item className="upload-item">
               <Flex as="div" direction={"row"} justify={"between"} gap={"3"}>
