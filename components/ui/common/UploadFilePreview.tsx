@@ -44,7 +44,7 @@ const UploadedFilePreview = ({ files }: { files: UploadedFile[] }) => {
         >
           {file.type.startsWith("image/") ? (
             <img
-              src={file.previewUrl}
+              src={process.env.NEXT_PUBLIC_BASE_URL + "file"}
               alt="preview"
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />

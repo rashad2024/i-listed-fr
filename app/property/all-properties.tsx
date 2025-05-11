@@ -31,10 +31,11 @@ export default function AllProperties() {
     (state: RootState) => state.property
   );
 
-  const fetchProperty = async () => {
+  const [filterData, setFilterData] = useState<any>({});
+  const fetchProperty = async (data: any) => {
     try {
       console.log("page", page);
-      const propertyInfo = await getProperties(page || 1, filterData);
+      const propertyInfo = await getProperties(page || 1, data);
 
       console.log(propertyInfo);
 
@@ -47,7 +48,6 @@ export default function AllProperties() {
     }
   };
 
-  const [filterData, setFilterData] = useState<any>({});
   const [filterInfo, setFilterInfo] = useState<any>(
     prepareFilterData(filterData, fetchProperty)
   );
@@ -99,7 +99,7 @@ export default function AllProperties() {
   };
 
   useEffect(() => {
-    fetchProperty();
+    fetchProperty(filterData);
   }, [page]);
   return (
     <Flex

@@ -201,7 +201,7 @@ const CustomFileUploader = ({
     <Flex gap={"3"} direction={"column"}>
       <Uploady
         destination={{
-          url: "https://raccoon-eternal-surely.ngrok-free.app/api/v1/properties/upload-images",
+          url: process.env.NEXT_PUBLIC_BASE_URL + "/properties/upload-images",
           method: "POST",
           headers: {
             Authorization: "Bearer YOUR_TOKEN",
