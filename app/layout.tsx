@@ -1,6 +1,8 @@
 // app/layout.tsx
 "use client";
 
+import { usePathname } from "next/navigation";
+
 import { Theme } from "@radix-ui/themes";
 import { Inter } from "next/font/google";
 
@@ -8,6 +10,8 @@ import { AuthInitializer } from "@/components/ui/auth/authInitializer";
 import AuthGuard from "@/components/ui/auth/authGuard";
 
 import Skeleton from "@/components/ui/common/Skeleton";
+import Sidebar from "@/components/layout/Sidebar";
+import Header from "@/components/layout/Header";
 
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -25,6 +29,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
+  let pageType = "property";
+
+  if (pathname.startsWith("/dashboard") || pathname.startsWith("/home"))
+    pageType = "dashboard";
+  else if (pathname.startsWith("/drafts")) pageType = "drafts";
+  else if (pathname.startsWith("/add-property")) pageType = "add-property";
+
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <body cz-shortcut-listen="true" className="font-sans">
@@ -32,7 +45,15 @@ export default function RootLayout({
           <PersistGate loading={<Skeleton />} persistor={persistor}>
             <AuthInitializer>
               <AuthGuard>
-                <Theme>{children}</Theme>
+                <Theme>
+                  <main>
+                    <Sidebar pageType={pageType} />
+                    <div className="right-container">
+                      <Header />
+                      {children}
+                    </div>
+                  </main>
+                </Theme>
               </AuthGuard>
             </AuthInitializer>
           </PersistGate>

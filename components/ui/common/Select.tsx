@@ -2,11 +2,13 @@
 
 import { Select, Flex, Strong, Text } from "@radix-ui/themes";
 import * as SelectItem from "@radix-ui/react-select";
+import Icon from "./Icon";
 
 export default function SelectField({
   id,
   gap,
   label,
+  name,
   optionList,
   onChange,
   value,
@@ -20,6 +22,7 @@ export default function SelectField({
   id?: string;
   gap: string;
   label: string;
+  name?: string;
   optionList: Array<{ label: string; value: string; hidden?: boolean }>;
   onChange: Function;
   value: any;
@@ -30,7 +33,6 @@ export default function SelectField({
   errors?: any;
   className?: string;
 }) {
-  console.log("valu", value);
   return (
     <Flex direction="column" gap={gap}>
       <Strong className={`form-label`}>
@@ -42,13 +44,18 @@ export default function SelectField({
       <Select.Root
         key={id}
         size={size}
+        name={name}
         value={value}
         onValueChange={(data) => onChange(data)}
         defaultValue={value}
         disabled={disabled}
       >
         <Select.Trigger placeholder={placeholder}>
-          {optionList.find((option) => option.value == value)?.label}
+          {/* {optionList.find((option) => option.value == value)?.label} */}
+          <SelectItem.Value placeholder="Select a fruit" />
+          <SelectItem.Icon>
+            <Icon name="ChevronDown" />
+          </SelectItem.Icon>
         </Select.Trigger>
         <Select.Content position={position}>
           {optionList.map(

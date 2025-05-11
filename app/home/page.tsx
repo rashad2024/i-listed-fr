@@ -11,10 +11,7 @@ import "@/styles/pages/home.scss";
 export default function HeaderPage({ pageType }: any) {
   return (
     <AuthGuard>
-      <main>
-        <Header />
-        <Sidebar pageType={pageType} />
-      </main>
+      <main>{/* <Header /> */}</main>
     </AuthGuard>
   );
 }

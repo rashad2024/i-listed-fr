@@ -8,13 +8,5 @@ import AllProperties from "./all-properties";
 import "../../styles/pages/property.scss";
 
 export default function PropertyList() {
-  return (
-    <main>
-      <Sidebar pageType={"property"} />
-      <div className="right-container">
-        <Header />
-        <AllProperties />
-      </div>
-    </main>
-  );
+  return <AllProperties />;
 }

@@ -52,6 +52,58 @@ main {
           padding: 24px;
         }
       }
+
+      .rt-BaseCard {
+        background: #fff !important;
+        border-radius: 8px !important;
+        width: 100%;
+        margin: 24px 0;
+        display: flex;
+        justify-content: flex-start;
+        box-shadow: 0 2px 8px -1px #1b242c14;
+        flex-wrap: wrap;
+        padding: 24px;
+        gap: 24px !important;
+        &::before,
+        &::after {
+          inset: unset !important;
+        }
+      }
+    }
+
+    .input-groups-container {
+      min-width: 100%;
+      max-width: 100%;
+      flex: 0 0 100%;
+      justify-content: space-between;
+      gap: 12px;
+
+      .input-groups {
+        display: flex;
+        // justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: end;
+
+        .rt-Flex.rt-r-fd-column.rt-r-gap-3:not(:last-child) {
+          min-width: 22%;
+        }
+        button.rt-Button {
+          height: 40px;
+          width: 40px;
+          // margin-top: 12px;
+          color: #ffffff;
+          background: #444444;
+          cursor: pointer;
+
+          span {
+            color: #ffffff;
+            font-family: var(--font-inter);
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 100%;
+          }
+        }
+      }
     }
   }
 }

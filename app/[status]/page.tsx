@@ -11,13 +11,5 @@ import "@/styles/pages/property.scss";
 export default function PropertyDrafts() {
   const params = useParams();
   const { status } = params;
-  return (
-    <main>
-      <Sidebar pageType={"drafts"} />
-      <div className="right-container">
-        <Header />
-        <AllProperties status={status} />
-      </div>
-    </main>
-  );
+  return <AllProperties status={status} />;
 }

@@ -40,13 +40,7 @@ const PropertyDetails = () => {
   return (
     <main>
       {property ? (
-        <>
-          <Sidebar pageType={"property"} />
-          <div className="right-container">
-            <Header />
-            <PropertyForm property={property} previewProperty={!shouldEdit} />
-          </div>
-        </>
+        <PropertyForm property={property} previewProperty={!shouldEdit} />
       ) : (
         <Skeleton />
       )}

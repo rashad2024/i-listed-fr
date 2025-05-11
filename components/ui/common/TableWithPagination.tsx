@@ -157,10 +157,12 @@ export default function TableWithPagination({
                       textDecoration: "none",
                     }}
                   >
-                    <img
-                      src={process.env.NEXT_PUBLIC_BASE_URL + property.image}
-                      alt={property.title}
-                    />
+                    {property?.image && (
+                      <img
+                        src={process.env.NEXT_PUBLIC_BASE_URL + property?.image}
+                        alt={property.title}
+                      />
+                    )}
                     <span>{property.title}</span>
                   </Link>
                 </div>

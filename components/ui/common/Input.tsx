@@ -8,6 +8,7 @@ export default function InputField({
   label,
   value,
   type,
+  name,
   onChange,
   placeholder,
   errors,
@@ -23,6 +24,7 @@ export default function InputField({
   key?: string;
   id: string;
   gap: string;
+  name?: string;
   label?: string;
   type?:
     | "number"
@@ -81,6 +83,7 @@ export default function InputField({
           size={size}
           value={value}
           type={type}
+          name={name}
           style={{
             borderRadius: radius,
           }}
