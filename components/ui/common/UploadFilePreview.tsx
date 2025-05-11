@@ -37,7 +37,8 @@ const UploadedFilePreview = ({
   return (
     <div className="previewContainer">
       {uploadedFiles.map((file: any, index: number) => {
-        const previewUrl = baseUrl + file;
+        const previewUrl =
+          baseUrl + (file.responseURL ? file.responseURL : file);
         console.log(file, id);
         return (
           <div
