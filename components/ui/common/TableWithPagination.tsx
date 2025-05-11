@@ -1,119 +1,202 @@
-// components/PropertyTable.tsx
-import React, { useMemo, useState } from "react";
-import {
-  MaterialReactTable,
-  MRT_ColumnDef,
-  useMaterialReactTable,
-} from "material-react-table";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
+"use client";
+import { SetStateAction, useState, Dispatch, useEffect } from "react";
 
-type Property = {
-  id: string;
-  name: string;
-  size: string;
-  category: string;
-  subcategory: string;
-  transactionType: string;
-  address: string;
-  price: number;
-};
+import * as Checkbox from "@radix-ui/react-checkbox";
+import Icon from "./Icon";
+import PaginationView from "./PaginationView";
 
-const data: Property[] = [
+import { preparePropertyData } from "@/utils/helpers/property-list";
+
+import "@/styles/components/_table.scss";
+import ButtonInput from "./Button";
+
+const properties = [
   {
-    id: "1",
+    id: 1,
     name: "Properties Photo & Name",
+    image: "/property1.jpg",
     size: "1400ft",
     category: "Residences",
     subcategory: "Villa",
     transactionType: "Rent",
     address: "Bali",
-    price: 60450,
+    price: "$ 60,450",
   },
-  // add more entries as needed
+  {
+    id: 2,
+    name: "Properties Photo & Name",
+    image: "/property2.jpg",
+    size: "1400ft",
+    category: "Residences",
+    subcategory: "Villa",
+    transactionType: "Sale",
+    address: "Bali",
+    price: "$ 60,450",
+  },
 ];
 
-const TableWithPagination: React.FC = () => {
-  const [rowSelection, setRowSelection] = useState({});
-
-  const columns = useMemo<MRT_ColumnDef<Property>[]>(
-    () => [
-      {
-        accessorKey: "name",
-        header: "Properties Photo & Name",
-      },
-      {
-        accessorKey: "size",
-        header: "Size",
-      },
-      {
-        accessorKey: "category",
-        header: "Category",
-      },
-      {
-        accessorKey: "subcategory",
-        header: "Subcategory",
-      },
-      {
-        accessorKey: "transactionType",
-        header: "Transaction Type",
-      },
-      {
-        accessorKey: "address",
-        header: "Address",
-      },
-      {
-        accessorKey: "price",
-        header: "Price",
-        Cell: ({ cell }) => `$${cell.getValue<number>().toLocaleString()}`,
-      },
-      {
-        id: "actions",
-        header: "Actions",
-        Cell: ({ row }) => (
-          <>
-            <IconButton onClick={() => alert(`Edit ${row.original.name}`)}>
-              <EditIcon />
-            </IconButton>
-            <IconButton onClick={() => alert(`Delete ${row.original.name}`)}>
-              <DeleteIcon />
-            </IconButton>
-          </>
-        ),
-      },
-    ],
-    []
+export default function TableWithPagination({
+  tableData,
+  paginationData,
+  setPage,
+  editRowData,
+  deleteRowData,
+  deleteSelectedProperty,
+}: {
+  tableData: any;
+  paginationData: any;
+  setPage: Dispatch<SetStateAction<number>>;
+  editRowData: any;
+  deleteRowData: any;
+  deleteSelectedProperty: any;
+}) {
+  const [prepareTableData, setPrepareTableData] = useState<any>(
+    preparePropertyData(tableData)
   );
+  const [selectedProperties, setSelectedProperties] = useState<any>([]);
 
-  const table = useMaterialReactTable({
-    data,
-    columns,
-    enableColumnActions: false,
-    enableColumnFilters: false,
-    enableSorting: false,
-    enableTopToolbar: false,
-    enableCellActions: false,
-    enableColumnVirtualization: false,
-    enableRowSelection: true,
-    displayColumnDefOptions: {
-      "mrt-row-select": {
-        header: "",
-      },
-    },
-    muiTableContainerProps: {
-      sx: {
-        width: "100%",
-        maxWidth: "100%",
-      },
-    },
-    enableSelectAll: false,
-    // state: {
-    //   rowSelection,
-    // }
-  });
+  console.log(tableData);
+  const handlePageChange = (page: number) => {
+    setPage(page);
+  };
 
-  return <MaterialReactTable table={table} />;
-};
+  const handleClick = (e: any, id: number) => {
+    const isChecked = e.target.getAttribute("data-state") !== "checked";
+    console.log("clicked", e.target.getAttribute("data-state"), isChecked, id);
 
-export default TableWithPagination;
+    setSelectedProperties((prevSelectedProperties: any) => {
+      if (isChecked) {
+        return [...prevSelectedProperties, id];
+      } else {
+        return prevSelectedProperties.filter(
+          (propertyId: number) => propertyId !== id
+        );
+      }
+    });
+  };
+
+  const deleteProperties = () => {
+    deleteSelectedProperty(selectedProperties);
+  };
+
+  useEffect(() => {
+    setPrepareTableData(preparePropertyData(tableData));
+  }, [tableData]);
+
+  return (
+    <div className="table-wrapper">
+      <h2 className="table-title">All Properties</h2>
+      <table className="custom-table">
+        <thead>
+          {!selectedProperties?.length ? (
+            <tr>
+              <th></th>
+              <th>Properties Photo & Name</th>
+              <th>Size</th>
+              <th>Category</th>
+              <th>Subcategory</th>
+              <th>Transaction Type</th>
+              <th>Address</th>
+              <th>Price</th>
+              <th>Action</th>
+            </tr>
+          ) : (
+            <tr style={{ background: "#EF4444", height: "60px" }}>
+              <th></th>
+              <th style={{ color: "#fff" }}>
+                Select {selectedProperties.length}
+              </th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <ButtonInput
+                gap="2"
+                direction="row"
+                type="button"
+                className="btn-primary delete-icon"
+                onClick={(e: any) => deleteProperties()}
+                styles={{ height: "60px" }}
+              >
+                <Icon name="CustomDeleteIcon" size={16} />
+                Delete
+              </ButtonInput>
+            </tr>
+          )}
+        </thead>
+        <tbody>
+          {prepareTableData.map((property: any) => (
+            <tr
+              key={property.id}
+              className={`${
+                selectedProperties.includes(property.id) ? "selected" : ""
+              }`}
+            >
+              <td>
+                <Checkbox.Root
+                  className="checkbox-root"
+                  onClick={(e) => handleClick(e, property.id)}
+                >
+                  <Checkbox.Indicator className="checkbox-indicator">
+                    <Icon
+                      name="CheckIcon"
+                      size={20}
+                      style={{ marginTop: "4px" }}
+                    />
+                  </Checkbox.Indicator>
+                </Checkbox.Root>
+              </td>
+              <td>
+                <div className="property-name">
+                  <img
+                    src={process.env.NEXT_PUBLIC_BASE_URL + property.image}
+                    alt={property.title}
+                  />
+                  <span>{property.title}</span>
+                </div>
+              </td>
+              <td>{property.size}</td>
+              <td>{property.category}</td>
+              <td>{property.subcategory}</td>
+              <td>
+                <span
+                  className={`badge ${property.transactionType.toLowerCase()}`}
+                >
+                  {property.transactionType}
+                </span>
+              </td>
+              <td>{property.address}</td>
+              <td>{property.price}</td>
+              <td>
+                <div className="actions">
+                  <button
+                    onClick={() => editRowData(property.id)}
+                    style={{
+                      backgroundColor: "#E9E9E966",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <Icon name="CustomPencilIcon" size={24} />
+                  </button>
+                  <button
+                    onClick={() => deleteRowData(property.id)}
+                    style={{
+                      backgroundColor: "#E9E9E966",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <Icon name="CustomDeleteIcon" size={24} color="#444444" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <PaginationView {...paginationData} onPageChange={handlePageChange} />
+    </div>
+  );
+}

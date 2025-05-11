@@ -1,4 +1,4 @@
-import { Flex, Text, Checkbox, TextArea } from "@radix-ui/themes";
+import { Flex, Text, Checkbox, TextArea, Slider } from "@radix-ui/themes";
 
 import InputField from "./Input";
 import SelectField from "./Select";
@@ -6,54 +6,24 @@ import DateInput from "./DateInput";
 import CustomFileUploader from "./CustomFileUploader";
 import UploadedFilePreview from "./UploadFilePreview";
 import DynamicInputList from "./DynamicInputList";
+import SliderComponent from "./Slider";
+import ButtonInput from "./Button";
+import Icon from "./Icon";
 
 export default function CardView({
+  cardTitle,
   formData,
   id,
   handleChange,
   isPreview,
   errors,
   validation,
+  data,
 }: // addInputRow,
 any) {
-  // const groupInput = (inputGroups: any) => {
-  //   const inputFields = inputGroups;
-
-  //   return <DynamicInputList inputs={inputFields} inputInfo={inputInfo}/>
-  //   return (inputFields || []).map((input: any) => {
-  //     const {
-  //       id,
-  //       label,
-  //       value,
-  //       type,
-  //       placeholder,
-  //       iconName,
-  //       iconPosition,
-  //       index,
-  //     } = input;
-
-  //     return (
-  //       (type === "text" || type === "checkbox") && (
-  //         <InputField
-  //           key={`${id}-${index}`}
-  //           id={`${id}`}
-  //           gap={"3"}
-  //           label={label}
-  //           value={value ? value[index] : ""}
-  //           type={type}
-  //           onChange={(e) => handleChange(`${id}`, e.target.value, index)}
-  //           placeholder={placeholder}
-  //           iconName={iconName}
-  //           iconPosition={iconPosition}
-  //           size={"3"}
-  //         />
-  //       )
-  //     );
-  //   });
-  // };
-
   return (
-    <Flex gap={"3"} id={id}>
+    <Flex gap={"3"} id={id} direction={"row"}>
+      <Text className="card-title">{cardTitle}</Text>
       {formData && formData.length
         ? formData.map((item: any) => {
             const { inputInfo, inputGroups } = item;
@@ -66,6 +36,7 @@ any) {
               options,
               iconName,
               iconPosition,
+              onClick,
               hidden,
             } = inputInfo;
 
@@ -92,7 +63,7 @@ any) {
                   size={"3"}
                   disabled={isPreview}
                   errors={errors && errors[id]}
-                  {...validation(id)}
+                  {...(validation?.length && { ...validation(id) })}
                   value={value}
                   onChange={(e) => handleChange(id, e.target.value)}
                 />
@@ -124,12 +95,12 @@ any) {
                   size={"3"}
                   disabled={isPreview}
                   errors={errors && errors[id]}
-                  {...validation(id)}
+                  {...(validation?.length && { ...validation(id) })}
                   onChange={(e: any) => handleChange(id, e)}
                   value={value}
                 />
               )) ||
-              (type === "date" && (
+              (type === "date" && !hidden && (
                 <Flex key={id} gap={"3"} direction={"column"} className="">
                   <DateInput
                     value={value}
@@ -167,6 +138,33 @@ any) {
                   )}
                 </Flex>
               )) ||
+              (type === "range" && (
+                <Flex key={id} gap={"5"} direction={"column"} className="">
+                  <Text>{label}</Text>
+                  <SliderComponent
+                    id={id}
+                    value={value}
+                    onChange={(e: any, value: any) => handleChange(id, value)}
+                  />
+                </Flex>
+              )) ||
+              (type === "button-input" && (
+                <ButtonInput
+                  type="button"
+                  gap={"3"}
+                  className="btn-primary filter-button"
+                  direction={"column"}
+                  onClick={() => onClick()}
+                  styles={{
+                    width: "160px",
+                    color: "#fff",
+                    justifyContent: "end",
+                  }}
+                >
+                  <Icon name={iconName} size={24} />
+                  {value}
+                </ButtonInput>
+              )) ||
               (inputGroups && inputGroups.length && (
                 <DynamicInputList
                   key={id}
@@ -174,6 +172,8 @@ any) {
                   inputInfo={inputInfo}
                   handleChange={handleChange}
                   disabled={isPreview}
+                  data={data}
+                  isPreview={isPreview}
                 />
               ))
             );

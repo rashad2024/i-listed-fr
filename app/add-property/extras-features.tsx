@@ -26,26 +26,24 @@ export default function ExtrasFeatures({
   // );
 
   const [extraFeaturesInfo, setExtraFeaturesInfo] = useState(
-    prepareExtrasFeaturesInfo(data)
+    prepareExtrasFeaturesInfo(data, handleChange)
   );
 
-  const [previewExtraFeatures, setPreviewExtraFeatures] = useState(
-    activeStep > 2
-  );
+  const [previewExtraFeatures, setPreviewExtraFeatures] = useState(isPreview);
 
   const editSection = (type: string) => {
     setPreviewExtraFeatures(!previewExtraFeatures);
   };
 
   useEffect(() => {
-    setExtraFeaturesInfo(prepareExtrasFeaturesInfo(data));
-  }, [data]);
+    setExtraFeaturesInfo(prepareExtrasFeaturesInfo(data, handleChange));
+  }, [data, isPreview]);
 
   return (
     <div className="info-container extras-features">
       <Flex gap={"3"} align={"center"} justify={"between"}>
         <Text>Extras Features</Text>
-        {activeStep > 2 && (
+        {isPreview && (
           <ButtonInput
             direction={"row"}
             gap={"3"}
@@ -61,9 +59,10 @@ export default function ExtrasFeatures({
         formData={extraFeaturesInfo}
         id="extras-features-card"
         handleChange={handleChange}
-        isPreview={data?.showPreview}
+        isPreview={isPreview}
         errors={errors}
         validation={validation}
+        data={data}
       />
     </div>
   );

@@ -17,6 +17,7 @@ export default function InputField({
   radius = "4px",
   size = "2",
   disabled = false,
+  iconSize = 24,
 }: {
   key?: string;
   id: string;
@@ -52,6 +53,7 @@ export default function InputField({
   radius?: string;
   size?: "2" | "1" | "3" | undefined;
   disabled?: boolean;
+  iconSize?: number;
 }) {
   const handleClick = () => {
     if (iconName === "EyeNoneIcon") {
@@ -79,10 +81,10 @@ export default function InputField({
           {iconName && iconPosition && (
             <TextField.Slot
               side={iconPosition}
-              onClick={handleClick}
+              onClick={(e) => (iconClick ? iconClick(e) : handleClick())}
               style={{ cursor: "pointer" }}
             >
-              <Icon name={iconName} size={16} />
+              <Icon name={iconName} size={iconSize} />
             </TextField.Slot>
           )}
         </TextField.Root>

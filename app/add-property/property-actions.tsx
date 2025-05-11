@@ -15,7 +15,16 @@ export default function PropertyActions({
 }: any) {
   return (
     <Flex direction={"row"} gap={"3"} style={{ justifyContent: "flex-end" }}>
-      {activeStep !== 0 ? (
+      {activeStep > 2 ? (
+        <ButtonInput
+          gap={"3"}
+          direction={"row"}
+          className="btn-secondary btn-previous btn-cancel"
+          onClick={() => handleClick(activeStep > 2 ? "Cancel" : "Previous")}
+        >
+          <span>Cancel</span>
+        </ButtonInput>
+      ) : activeStep !== 0 ? (
         <ButtonInput
           gap={"3"}
           direction={"row"}
@@ -34,9 +43,10 @@ export default function PropertyActions({
       ) : null}
       <ButtonInput
         gap={"3"}
+        type={activeStep > 2 ? "submit" : "button"}
         direction={"row"}
         className="btn-secondary btn-draft"
-        onClick={() => handleClick("drafts")}
+        onClick={() => handleClick("Draft")}
       >
         <span>Save Draft</span>
       </ButtonInput>

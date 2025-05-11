@@ -54,8 +54,12 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
 
       <div className="menu"></div>
       <div className="menu ">
-        <Accordion.Root type="multiple" className="accordionRoot">
-          <Accordion.Item value="item-2" className="accordionItem">
+        <Accordion.Root
+          type="multiple"
+          className="accordionRoot"
+          defaultValue={["property-navigation"]}
+        >
+          <Accordion.Item value="dashboard" className="accordionItem">
             <Accordion.Header>
               {/* <Accordion.Trigger className="accordionTrigger"> */}
               <Link href="/dashboard">
@@ -66,7 +70,7 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
             </Accordion.Header>
           </Accordion.Item>
           <Accordion.Item
-            value="item-2"
+            value="property-navigation"
             className={`accordionItem ${pageType ? "active" : ""}`}
           >
             <Accordion.Header>
@@ -80,7 +84,7 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
             <Accordion.Content className="accordionContent">
               <Link
                 href="/add-property"
-                className={pageType === "property" ? "active" : ""}
+                className={pageType === "add-property" ? "active" : ""}
               >
                 <Text>Add Property</Text>
               </Link>
@@ -91,8 +95,8 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
                 <Text>Drafts</Text>
               </Link>
               <Link
-                href="/property-list"
-                className={pageType === "property-list" ? "active" : ""}
+                href="/property"
+                className={pageType === "property" ? "active" : ""}
               >
                 <Text>Listings</Text>
               </Link>

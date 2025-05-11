@@ -47,3 +47,52 @@ button[role="checkbox"]:before {
   border-color: #a3a3a3 !important;
   box-shadow: none !important;
 }
+
+.btn-cancel {
+  color: #dc515f !important;
+}
+
+.btn-close {
+  background-color: #ff000021 !important;
+  color: #dc515f !important;
+}
+
+.btn-delete-cancel {
+  background-color: #7d7d7d !important;
+  color: #fff !important;
+}
+
+.delete-icon {
+  cursor: pointer;
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+
+  span {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%;
+  }
+}
+
+.delete-icon {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+  span {
+    color: #ffffff !important;
+  }
+}
+
+.filter-button {
+  display: flex;
+  gap: 12px;
+  width: 160px;
+  align-self: end;
+  margin-top: 20px;
+  span {
+    color: #ffffff !important;
+  }
+}

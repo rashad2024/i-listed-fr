@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { Avatar } from "@radix-ui/react-avatar";
+import { Avatar, Flex } from "@radix-ui/themes";
 
 import InputField from "../ui/common/Input";
 import SelectField from "../ui/common/Select";
@@ -73,15 +73,14 @@ export default function Header() {
           </div>
           <span className="w-2 h-2 bg-green-500 rounded-full ml-1"></span>
         </div>
-        <Avatar>
-          <Image
-            src="/avatar.jpg"
-            width={32}
-            height={32}
-            className="rounded-full"
-            alt="Profile"
+        <Flex gap="3" align="center">
+          <Avatar
+            size="3"
+            src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.67&fp-y=0.5&fp-z=1.4&fit=crop"
+            radius="full"
+            fallback="T"
           />
-        </Avatar>
+        </Flex>
       </div>
     </header>
   );

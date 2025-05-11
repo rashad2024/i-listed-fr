@@ -25,7 +25,6 @@ export default function DescriptionMedia({
     prepareDescriptionAndMediaInfo(data)
   );
   const [previewDescMedia, setPreviewDescMedia] = useState(isPreview);
-  const [_, forRender] = useState<SetStateAction<any>>();
 
   const editSection = (type: string) => {
     setPreviewDescMedia(!previewDescMedia);
@@ -39,7 +38,7 @@ export default function DescriptionMedia({
     <div className="info-container description-media">
       <Flex gap={"3"} align={"center"} justify={"between"}>
         <Text>Description & Media</Text>
-        {activeStep > 2 && (
+        {isPreview && (
           <ButtonInput
             direction={"row"}
             gap={"3"}
@@ -55,7 +54,7 @@ export default function DescriptionMedia({
         formData={descriptionMedia}
         id="description-media-card"
         handleChange={handleChange}
-        isPreview={data?.showPreview}
+        isPreview={isPreview}
         errors={errors}
         validation={validation}
       />

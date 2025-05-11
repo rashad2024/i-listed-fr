@@ -1,4 +1,3 @@
-// utils/setupAxiosInterceptors.ts
 import axiosInstance from "./axios";
 
 export function setupAxiosInterceptors(getToken: () => string | null) {

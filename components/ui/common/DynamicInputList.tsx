@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Flex, Text, Checkbox } from "@radix-ui/themes";
 
@@ -10,8 +10,11 @@ const DynamicInputList = ({
   inputInfo,
   handleChange,
   disabled,
+  isPreview,
+  data,
 }: any) => {
   const [inputs, setInputs] = useState(inputGroups);
+  const [showPreviewView, setShowPreviewView] = useState(isPreview);
 
   let fieldId = "";
 
@@ -21,16 +24,25 @@ const DynamicInputList = ({
     const value = event.target.value;
     const textInputs = inputs.filter((input: any) => input.type === "text");
 
-    console.log("textInputs", textInputs, inputGroups);
+    console.log("textInputs", textInputs, inputGroups, value, index);
     const updated = [...textInputs];
 
     inputs[index].value = value;
 
     setInputs(inputs);
 
+    const inputFields = inputs.filter((input: any) => {
+      if (input.type === "text") return input;
+    });
+
+    // handleChange(
+    //   id,
+    //   inputFields.map((input: any) => input.value)
+    // );
+
     handleChange(
       id,
-      inputs.map((input: any) => (input.value ? input.value : ""))
+      inputFields.map((input: any) => (input.value ? input.value : ""))
     );
   };
 
@@ -39,9 +51,74 @@ const DynamicInputList = ({
     // console.log("handleClick", id, value);
   };
 
-  const handleAddInput = (isDefault: boolean) => {
-    setInputs([...inputs, { isDefault: !isDefault }]);
+  const handleAddInput = (id: string) => {
+    const input = inputs[inputs.length - 1];
+
+    console.log("sss", inputs, input.value, input.id);
+    if (!input.value?.length) return;
+    if (input.category) {
+      console.log(
+        !input.value ||
+          (input.value[input.value.length - 1] &&
+            !input.value[input.value.length - 1].value)
+      );
+      if (
+        !input.value
+        // ||
+        // (inputValue[inputValue.length - 1] &&
+        //   !inputValue[inputValue.length - 1].value)
+      ) {
+        return;
+      }
+      // handleChange(
+      //   fieldId,
+      //   {
+      //     id: ⁠ custom-${inputs.length - 1} ⁠,
+      //     value: input.value,
+      //     isDefault: false,
+      //   },
+      //   true
+      // );
+      input.disabled = true;
+      input.iconName = "CustomCrossIcon";
+      input.iconPosition = "right";
+      input.iconSize = 12;
+      // input.iconClick = (e: any, input: any) => {
+      //   handleChange(input.category, input.value, false, true);
+
+      //   console.log(
+      //     "inputGroups",
+      //     input.value,
+
+      //     inputGroups.filter(
+      //       (inputGroup: any) => input.value && input.value !== inputGroup.value
+      //     )
+      //   );
+      //   setInputs(
+      //     inputGroups.filter(
+      //       (inputGroup: any) =>
+      //         !input.value || input.value !== inputGroup.value
+      //     )
+      //   );
+      // };
+    }
+    setInputs([...inputs, { id, category: input.category, type: "text" }]);
   };
+
+  const removeItem = (input: any) => {
+    console.log("removeItem", input);
+    handleChange(input.category, input.value, false, true);
+
+    setInputs(
+      inputGroups.filter(
+        (inputGroup: any) => !input.value || input.value !== inputGroup.value
+      )
+    );
+  };
+
+  useEffect(() => {
+    setShowPreviewView(isPreview);
+  }, [isPreview]);
 
   return (
     <Flex
@@ -61,11 +138,15 @@ const DynamicInputList = ({
             placeholder,
             iconName,
             iconPosition,
+            iconClick,
+            disabled,
+            iconSize,
             isDefault,
             category,
           } = input;
           fieldId = id || fieldId;
 
+          if (isPreview && idx === inputs.length - 1) return;
           // console.log("input", input);
           return (
             (type === "checkbox" && (
@@ -80,7 +161,7 @@ const DynamicInputList = ({
                     <Checkbox
                       id={id}
                       defaultChecked={value === "on" ? true : false}
-                      disabled={disabled}
+                      disabled={showPreviewView}
                       name={placeholder}
                       onClick={(e: any) =>
                         handleClick(
@@ -108,19 +189,21 @@ const DynamicInputList = ({
                 placeholder={placeholder}
                 iconName={iconName}
                 iconPosition={iconPosition}
+                iconClick={(e: any) => removeItem(input)}
+                iconSize={iconSize}
                 size={"3"}
-                disabled={disabled}
+                disabled={showPreviewView || disabled}
               />
             )
           );
         })}
-        {!disabled ? (
+        {!(disabled || showPreviewView) ? (
           <ButtonInput
             key={id}
             direction={"row"}
             gap={"3"}
             type={type}
-            onClick={() => handleAddInput(false)}
+            onClick={() => handleAddInput(id)}
           >
             <span>{value}</span>
           </ButtonInput>

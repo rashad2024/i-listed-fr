@@ -1,7 +1,8 @@
 .info-container {
   &.basic-info,
   &.description-media,
-  &.extras-features {
+  &.extras-features,
+  &.filter-container {
     .rt-Text {
       font-size: 16px;
       font-weight: 600;
@@ -9,26 +10,38 @@
       font-family: var(--font-inter);
       color: #000000;
     }
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 100%;
+      font-family: var(--font-inter);
+      color: #444444;
+      min-width: 100%;
+      padding: 12px 0 20px 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #e9e9e9;
+    }
 
     #basic-info-card,
     #location-info-card,
     #property-details-card,
     #description-media-card,
-    #extras-features-card {
+    #extras-features-card,
+    #filter-card {
       background: #fff;
       border-radius: 8px;
       width: 100%;
       margin: 24px 0;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       box-shadow: 0 2px 8px -1px #1b242c14;
       flex-wrap: wrap;
       padding: 24px;
       gap: 24px;
 
       > div {
-        flex: 0 0 calc(33% - 24px);
-        max-width: calc(33% - 24px);
+        flex: 0 0 calc(33% - 20px);
+        max-width: calc(33% - 20px);
       }
 
       .input-groups-container {
@@ -86,18 +99,20 @@
         gap: 20px;
         .input-groups {
           justify-content: flex-start;
+          align-items: center;
           gap: 20px;
           .rt-Flex.rt-r-fd-column.rt-r-gap-3:not(:last-child) {
             min-width: auto !important;
-            height: 28px;
+            width: 140px;
+            height: 34px;
             border-radius: 4px;
           }
 
           button.rt-Button {
             background: #000000;
             border-radius: 4px;
-            height: 28px;
-            width: 28px;
+            height: 34px;
+            width: 34px;
             margin-top: 0;
             span {
               font-size: 14px;

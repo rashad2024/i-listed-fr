@@ -55,7 +55,7 @@ export default function PropertyInformation({
     <div className="info-container basic-info">
       <Flex gap={"3"} align={"center"} justify={"between"}>
         <Text>Basic Information</Text>
-        {activeStep > 2 && (
+        {isPreview && (
           <ButtonInput
             direction={"row"}
             gap={"3"}

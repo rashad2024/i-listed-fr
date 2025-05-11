@@ -5,7 +5,7 @@ import Icon from "@/components/ui/common/Icon";
 
 import LoginForm from "./loginForm";
 
-import TableWithPagination from "@/app/property-list/all-properties";
+import TableWithPagination from "@/app/property/all-properties";
 
 import "../../styles/pages/login.scss";
 

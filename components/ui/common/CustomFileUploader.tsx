@@ -34,7 +34,7 @@ const FILE_LIMIT = 8;
 const MAX_FILE_SIZE_MB = 20;
 
 const UploadProgressList = ({ id, handleChange, prevFiles }: any) => {
-  const [files, setFiles] = useState<SetStateAction<any>>([]);
+  const [files, setFiles] = useState<SetStateAction<any>>(prevFiles);
 
   useItemStartListener((item: any) => {
     setFiles(
@@ -60,14 +60,24 @@ const UploadProgressList = ({ id, handleChange, prevFiles }: any) => {
   });
 
   useItemFinishListener((item: any) => {
+    console.log("item: ", item);
     const previewUrl = URL.createObjectURL(item.file);
-    setFiles((prev: any) =>
-      prev.map((f: any) =>
-        f.id === item.id ? { ...f, done: true, previewUrl } : f
-      )
+    const uploadedFiles = files.map((f: any) =>
+      f.id === item.id
+        ? {
+            ...f,
+            done: true,
+            previewUrl,
+            responseURL: item.uploadResponse?.data?.data[0],
+          }
+        : f
     );
 
-    handleChange(id, files);
+    setFiles(uploadedFiles);
+
+    console.log("prevFiles: ", files);
+
+    handleChange(id, uploadedFiles);
   });
 
   const removeFile = (id: string) => {
@@ -165,7 +175,18 @@ const UploadProgressList = ({ id, handleChange, prevFiles }: any) => {
   );
 };
 
-const CustomFileUploader = ({ id, handleChange, prevFiles, disabled }: any) => {
+const CustomFileUploader = ({
+  id,
+  handleChange,
+  prevFiles,
+  disabled,
+}: {
+  id: string;
+  handleChange: any;
+  prevFiles: any;
+  disabled?: boolean;
+  files?: Array<any>;
+}) => {
   const [error, setError] = useState<string | null>(null);
 
   const maxFiles = 8;
@@ -179,7 +200,15 @@ const CustomFileUploader = ({ id, handleChange, prevFiles, disabled }: any) => {
   return (
     <Flex gap={"3"} direction={"column"}>
       <Uploady
-        destination={{ url: "https://httpbin.org/post" }}
+        destination={{
+          url: "https://raccoon-eternal-surely.ngrok-free.app/api/v1/properties/upload-images",
+          method: "POST",
+          headers: {
+            Authorization: "Bearer YOUR_TOKEN",
+            "Custom-Header": "value",
+          },
+        }}
+        inputFieldName="images"
         multiple
         //   onBeforeUpload={onBeforeUpload}
         fileFilter={(file: any) => {

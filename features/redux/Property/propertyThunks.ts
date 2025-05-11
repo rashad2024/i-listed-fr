@@ -2,6 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   retrievePropertyOptions,
   createPropertyService,
+  createDraftPropertyService,
+  deletePropertyService,
+  fetchPropertiesServices,
 } from "@/features/services/propertyServices";
 
 export const getPropertyOptions = createAsyncThunk(
@@ -29,3 +32,37 @@ export const addProperty = createAsyncThunk(
     }
   }
 );
+export const addPropertyAsDraft = createAsyncThunk(
+  "property/addDraftProperty",
+  async (propertyData: object, { rejectWithValue }) => {
+    try {
+      const data = await createDraftPropertyService(propertyData);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.message); // If an error occurs, return the error message
+    }
+  }
+);
+export const deletePropertyById = createAsyncThunk(
+  "property/addDeleteProperty",
+  async (propertyId: string, { rejectWithValue }) => {
+    try {
+      const data = await deletePropertyService(propertyId);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.message); // If an error occurs, return the error message
+    }
+  }
+);
+
+// export const fetchProperties = createAsyncThunk(
+//   "property/fetchProperties",
+//   async (filterData, { rejectWithValue }) => {
+//     try {
+//       const data = await fetchPropertiesServices(filterData);
+//       return data;
+//     } catch (error: any) {
+//       return rejectWithValue(error.message); // If an error occurs, return the error message
+//     }
+//   }
+// );

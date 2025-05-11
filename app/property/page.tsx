@@ -5,7 +5,7 @@ import Sidebar from "@/components/layout/Sidebar";
 
 import AllProperties from "./all-properties";
 
-import "../../styles/pages/add-property.scss";
+import "../../styles/pages/property.scss";
 
 export default function PropertyList() {
   return (

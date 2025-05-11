@@ -16,7 +16,7 @@ export default function ButtonInput({
   type?: "button" | "submit" | "reset" | undefined;
   direction: any;
   children: React.ReactNode;
-  onClick: () => void;
+  onClick: any;
   disabled?: boolean;
   className?: string;
   styles?: any;

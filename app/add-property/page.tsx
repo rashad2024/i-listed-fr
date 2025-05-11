@@ -4,15 +4,16 @@ import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
 import PropertyForm from "./property-form";
 
-import "../../styles/pages/add-property.scss";
+import "../../styles/pages/property.scss";
 
-export default function AddProperty() {
+export default function AddProperty(property?: any, previewProperty?: any) {
+  console.log(property);
   return (
     <main>
-      <Sidebar pageType={"property"} />
+      <Sidebar pageType={previewProperty ? "property" : "add-property"} />
       <div className="right-container">
         <Header />
-        <PropertyForm />
+        <PropertyForm property={property} previewProperty={previewProperty} />
       </div>
     </main>
   );
