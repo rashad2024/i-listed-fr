@@ -219,21 +219,29 @@ export const prepareFilterData = (data: any, fetchProperty?: any) => {
 
 const prepareFilter = (filterData: any) => {
   const filterInfo: any = {};
-  if (filterData.categoryId)
+  if (filterData.search) {
+    filterInfo.search = filterData.search;
+  }
+  if (filterData.categoryId) {
     filterInfo.categoryId = parseInt(filterData.categoryId);
-  if (filterData.subcategoryId)
+  }
+  if (filterData.subcategoryId) {
     filterInfo.subcategoryId = parseInt(filterData.subcategoryId);
-  if (filterInfo.transactionTypeId)
+  }
+  if (filterInfo.transactionTypeId) {
     filterInfo.transactionTypeId =
       parseInt(filterData.transactionTypeId) || filterData.transactionTypeId;
-  if (filterData?.priceRange)
+  }
+  if (filterData?.priceRange) {
     filterInfo.totalPriceMin = filterData?.priceRange
       ? filterData?.priceRange[0]
       : 0;
-  if (filterData?.priceRange)
+  }
+  if (filterData?.priceRange) {
     filterInfo.totalPriceMax = filterData?.priceRange
       ? filterData?.priceRange[1]
       : 0;
+  }
 
   return filterInfo;
 };
