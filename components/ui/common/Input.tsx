@@ -1,4 +1,4 @@
-import { Flex, Strong, TextField } from "@radix-ui/themes";
+import { Flex, Strong, TextField, Text } from "@radix-ui/themes";
 
 import Icon from "./Icon";
 
@@ -18,6 +18,7 @@ export default function InputField({
   size = "2",
   disabled = false,
   iconSize = 24,
+  className,
 }: {
   key?: string;
   id: string;
@@ -54,6 +55,7 @@ export default function InputField({
   size?: "2" | "1" | "3" | undefined;
   disabled?: boolean;
   iconSize?: number;
+  className?: string;
 }) {
   const handleClick = () => {
     if (iconName === "EyeNoneIcon") {
@@ -64,7 +66,14 @@ export default function InputField({
   };
   return (
     <Flex direction="column" gap={gap}>
-      {label && <Strong className="form-label">{label}</Strong>}
+      {label && (
+        <Strong className={`form-label`}>
+          {label}
+          {className === "required" && (
+            <Text as="span" className="required"></Text>
+          )}
+        </Strong>
+      )}
       {
         <TextField.Root
           id={id}

@@ -1,7 +1,7 @@
 "use client";
 
-import { Select, Flex, Strong } from "@radix-ui/themes";
-import { useState } from "react";
+import { Select, Flex, Strong, Text } from "@radix-ui/themes";
+import * as SelectItem from "@radix-ui/react-select";
 
 export default function SelectField({
   id,
@@ -15,6 +15,7 @@ export default function SelectField({
   placeholder,
   disabled = false,
   errors,
+  className,
 }: {
   id?: string;
   gap: string;
@@ -27,16 +28,23 @@ export default function SelectField({
   placeholder?: string;
   disabled?: boolean;
   errors?: any;
+  className?: string;
 }) {
+  console.log("valu", value);
   return (
     <Flex direction="column" gap={gap}>
-      <Strong className="form-label">{label}</Strong>
+      <Strong className={`form-label`}>
+        {label}
+        {className === "required" && (
+          <Text as="span" className="required"></Text>
+        )}
+      </Strong>
       <Select.Root
         key={id}
         size={size}
         value={value}
         onValueChange={(data) => onChange(data)}
-        defaultValue=""
+        defaultValue={value}
         disabled={disabled}
       >
         <Select.Trigger placeholder={placeholder}>
@@ -48,6 +56,9 @@ export default function SelectField({
               !option.hidden && (
                 <Select.Item value={option.value} key={option.value}>
                   {option.label}
+                  {/* <SelectItem.ItemIndicator className="indicator">
+                    ✔
+                  </SelectItem.ItemIndicator> */}
                 </Select.Item>
               )
           )}

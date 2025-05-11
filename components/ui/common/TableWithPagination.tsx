@@ -2,6 +2,7 @@
 import { SetStateAction, useState, Dispatch, useEffect } from "react";
 
 import * as Checkbox from "@radix-ui/react-checkbox";
+import { Link } from "@radix-ui/themes";
 import Icon from "./Icon";
 import PaginationView from "./PaginationView";
 
@@ -148,11 +149,20 @@ export default function TableWithPagination({
               </td>
               <td>
                 <div className="property-name">
-                  <img
-                    src={process.env.NEXT_PUBLIC_BASE_URL + property.image}
-                    alt={property.title}
-                  />
-                  <span>{property.title}</span>
+                  <Link
+                    href={`/property/${property.id}`}
+                    style={{
+                      border: "none",
+                      background: "none",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <img
+                      src={process.env.NEXT_PUBLIC_BASE_URL + property.image}
+                      alt={property.title}
+                    />
+                    <span>{property.title}</span>
+                  </Link>
                 </div>
               </td>
               <td>{property.size}</td>

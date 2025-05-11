@@ -20,6 +20,7 @@ export const prepareBasicInfo = (data: any) => {
         placeholder: "Luxury Villa in Seminyak",
         value: title || "",
         id: "title",
+        required: true,
       },
     },
     {
@@ -29,6 +30,7 @@ export const prepareBasicInfo = (data: any) => {
         label: "Category",
         placeholder: "Please select category",
         id: "categoryId",
+        required: true,
         value: categoryId || "",
         options: [
           {
@@ -38,22 +40,22 @@ export const prepareBasicInfo = (data: any) => {
           },
           {
             label: "Residential",
-            value: 1,
+            value: "1",
             id: "residential",
           },
           {
             label: "Land",
-            value: 2,
+            value: "2",
             id: "land",
           },
           {
             label: "Commercial",
-            value: 3,
+            value: "3",
             id: "commercial",
           },
           {
             label: "Development",
-            value: 4,
+            value: "4",
             id: "development",
           },
         ],
@@ -67,6 +69,7 @@ export const prepareBasicInfo = (data: any) => {
         placeholder: "Please select subcategories",
         id: "subcategoryId",
         value: subcategoryId,
+        required: true,
         options: [
           {
             label: "Please select Subcategories",
@@ -75,75 +78,75 @@ export const prepareBasicInfo = (data: any) => {
           },
           {
             label: "Villa",
-            value: 1,
+            value: "1",
             id: "villa",
-            hidden: ![1].find((cat) => cat == categoryId),
+            hidden: !["1"].find((cat) => cat == categoryId),
           },
           {
             label: "House",
-            value: 2,
+            value: "2",
             id: "house",
-            hidden: ![1].find((cat) => cat == categoryId),
+            hidden: !["1"].find((cat) => cat == categoryId),
           },
           {
             label: "Apartment",
             id: "apartment",
-            value: 3,
-            hidden: ![1].find((cat) => cat == categoryId),
+            value: "3",
+            hidden: !["1"].find((cat) => cat == categoryId),
           },
           {
             label: "Townhouse",
             id: "townHouse",
-            value: 4,
-            hidden: ![1].find((cat) => cat == categoryId),
+            value: "4",
+            hidden: !["1"].find((cat) => cat == categoryId),
           },
           {
             label: "Development Land",
             id: "developmentLand",
-            value: 5,
-            hidden: ![2].find((cat) => cat == categoryId),
+            value: "5",
+            hidden: !["2"].find((cat) => cat == categoryId),
           },
           {
             label: "Agricultural Land",
-            value: 6,
+            value: "6",
             id: "agriculturalLand",
-            hidden: ![2].find((cat) => cat == categoryId),
+            hidden: !["2"].find((cat) => cat == categoryId),
           },
           {
             label: "Rice Field",
-            value: 7,
+            value: "7",
             id: "riceField",
-            hidden: ![2].find((cat) => cat == categoryId),
+            hidden: !["2"].find((cat) => cat == categoryId),
           },
           {
             label: "Shop",
-            value: 8,
+            value: "8",
             id: "shop",
-            hidden: ![3].find((cat) => cat == categoryId),
+            hidden: !["3"].find((cat) => cat == categoryId),
           },
           {
             label: "Restaurant",
-            value: 9,
+            value: "9",
             id: "restaurant",
-            hidden: ![3].find((cat) => cat == categoryId),
+            hidden: !["3"].find((cat) => cat == categoryId),
           },
           {
             label: "Cafe",
-            value: 10,
+            value: "10",
             id: "cafe",
-            hidden: ![3].find((cat) => cat == categoryId),
+            hidden: !["3"].find((cat) => cat == categoryId),
           },
           {
             label: "Ruko",
-            value: 11,
+            value: "11",
             id: "ruko",
-            hidden: ![3].find((cat) => cat == categoryId),
+            hidden: !["3"].find((cat) => cat == categoryId),
           },
           {
             label: "Off-Plan Projects",
-            value: 12,
+            value: "12",
             id: "offPlanProjects",
-            hidden: ![4].find((cat) => cat == categoryId),
+            hidden: !["4"].find((cat) => cat == categoryId),
           },
         ],
       },
@@ -164,33 +167,33 @@ export const prepareBasicInfo = (data: any) => {
           },
           {
             label: "Freehold (Hak Milik)",
-            value: 1,
+            value: "1",
             id: "freehold",
-            hidden: ![1, 2, 3, 4].find((cat) => cat == categoryId),
+            hidden: !["1", "2", "3", "4"].find((cat) => cat == categoryId),
           },
           {
             label: "Leasehold (Hak Sewa)",
-            value: 2,
+            value: "2",
             id: "leasehold",
-            hidden: ![1, 2, 3, 4].find((cat) => cat == categoryId),
+            hidden: !["1", "2", "3", "4"].find((cat) => cat == categoryId),
           },
           {
             label: "Right of Use (Hak Pakai)",
-            value: 3,
+            value: "3",
             id: "rightOfUse",
-            hidden: ![1, 2, 3].find((cat) => cat == categoryId),
+            hidden: !["1", "2", "3"].find((cat) => cat == categoryId),
           },
           {
             label: "Strata Title",
-            value: 4,
+            value: "4",
             id: "strataTitle",
-            hidden: ![2, 3].find((cat) => cat == categoryId),
+            hidden: !["2", "3"].find((cat) => cat == categoryId),
           },
           {
             label: "Right to Build (HGB / Hak Guna Bangunan)",
-            value: 5,
+            value: "5",
             id: "rightToBuild",
-            hidden: ![1, 2, 3, 4].find((cat) => cat == categoryId),
+            hidden: !["1", "2", "3", "4"].find((cat) => cat == categoryId),
           },
         ],
       },
@@ -203,6 +206,7 @@ export const prepareBasicInfo = (data: any) => {
         placeholder: "Please select Transaction Type",
         id: "transactionTypeId",
         value: transactionTypeId,
+        required: true,
         options: [
           {
             label: "Please select Transaction Type",
@@ -211,15 +215,15 @@ export const prepareBasicInfo = (data: any) => {
           },
           {
             label: "Sale",
-            value: 1,
+            value: "1",
             id: "sale",
-            hidden: ![1, 2, 3, 4].find((cat) => cat == categoryId),
+            hidden: !["1", "2", "3", "4"].find((cat) => cat == categoryId),
           },
           {
             label: "Rental",
-            value: 2,
+            value: "2",
             id: "rental",
-            hidden: ![1, 2].find((cat) => cat == categoryId),
+            hidden: !["1", "2"].find((cat) => cat == categoryId),
           },
         ],
       },
@@ -232,6 +236,7 @@ export const prepareBasicInfo = (data: any) => {
         placeholder: "Please select Property Status",
         id: "propertyStatusId",
         value: propertyStatusId,
+        required: true,
         options: [
           {
             label: "Please select Property Status",
@@ -240,19 +245,20 @@ export const prepareBasicInfo = (data: any) => {
           },
           {
             label: "Freehold",
-            value: 1,
+            value: "1",
             id: "pr-freehold",
-            hidden:
-              [1, 2, 3, 4].find((cat) => cat == categoryId) &&
-              [1].find((cat) => cat == transactionTypeId),
+            hidden: !(
+              ["1", "2", "3", "4"].find((cat) => cat == categoryId) &&
+              ["1"].find((cat) => cat == transactionTypeId)
+            ),
           },
           {
             label: "Leasehold",
             value: "2",
             id: "pr-leasehold",
             hidden: !(
-              [1, 2, 3, 4].find((cat) => cat == categoryId) &&
-              [1].find((cat) => cat == transactionTypeId)
+              ["1", "2", "3", "4"].find((cat) => cat == categoryId) &&
+              ["1"].find((cat) => cat == transactionTypeId)
             ),
           },
           {
@@ -260,17 +266,17 @@ export const prepareBasicInfo = (data: any) => {
             value: 3,
             id: "monthly",
             hidden: !(
-              [1, 2].find((cat) => cat == categoryId) &&
-              [2].find((cat) => cat == transactionTypeId)
+              ["1", "2"].find((cat) => cat == categoryId) &&
+              ["2"].find((cat) => cat == transactionTypeId)
             ),
           },
           {
             label: "Yearly",
-            value: 4,
+            value: "4",
             id: "yearly",
             hidden: !(
-              [1, 2].find((cat) => cat == categoryId) &&
-              [2].find((cat) => cat == transactionTypeId)
+              ["1", "2"].find((cat) => cat == categoryId) &&
+              ["2"].find((cat) => cat == transactionTypeId)
             ),
           },
         ],
@@ -292,15 +298,15 @@ export const prepareBasicInfo = (data: any) => {
           },
           {
             label: "PBG (Persetujuan Bangunan Gedung)",
-            value: 1,
+            value: "1",
             id: "pbg",
-            hidden: ![1, 2, 3].find((cat) => cat == categoryId),
+            hidden: !["1", "2", "3"].find((cat) => cat == categoryId),
           },
           {
             label: "SLF (Sertifikat Laik Fungsi)",
-            value: 2,
+            value: "2",
             id: "slf",
-            hidden: ![1, 2, 3].find((cat) => cat == categoryId),
+            hidden: !["1", "2", "3"].find((cat) => cat == categoryId),
           },
         ],
       },
@@ -327,10 +333,11 @@ export const prepareLocationInfo = (data: any) => {
       title: "Address",
       inputInfo: {
         type: "text",
-        label: "Location",
+        label: "Address",
         placeholder: "Address of your property",
         id: "address",
         value: address,
+        required: true,
       },
     },
     {
@@ -341,6 +348,7 @@ export const prepareLocationInfo = (data: any) => {
         placeholder: "Enter Location",
         id: "location",
         value: location,
+        required: true,
       },
     },
     {
@@ -351,6 +359,7 @@ export const prepareLocationInfo = (data: any) => {
         placeholder: "Enter zip code",
         id: "zipCode",
         value: zipCode,
+        required: true,
       },
     },
     {
@@ -371,37 +380,37 @@ export const prepareLocationInfo = (data: any) => {
           },
           {
             label: "Green Zone",
-            value: 1,
+            value: "1",
             id: "greenZone",
             // hidden: ![1, 2, 3, 4].find((cat) => cat ==categoryId),
           },
           {
             label: "Yellow Zone",
-            value: 2,
+            value: "2",
             id: "yellowZone",
             // hidden: ![1, 2, 3, 4].find((cat) => cat ==categoryId),
           },
           {
             label: "Red Zone",
-            value: 3,
+            value: "3",
             id: "redZone",
             // hidden: ![1, 2, 3].find((cat) => cat ==categoryId),
           },
           {
             label: "Pink Zone",
-            value: 4,
+            value: "4",
             id: "pinkZone",
             // hidden: ![2, 3].find((cat) => cat ==categoryId),
           },
           {
             label: "Orange Zone",
-            value: 5,
+            value: "5",
             id: "orangeZone",
             // hidden: ![1, 2, 3, 4].find((cat) => cat ==categoryId),
           },
           {
             label: "Blue Zone",
-            value: 6,
+            value: "6",
             id: "blueZone",
             // hidden: ![1, 2, 3, 4].find((cat) => cat ==categoryId),
           },
@@ -433,27 +442,27 @@ export const prepareLocationInfo = (data: any) => {
           },
           {
             label: "Direct Public Road Access",
-            value: 1,
+            value: "1",
             id: "directPublicRoadAccess",
           },
           {
             label: "Direct Private Road Access",
-            value: 2,
+            value: "2",
             id: "directPrivateRoadAccess",
           },
           {
             label: "Shared Access",
-            value: 3,
+            value: "3",
             id: "sharedAccess",
           },
           {
             label: "Gated Access",
-            value: 4,
+            value: "4",
             id: "gatedAccess",
           },
           {
             label: "No Direct Road Access",
-            value: 5,
+            value: "5",
             id: "noDirectRoadAccess",
           },
         ],
@@ -517,6 +526,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Land Size",
         id: "landSizeId",
         value: landSizeId,
+        required: true,
         options: [
           {
             label: "Please select Land Size",
@@ -525,17 +535,17 @@ export const preparePropertyDetails = (data: any) => {
           },
           {
             label: "are (a)",
-            value: 1,
+            value: "1",
             id: "area",
           },
           {
             label: "m²",
-            value: 2,
+            value: "2",
             id: "m2",
           },
           {
             label: "ft²",
-            value: 3,
+            value: "3",
             id: "ft",
           },
         ],
@@ -549,6 +559,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Built-Up Area",
         id: "builtUpArea",
         value: builtUpArea,
+        required: true,
       },
     },
     {
@@ -569,6 +580,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Total Price",
         id: "totalPrice",
         value: totalPrice,
+        required: true,
       },
     },
     {
@@ -579,7 +591,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Numbers Of Floors",
         id: "numberOfFloors",
         value: numberOfFloors,
-        hidden: categoryId && [2, 4].find((cat) => cat == categoryId),
+        hidden: categoryId && ["2", "4"].find((cat) => cat == categoryId),
       },
     },
     {
@@ -590,7 +602,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Price Per Year",
         id: "pricePerYear",
         value: pricePerYear,
-        hidden: categoryId && [1, 2, 4].find((cat) => cat == categoryId),
+        hidden: categoryId && ["1", "2", "4"].find((cat) => cat == categoryId),
       },
     },
     {
@@ -601,7 +613,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Max Rooms",
         id: "maxRooms",
         value: maxRooms,
-        hidden: categoryId && [2, 3, 4].find((cat) => cat == categoryId),
+        hidden: categoryId && ["2", "3", "4"].find((cat) => cat == categoryId),
       },
     },
     {
@@ -612,7 +624,8 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Beds",
         id: "beds",
         value: beds,
-        hidden: categoryId && [2, 3, 4].find((cat) => cat == categoryId),
+        required: true,
+        hidden: categoryId && ["2", "3", "4"].find((cat) => cat == categoryId),
       },
     },
     {
@@ -623,7 +636,8 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Baths",
         id: "baths",
         value: baths,
-        hidden: categoryId && [2, 3, 4].find((cat) => cat == categoryId),
+        required: true,
+        hidden: categoryId && ["2", "3", "4"].find((cat) => cat == categoryId),
       },
     },
     {
@@ -634,7 +648,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Furnishing",
         id: "furnishingId",
         value: furnishingId,
-        hidden: categoryId && [2, 3, 4].find((cat) => cat == categoryId),
+        hidden: categoryId && ["2", "3", "4"].find((cat) => cat == categoryId),
         options: [
           {
             label: "Please select Furnished Type",
@@ -662,7 +676,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Parking Space",
         id: "parkingSpaceId",
         value: parkingSpaceId,
-        hidden: categoryId && [2].find((cat) => cat == categoryId),
+        hidden: categoryId && ["2"].find((cat) => cat == categoryId),
         options: [
           {
             label: "Please select Parking Space",
@@ -671,12 +685,12 @@ export const preparePropertyDetails = (data: any) => {
           },
           {
             label: "Car",
-            value: 1,
+            value: "1",
             id: "Car",
           },
           {
             label: "Bike",
-            value: 2,
+            value: "2",
             id: "Bike",
           },
         ],
@@ -692,7 +706,7 @@ export const preparePropertyDetails = (data: any) => {
         value: buildingYear,
         iconName: "CalendarIcon",
         iconPosition: "right",
-        hidden: categoryId && [2, 4].find((cat) => cat == categoryId),
+        hidden: categoryId && ["2", "4"].find((cat) => cat == categoryId),
       },
     },
     {
@@ -715,7 +729,7 @@ export const preparePropertyDetails = (data: any) => {
         placeholder: "Have Pool",
         id: "pool",
         value: pool,
-        hidden: categoryId && [2, 4].find((cat) => cat == categoryId),
+        hidden: categoryId && ["2", "4"].find((cat) => cat == categoryId),
         options: [
           {
             label: "Please select One",
@@ -744,7 +758,7 @@ export const preparePropertyDetails = (data: any) => {
         id: "poolTypeId",
         value: poolTypeId,
         hidden:
-          (categoryId && [2, 4].find((cat) => cat == categoryId)) ||
+          (categoryId && ["2", "4"].find((cat) => cat == categoryId)) ||
           !["yes"].find((poolSize) => poolSize == pool),
         options: [
           {
@@ -774,7 +788,7 @@ export const preparePropertyDetails = (data: any) => {
         id: "poolSize",
         value: poolSize,
         hidden:
-          (categoryId && [2, 4].find((cat) => cat == categoryId)) ||
+          (categoryId && ["2", "4"].find((cat) => cat == categoryId)) ||
           !["yes"].find((poolSize) => poolSize == pool),
       },
     },

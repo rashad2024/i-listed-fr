@@ -38,4 +38,17 @@ button[role="checkbox"]:before {
   font-weight: 500 !important;
   line-height: 100% !important;
   color: #1e1e1e !important;
+
+  .required {
+    position: relative;
+    &:after {
+      content: "*";
+      position: absolute;
+      left: 4px;
+      top: 0;
+      color: red;
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
 }

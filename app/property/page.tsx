@@ -13,7 +13,7 @@ export default function PropertyList() {
       <Sidebar pageType={"property"} />
       <div className="right-container">
         <Header />
-        <AllProperties status={"drafts"} />
+        <AllProperties />
       </div>
     </main>
   );

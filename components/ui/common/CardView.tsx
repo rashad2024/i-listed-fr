@@ -23,7 +23,7 @@ export default function CardView({
 any) {
   return (
     <Flex gap={"3"} id={id} direction={"row"}>
-      <Text className="card-title">{cardTitle}</Text>
+      {cardTitle && <Text className="card-title">{cardTitle}</Text>}
       {formData && formData.length
         ? formData.map((item: any) => {
             const { inputInfo, inputGroups } = item;
@@ -38,16 +38,14 @@ any) {
               iconPosition,
               onClick,
               hidden,
+              required,
             } = inputInfo;
 
             return (
               (id === "videoLink" && isPreview && (
                 <Flex key={id} gap={"3"} direction={"column"} className="">
                   <Text>{label}</Text>
-                  <UploadedFilePreview
-                    key={id}
-                    files={[{ previewUrl: value, type: "video" }]}
-                  />
+                  <UploadedFilePreview id={id} files={[value]} />
                 </Flex>
               )) ||
               ((type === "text" || type === "number") && !hidden && (
@@ -63,6 +61,7 @@ any) {
                   size={"3"}
                   disabled={isPreview}
                   errors={errors && errors[id]}
+                  className={required && "required"}
                   {...(validation?.length && { ...validation(id) })}
                   value={value}
                   onChange={(e) => handleChange(id, e.target.value)}
@@ -95,6 +94,7 @@ any) {
                   size={"3"}
                   disabled={isPreview}
                   errors={errors && errors[id]}
+                  className={required && "required"}
                   {...(validation?.length && { ...validation(id) })}
                   onChange={(e: any) => handleChange(id, e)}
                   value={value}
@@ -123,7 +123,7 @@ any) {
                     <>
                       {" "}
                       <Text>{label}</Text>
-                      <UploadedFilePreview key={id} files={value} />
+                      <UploadedFilePreview id={id} files={value} />
                     </>
                   ) : (
                     <>
