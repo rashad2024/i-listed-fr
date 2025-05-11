@@ -7,6 +7,7 @@ import {
   forgotPasswordInitiate,
   forgotPasswordVerify,
   resetPassword,
+  logout,
 } from "@/features/redux/Auth/authThunks";
 
 interface AuthState {
@@ -29,17 +30,18 @@ const authSlice = createSlice({
     //   state.isLoggedIn = true;
     // },
     // logout(state) {
-    //   state.isLoggedIn = false;
+
     // },
     setUser: (state, action) => {
       const { data } = action.payload;
       state.data = data;
     },
     // ✅ Optional: Logout
-    logout: (state) => {
-      state.data = null;
-      localStorage.removeItem("authUser"); // clean localStorage
-    },
+    // logout: (state) => {
+    //   state.isLoggedIn = false;
+    //   state.data = null;
+    //   localStorage.removeItem("authUser"); // clean localStorage
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -53,6 +55,20 @@ const authSlice = createSlice({
         state.data = data;
       })
       .addCase(login.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    builder
+      .addCase(logout.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = null;
+      })
+      .addCase(logout.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
@@ -143,5 +159,5 @@ const authSlice = createSlice({
       });
   },
 });
-export const { setUser, logout } = authSlice.actions;
+export const { setUser } = authSlice.actions;
 export default authSlice.reducer;
