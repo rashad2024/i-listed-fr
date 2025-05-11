@@ -55,14 +55,12 @@ export default function TableWithPagination({
   );
   const [selectedProperties, setSelectedProperties] = useState<any>([]);
 
-  console.log(tableData);
   const handlePageChange = (page: number) => {
     setPage(page);
   };
 
   const handleClick = (e: any, id: number) => {
     const isChecked = e.target.getAttribute("data-state") !== "checked";
-    console.log("clicked", e.target.getAttribute("data-state"), isChecked, id);
 
     setSelectedProperties((prevSelectedProperties: any) => {
       if (isChecked) {
@@ -162,7 +160,7 @@ export default function TableWithPagination({
               <td>{property.subcategory}</td>
               <td>
                 <span
-                  className={`badge ${property.transactionType.toLowerCase()}`}
+                  className={`badge ${property?.transactionType?.toLowerCase()}`}
                 >
                   {property.transactionType}
                 </span>

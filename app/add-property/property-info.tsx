@@ -42,7 +42,6 @@ export default function PropertyInformation({
   const [previewBasic, setPreviewBasic] = useState(isPreview);
 
   const editSection = (type: string) => {
-    console.log(type);
     setPreviewBasic(!previewBasic);
   };
 

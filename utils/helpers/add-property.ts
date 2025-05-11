@@ -877,7 +877,6 @@ export const prepareExtrasFeaturesInfo = (data: any, removeFeature: any) => {
     // ],
   } = data || {};
 
-  console.log("kithckeeee: ", kitchen);
   return [
     {
       title: "Living Space",
@@ -1087,7 +1086,6 @@ export const prepareExtrasFeaturesInfo = (data: any, removeFeature: any) => {
         },
         ...(servicesIncluded?.length
           ? servicesIncluded.map((item: any) => {
-              console.log("item", item);
               return {
                 type: item?.isDefault ? "checkbox" : "text",
                 placeholder: "",
@@ -1169,7 +1167,6 @@ export const prepareExtrasFeaturesInfo = (data: any, removeFeature: any) => {
         },
         ...(additionalFeatures?.length
           ? additionalFeatures.map((item: any) => {
-              console.log("item", item);
               return {
                 type: item?.isDefault ? "checkbox" : "text",
                 placeholder: "",
@@ -1192,6 +1189,7 @@ export const prepareExtrasFeaturesInfo = (data: any, removeFeature: any) => {
         },
       ],
       inputInfo: {
+        label: "Additional Features",
         type: "button",
         // placeholder: "Beaches",
         id: "additionalFeatures",

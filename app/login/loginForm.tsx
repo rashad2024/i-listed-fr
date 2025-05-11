@@ -64,7 +64,6 @@ export default function LoginForm() {
   };
 
   const onSubmit = async (data: FormData) => {
-    console.log("Form submitted:", data);
     const userData = { email, password, rememberMe };
     await dispatch(login(userData))
       .unwrap()
@@ -129,7 +128,6 @@ export default function LoginForm() {
                 <Checkbox
                   size="2"
                   onClick={(e) => {
-                    console.log(rememberMe);
                     setRememberMe(!rememberMe);
                   }}
                 />{" "}

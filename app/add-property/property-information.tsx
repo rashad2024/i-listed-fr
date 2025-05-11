@@ -14,8 +14,6 @@ export default function PropertyInformation({}) {
       try {
         const propertyOptions = await getFieldOptions();
 
-        console.log(propertyOptions);
-
         setOptionList(propertyOptions);
       } catch (error) {
         console.log(error);

@@ -7,7 +7,6 @@ import PropertyForm from "./property-form";
 import "../../styles/pages/property.scss";
 
 export default function AddProperty(property?: any, previewProperty?: any) {
-  console.log(property);
   return (
     <main>
       <Sidebar pageType={previewProperty ? "property" : "add-property"} />

@@ -77,7 +77,6 @@ export default function PropertyDeleteConfirmationModal({
     await dispatch(deletePropertyById(propertyId))
       .unwrap()
       .then((data) => {
-        console.log("Success:", data);
         // Do something after store is updated
         if (data.success) {
           setShowDeleteConfirmationModal(false);

@@ -12,7 +12,6 @@ export const loginService = async (
     const response = await axiosInstance.post("/auth/login", userData);
     const authData = response.data;
 
-    console.log(response.data);
     if (rememberMe) {
       localStorage.setItem("authUser", JSON.stringify(authData));
     }

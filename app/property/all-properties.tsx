@@ -23,8 +23,9 @@ import {
 import "@/styles/pages/property-list.scss";
 import "@/styles/components/_card.scss";
 import { any } from "zod";
+import { NonUndefined } from "react-hook-form";
 
-export default function AllProperties() {
+export default function AllProperties({ status }: { status?: any }) {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error, data } = useSelector(
@@ -34,14 +35,10 @@ export default function AllProperties() {
   const [filterData, setFilterData] = useState<any>({});
   const fetchProperty = async (data: any) => {
     try {
-      console.log("page", page);
-      const propertyInfo = await getProperties(page || 1, data);
-
-      console.log(propertyInfo);
+      const propertyInfo = await getProperties(page || 1, data, status);
 
       setTableData(propertyInfo.data);
       setPaginationData(propertyInfo.meta?.pagination);
-      console.log("tableData", tableData);
       setPage(1);
     } catch (error) {
       console.log(error);
@@ -60,13 +57,10 @@ export default function AllProperties() {
     useState(false);
 
   const handleChange = (id: any, value: any) => {
-    console.log(id, value);
     setFilterData({ ...filterData, [id]: value });
     setFilterInfo(
       prepareFilterData({ ...filterData, [id]: value }, fetchProperty)
     );
-
-    console.log("filterData: ", filterData);
   };
 
   const deleteProperty = async (propertyId: string) => {
@@ -77,10 +71,8 @@ export default function AllProperties() {
   };
 
   const deleteSelectedProperty = async (selectedProperties: any) => {
-    console.log(selectedProperties);
     await deleteAllProperties(selectedProperties)
       .then((data: any) => {
-        console.log("Success:", data, data?.data?.id);
         // Do something after store is updated
         if (data.success) {
           setPage(page);

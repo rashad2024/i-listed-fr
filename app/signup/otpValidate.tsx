@@ -54,7 +54,6 @@ export default function OtpInput({
   const onSubmit = async () => {
     // Handle form submission here
     const otp = inputsRef.current.map((input) => input?.value).join("");
-    console.log(otp);
 
     setInvalidOtp("");
 
@@ -116,11 +115,6 @@ export default function OtpInput({
     inputsRef.current.map((input: any) => {
       input.value = "";
     });
-    // You can also trigger your resend API here
-    console.log("Form submitted:", data);
-    // handleSubmit((data) => {
-    //   console.log("Form submitted:", data);
-    // });
 
     if (isForgotPassword) {
       await dispatch(forgotPasswordInitiate({ email: registerEmail }))

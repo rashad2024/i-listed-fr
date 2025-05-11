@@ -10,10 +10,10 @@ import "../../styles/pages/property.scss";
 export default function PropertyList() {
   return (
     <main>
-      <Sidebar pageType={"property-list"} />
+      <Sidebar pageType={"property"} />
       <div className="right-container">
         <Header />
-        <AllProperties />
+        <AllProperties status={"drafts"} />
       </div>
     </main>
   );

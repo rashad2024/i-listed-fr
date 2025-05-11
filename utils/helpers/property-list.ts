@@ -209,7 +209,6 @@ export const prepareFilterData = (data: any, fetchProperty?: any) => {
         iconName: "CustomFilterIcon",
         iconPosition: "left",
         onClick: () => {
-          console.log(data);
           fetchProperty(data);
         },
       },
@@ -246,11 +245,14 @@ const prepareFilter = (filterData: any) => {
   return filterInfo;
 };
 
-export const getProperties = async (page: number, filterData: any) => {
+export const getProperties = async (
+  page: number,
+  filterData: any,
+  status?: any
+) => {
   const filterInfo: any = prepareFilter(filterData);
-  const response = await fetchPropertiesServices(page, filterInfo);
+  const response = await fetchPropertiesServices(page, filterInfo, status);
 
-  console.log(response);
   return response;
 };
 
@@ -274,9 +276,9 @@ export const preparePropertyData = (data: any) => {
       id: id,
       title: title,
       size: builtUpArea,
-      category: category.name,
-      subcategory: subcategory.name,
-      transactionType: transactionType.name,
+      category: category?.name,
+      subcategory: subcategory?.name,
+      transactionType: transactionType?.name,
       address: address,
       price: totalPrice,
       image: images[0],
@@ -287,6 +289,5 @@ export const preparePropertyData = (data: any) => {
 export const deleteAllProperties = async (propertyIds: any) => {
   const response = await batchDeleteService({ ids: propertyIds });
 
-  console.log(response);
   return response;
 };

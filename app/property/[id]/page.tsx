@@ -28,8 +28,6 @@ const PropertyDetails = () => {
         if (!id) return;
         const propertyInfo = await getPropertyInfo(id as string);
 
-        console.log(propertyInfo);
-
         setProperty(propertyInfo);
       } catch (error) {
         console.log(error);

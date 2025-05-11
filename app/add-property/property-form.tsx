@@ -42,7 +42,6 @@ export default function PropertyForm({ property, previewProperty }: any) {
   );
   const [formData, setFormData] = useState<any>(property);
 
-  console.log("FormData", formData, previewProperty, property);
   const {
     register,
     setValue,
@@ -80,12 +79,10 @@ export default function PropertyForm({ property, previewProperty }: any) {
     }
 
     if (shouldRemove) {
-      console.log(key, value, formData[key]);
       const kitt = formData[key]?.filter((item: any) => {
         if (item !== value) return item;
       });
 
-      console.log(kitt);
       value = kitt || [];
     }
 
@@ -93,19 +90,11 @@ export default function PropertyForm({ property, previewProperty }: any) {
     setValue(key, value, { shouldValidate: true });
 
     if (key === "categoryId") {
-      console.log("Selected category:", value);
       setSelectedCategory(value);
     }
-    console.log("value: ", value);
-    console.log("formData: ", formData);
   };
 
   const formSubmit = async (type: string) => {
-    // console.log(formData);
-    // if (Object.keys(errors).length || formData.title === "") return;
-
-    console.log("Form submitted:", formData);
-
     if (type === "Next") setActiveStep(activeStep + 1);
     else if (type === "Previous") {
       setActiveStep(activeStep - 1);
@@ -126,7 +115,6 @@ export default function PropertyForm({ property, previewProperty }: any) {
     } else if (type === "Cancel") {
       router.push("/property");
     } else if (type === "Preview") {
-      console.log("Preview");
       setActiveStep(activeStep + 1);
       setShowBasicInfo(true);
       setShowDescriptionPreview(true);
@@ -141,13 +129,11 @@ export default function PropertyForm({ property, previewProperty }: any) {
       });
       setValue("showPreview", true, { shouldValidate: true });
     } else if (type === "Draft") {
-      console.log("Form submitted:", formData);
       const data = prepareFormData(formData);
 
       await dispatch(addPropertyAsDraft(data))
         .unwrap()
         .then((res: any) => {
-          console.log("Success:", res);
           // Do something after store is updated
           if (res.success) {
             // router.push("/property-list"); // Redirect to /property-list
@@ -172,13 +158,11 @@ export default function PropertyForm({ property, previewProperty }: any) {
   };
 
   const onSubmit = async (data: any) => {
-    console.log("Form submitted:", data);
     const formData = prepareFormData(data);
 
     await dispatch(addProperty(formData))
       .unwrap()
       .then((data) => {
-        console.log("Success:", data, data?.data?.id);
         // Do something after store is updated
         if (data?.data?.id) {
           setShowSuccessModal(data?.data?.id); // Redirect to /property-list

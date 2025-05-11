@@ -80,8 +80,6 @@ export default function PropertySuccessModal({
   };
 
   const viewProperty = () => {
-    console.log(propertyId);
-
     router.push(`/property/${propertyId}`);
   };
 

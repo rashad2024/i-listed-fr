@@ -24,7 +24,6 @@ const DynamicInputList = ({
     const value = event.target.value;
     const textInputs = inputs.filter((input: any) => input.type === "text");
 
-    console.log("textInputs", textInputs, inputGroups, value, index);
     const updated = [...textInputs];
 
     inputs[index].value = value;

@@ -4,8 +4,6 @@ import axiosInstance from "../../utils/axios";
 export const retrievePropertyOptions = async () => {
   try {
     const response = await axiosInstance.get("/properties/options");
-
-    console.log(response.data);
     return response.data; // Return the response data
   } catch (error: any) {
     console.log(error);
@@ -15,8 +13,6 @@ export const retrievePropertyOptions = async () => {
 export const createPropertyService = async (propertyData: object) => {
   try {
     const response = await axiosInstance.post("/properties", propertyData);
-
-    console.log(response.data);
     return response.data; // Return the response data
   } catch (error: any) {
     console.log(error);
@@ -30,8 +26,6 @@ export const createDraftPropertyService = async (propertyData: object) => {
       "/properties/drafts",
       propertyData
     );
-
-    console.log(response.data);
     return response.data; // Return the response data
   } catch (error: any) {
     console.log(error);
@@ -43,7 +37,6 @@ export const retrievePropertyData = async (id: string) => {
   try {
     const response = await axiosInstance.get(`/properties/${id}`);
 
-    console.log(response.data);
     return response.data; // Return the response data
   } catch (error: any) {
     console.log(error);
@@ -55,7 +48,6 @@ export const deletePropertyService = async (id: string) => {
   try {
     const response = await axiosInstance.delete("/properties/" + id);
 
-    console.log(response.data);
     return response.data; // Return the response data
   } catch (error: any) {
     console.log(error);
@@ -65,15 +57,19 @@ export const deletePropertyService = async (id: string) => {
 
 export const fetchPropertiesServices = async (
   page: number,
-  filterData: any
+  filterData: any,
+  status?: string
 ) => {
   try {
-    console.log(filterData);
-    const response = await axiosInstance.get(`/properties/?page=${page}`, {
+    const url = status
+      ? `/properties/${status}?page=${page}`
+      : `/properties/?page=${page}`;
+
+    console.log(url, status);
+    const response = await axiosInstance.get(url, {
       params: filterData,
     });
 
-    console.log(response.data);
     return response.data; // Return the response data
   } catch (error: any) {
     console.log(error);
