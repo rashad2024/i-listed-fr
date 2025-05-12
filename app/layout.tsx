@@ -31,12 +31,13 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
 
-  let pageType = "property";
+  let pageType = "";
 
   if (pathname.startsWith("/dashboard") || pathname.startsWith("/home"))
     pageType = "dashboard";
   else if (pathname.startsWith("/drafts")) pageType = "drafts";
   else if (pathname.startsWith("/add-property")) pageType = "add-property";
+  else if (pathname.startsWith("/property")) pageType = "property";
 
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
@@ -47,11 +48,17 @@ export default function RootLayout({
               <AuthGuard>
                 <Theme>
                   <main>
-                    <Sidebar pageType={pageType} />
-                    <div className="right-container">
-                      <Header />
-                      {children}
-                    </div>
+                    {pageType ? (
+                      <>
+                        <Sidebar pageType={pageType} />
+                        <div className="right-container">
+                          <Header />
+                          {children}
+                        </div>
+                      </>
+                    ) : (
+                      children
+                    )}
                   </main>
                 </Theme>
               </AuthGuard>
