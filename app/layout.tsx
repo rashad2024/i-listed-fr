@@ -38,6 +38,7 @@ export default function RootLayout({
   else if (pathname.startsWith("/drafts")) pageType = "drafts";
   else if (pathname.startsWith("/add-property")) pageType = "add-property";
   else if (pathname.startsWith("/property")) pageType = "property";
+  else if (pathname.startsWith("/create-property")) pageType = "add-property";
 
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>

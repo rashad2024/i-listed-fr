@@ -7,10 +7,10 @@ import Select from "@/components/ui/common/Select";
 import { useDynamicFieldMap } from "@/components/ui/common/useDynamicFieldMap";
 import ButtonInput from "@/components/ui/common/Button";
 import DynamicInputList from "@/components/ui/common/DynamicInputList";
+import DateInputWithIcon from "@/components/ui/common/DateInput";
 
 export default function PropertyInformation() {
   const { addValue, getValues } = useDynamicFieldMap();
-  const [inputs, setInputs] = useState<any[]>([{}]);
 
   const getFieldValue = (name: string) => {
     console.log(name, getValues(), getValues()[name]);
@@ -390,6 +390,397 @@ export default function PropertyInformation() {
               }}
               // setInputs={setInputs}
               handleChange={handleChange}
+            />
+          </Flex>
+        </Card>
+      </Flex>
+
+      <Text>Property Details</Text>
+      <Flex gap={"3"} direction={"row"}>
+        <Card
+          size="5"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            minWidth: "100%",
+            gap: "2rem",
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <Select
+              id="landSizeId"
+              gap="3"
+              key="landSizeId"
+              label="Land Size"
+              placeholder="Please select land size"
+              className={"required"}
+              value={getFieldValue("landSizeId")}
+              optionList={[{ label: "label", value: "8" }]}
+              onChange={(value: string) => handleChange("landSizeId", value)}
+              position="popper"
+            />
+          </Flex>
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <InputField
+              id="builtUpArea"
+              gap="3"
+              type="number"
+              key="builtUpArea"
+              label="Built-Up Area"
+              className={"required"}
+              placeholder="Built-Up area"
+              value={getFieldValue("builtUpArea")}
+              onChange={(event: any) =>
+                handleChange("builtUpArea", event.target.value)
+              }
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <InputField
+              id="pricePerUnit"
+              gap="3"
+              type="number"
+              key="pricePerUnit"
+              label="Price Per Area Unit"
+              placeholder="Price per unit"
+              value={getFieldValue("pricePerUnit")}
+              onChange={(event: any) =>
+                handleChange("pricePerUnit", event.target.value)
+              }
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <InputField
+              id="totalPrice"
+              gap="3"
+              type="number"
+              key="totalPrice"
+              label="Total Price"
+              className={"required"}
+              placeholder="Total Price"
+              value={getFieldValue("totalPrice")}
+              onChange={(event: any) =>
+                handleChange("totalPrice", event.target.value)
+              }
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <InputField
+              id="numberOfFloors"
+              gap="3"
+              type="number"
+              key="numberOfFloors"
+              label="Number of Floors"
+              placeholder="Total Price"
+              value={getFieldValue("numberOfFloors")}
+              onChange={(event: any) =>
+                handleChange("numberOfFloors", event.target.value)
+              }
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <InputField
+              id="pricePerYear"
+              gap="3"
+              type="number"
+              key="pricePerYear"
+              label="Price Per Year"
+              placeholder="Price Per Year"
+              value={getFieldValue("pricePerYear")}
+              onChange={(event: any) =>
+                handleChange("pricePerYear", event.target.value)
+              }
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <InputField
+              id="maxRooms"
+              gap="3"
+              type="number"
+              key="maxRooms"
+              label="Max Rooms"
+              placeholder="Total Price"
+              value={getFieldValue("numberOfFloors")}
+              onChange={(event: any) =>
+                handleChange("numberOfFloors", event.target.value)
+              }
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <InputField
+              id="beds"
+              gap="3"
+              type="number"
+              key="beds"
+              label="Beds"
+              placeholder="Beds"
+              className="required"
+              value={getFieldValue("beds")}
+              onChange={(event: any) =>
+                handleChange("beds", event.target.value)
+              }
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <InputField
+              id="baths"
+              gap="3"
+              type="number"
+              key="baths"
+              label="Baths"
+              placeholder="Baths"
+              className="required"
+              value={getFieldValue("baths")}
+              onChange={(event: any) =>
+                handleChange("baths", event.target.value)
+              }
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <Select
+              id="furnishingId"
+              gap="3"
+              key="furnishingId"
+              label="Furnishing"
+              placeholder="Furnishing"
+              value={getFieldValue("furnishingId")}
+              optionList={[{ label: "label", value: "8" }]}
+              onChange={(value: string) => handleChange("furnishingId", value)}
+              position="popper"
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <Select
+              id="parkingSpaceId"
+              gap="3"
+              key="parkingSpaceId"
+              label="Parking Space"
+              placeholder="Parking Space"
+              value={getFieldValue("parkingSpaceId")}
+              optionList={[{ label: "label", value: "8" }]}
+              onChange={(value: string) =>
+                handleChange("parkingSpaceId", value)
+              }
+              position="popper"
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <Select
+              id="parkingSpaceId"
+              gap="3"
+              key="parkingSpaceId"
+              label="Parking Space"
+              placeholder="Parking Space"
+              value={getFieldValue("parkingSpaceId")}
+              optionList={[{ label: "label", value: "8" }]}
+              onChange={(value: string) =>
+                handleChange("parkingSpaceId", value)
+              }
+              position="popper"
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <DateInputWithIcon
+              id="buildingYear"
+              gap={"3"}
+              type="date"
+              label="Building Year"
+              placeholder="Building Year"
+              iconName="CalendarIcon"
+              iconPosition="right"
+              size={"3"}
+              value={new Date()}
+              onChange={(value: any) => handleChange("buildingYear", value)}
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <DateInputWithIcon
+              id="availableDate"
+              gap={"3"}
+              type="date"
+              label="Property Available Date"
+              placeholder="Property Available Date"
+              iconName="CalendarIcon"
+              iconPosition="right"
+              size={"3"}
+              value={new Date()}
+              onChange={(value: any) => handleChange("availableDate", value)}
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <Select
+              id="pool"
+              gap="3"
+              key="pool"
+              label="Have Pool"
+              placeholder="Have Pool"
+              value={getFieldValue("pool")}
+              optionList={[{ label: "label", value: "1" }]}
+              onChange={(value: string) => handleChange("pool", value)}
+              position="popper"
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <Select
+              id="poolTypeId"
+              gap="3"
+              key="poolTypeId"
+              label="Pool Type"
+              placeholder="Pool Type"
+              value={getFieldValue("poolTypeId")}
+              optionList={[{ label: "label", value: "1" }]}
+              onChange={(value: string) => handleChange("poolTypeId", value)}
+              position="popper"
+            />
+          </Flex>
+
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <InputField
+              id="poolSize"
+              gap="3"
+              type="number"
+              key="poolSize"
+              label="Pool Size"
+              placeholder="Pool Size"
+              value={getFieldValue("poolSize")}
+              onChange={(event: any) =>
+                handleChange("poolSize", event.target.value)
+              }
             />
           </Flex>
         </Card>
