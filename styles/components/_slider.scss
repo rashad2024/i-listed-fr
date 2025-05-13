@@ -73,7 +73,7 @@
   border-radius: 9999px;
   height: 4px;
 
-  ~ span:hover {
+  ~ span {
     ~ .slider-tooltip {
       opacity: 1;
     }

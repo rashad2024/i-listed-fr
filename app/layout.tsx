@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { Theme } from "@radix-ui/themes";
 import { Inter } from "next/font/google";
-import Script from "next/script";
+// import Script from "next/script";
 
 import { AuthInitializer } from "@/components/ui/auth/authInitializer";
 import AuthGuard from "@/components/ui/auth/authGuard";
@@ -25,9 +25,9 @@ import "@/styles/components/_skeleton.scss";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
- const metadata = {
-  title: 'Your App',
-  description: 'Your description here',
+const metadata = {
+  title: "Your App",
+  description: "Your description here",
 };
 
 export default function RootLayout({
@@ -45,18 +45,24 @@ export default function RootLayout({
   else if (pathname.startsWith("/add-property")) pageType = "add-property";
   else if (pathname.startsWith("/property")) pageType = "property";
   else if (pathname.startsWith("/create-property")) pageType = "add-property";
+  else if (
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/signup") ||
+    pathname.startsWith("/forgot-password")
+  )
+    pageType = "";
   else pageType = "property";
-  
+
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
-       <head>
-        {process.env.NODE_ENV === 'development' && (
+      <head>
+        {/* {process.env.NODE_ENV === "development" && (
           <Script
             src="https://cdn.jsdelivr.net/npm/eruda"
             strategy="beforeInteractive"
           />
         )}
-        {process.env.NODE_ENV === 'development' && (
+        {process.env.NODE_ENV === "development" && (
           <Script
             id="init-eruda"
             strategy="beforeInteractive"
@@ -66,9 +72,9 @@ export default function RootLayout({
               `,
             }}
           />
-        )}
+        )} */}
       </head>
-      
+
       <body cz-shortcut-listen="true" className="font-sans">
         <Provider store={store}>
           <PersistGate loading={<Skeleton />} persistor={persistor}>

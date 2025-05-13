@@ -9,7 +9,11 @@ import ButtonInput from "@/components/ui/common/Button";
 import DynamicInputList from "@/components/ui/common/DynamicInputList";
 import DateInputWithIcon from "@/components/ui/common/DateInput";
 
-export default function PropertyInformation({fieldOptions}) {
+export default function PropertyInformation({
+  fieldOptions,
+}: {
+  fieldOptions: any;
+}) {
   const { addValue, getValues } = useDynamicFieldMap();
 
   const getFieldValue = (name: string) => {
@@ -20,7 +24,7 @@ export default function PropertyInformation({fieldOptions}) {
     name: string,
     value: string | number | boolean | Array<any>
   ) => {
-   // console.log(name, value);
+    // console.log(name, value);
     addValue(name, value);
   };
 
@@ -308,15 +312,13 @@ export default function PropertyInformation({fieldOptions}) {
             <InputField
               id="mapLink"
               gap="3"
-              type="link"
+              type="url"
               key="mapLink"
               label="Google map link"
               placeholder="Enter google map link"
               className={"required"}
               value={getFieldValue("mapLink")}
-              onChange={(value: string) =>
-                handleChange("mapLink", value)
-              }
+              onChange={(value: string) => handleChange("mapLink", value)}
             />
           </Flex>
           <Flex
@@ -423,6 +425,27 @@ export default function PropertyInformation({fieldOptions}) {
               key="landSizeId"
               label="Land Size"
               placeholder="Please select land size"
+              className={"required"}
+              value={getFieldValue("landSizeId")}
+              optionList={fieldOptions?.LandSize}
+              onChange={(value: string) => handleChange("landSizeId", value)}
+              position="popper"
+            />
+          </Flex>
+          <Flex
+            gap={"3"}
+            direction={"column"}
+            style={{
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
+            }}
+          >
+            <Select
+              id="selectUnit"
+              gap="3"
+              key="selectUnit"
+              label="Select Unit"
+              placeholder="Please select unit"
               className={"required"}
               value={getFieldValue("landSizeId")}
               optionList={fieldOptions?.LandSize}
@@ -654,7 +677,6 @@ export default function PropertyInformation({fieldOptions}) {
             />
           </Flex>
 
-
           <Flex
             gap={"3"}
             direction={"column"}
@@ -714,7 +736,7 @@ export default function PropertyInformation({fieldOptions}) {
               label="Have Pool"
               placeholder="Have Pool"
               value={getFieldValue("pool")}
-              optionList={[{ label: "label", value: "1" }]}
+              optionList={fieldOptions?.HavePool}
               onChange={(value: string) => handleChange("pool", value)}
               position="popper"
             />

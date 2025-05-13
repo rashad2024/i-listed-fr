@@ -43,8 +43,8 @@ export default function Header() {
             gap={"3"}
             label=""
             optionList={[
-              { label: "EN", value: "en" },
-              { label: "FR", value: "fr" },
+              { name: "EN", id: "en" },
+              { name: "FR", id: "fr" },
             ]}
             onChange={() => {}}
             value={"EN"}
@@ -54,10 +54,10 @@ export default function Header() {
           {/* Currency Selector */}
           <SelectField
             gap={"3"}
-            label=""
+            label="USD"
             optionList={[
-              { label: "USD", value: "usd" },
-              { label: "EUR", value: "eur" },
+              { name: "USD", id: "usd" },
+              { name: "EUR", id: "eur" },
             ]}
             onChange={() => {}}
             value={"USD"}

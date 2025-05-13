@@ -23,7 +23,7 @@ export default function SelectField({
   gap: string;
   label: string;
   name?: string;
-  optionList: Array<{ label: string; value: string; hidden?: boolean }>;
+  optionList: Array<{ id: string; name: string; hidden?: boolean }>;
   onChange: Function;
   value: any;
   position: "item-aligned" | "popper" | undefined;
@@ -58,7 +58,7 @@ export default function SelectField({
           </SelectItem.Icon>
         </Select.Trigger>
         <Select.Content position={position}>
-          {optionList.map(
+          {optionList?.map(
             (option) =>
               !option.hidden && (
                 <Select.Item value={option.name} key={option.id}>

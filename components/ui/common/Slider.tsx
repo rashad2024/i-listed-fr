@@ -15,7 +15,7 @@ export default function SliderComponent({
 }) {
   const [sliderValue, setSliderValue] = useState([20, 10000]);
 
-  const [min, max] = value;
+  const [min, max] = value || [0, 10000];
 
   const handleChange = (val: number[]) => {
     console.log(val);
