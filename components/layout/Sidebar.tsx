@@ -26,6 +26,13 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
   const router = useRouter();
 
   const logoutUser = async () => {
+     persistor.purge();
+
+          // Optional: Clear other storage
+          localStorage.clear();
+
+          router.push("/login"); // 
+    
     await dispatch(logout())
       .unwrap()
       .then((data) => {
@@ -34,12 +41,6 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
 
         if (data) {
           // Purge persisted state
-          persistor.purge();
-
-          // Optional: Clear other storage
-          localStorage.clear();
-
-          router.push("/login"); // Redirect to /property-list
         }
       })
       .catch((err) => {

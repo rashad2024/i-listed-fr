@@ -1214,16 +1214,10 @@ export const prepareExtrasFeaturesInfo = (data: any, removeFeature: any) => {
 };
 
 export const getFieldOptions = async () => {
-  const userRoles = await retrievePropertyOptions();
-
-  const options: Array<{ label: string; value: string }> = [];
-  if (userRoles?.data?.length) {
-    userRoles.data.map((role: any) => {
-      const { name, id } = role;
-      options.push({ label: name, value: id });
-    });
-  }
-  return options;
+  const propertyOptions = await retrievePropertyOptions();
+  console.log("propertyOptions", propertyOptions);
+  
+  return propertyOptions.data;
 };
 
 export const getButtonText = (activeStep: number, selectedCategory: string) => {

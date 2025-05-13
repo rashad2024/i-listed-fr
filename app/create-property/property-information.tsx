@@ -9,18 +9,18 @@ import ButtonInput from "@/components/ui/common/Button";
 import DynamicInputList from "@/components/ui/common/DynamicInputList";
 import DateInputWithIcon from "@/components/ui/common/DateInput";
 
-export default function PropertyInformation() {
+export default function PropertyInformation({fieldOptions}) {
   const { addValue, getValues } = useDynamicFieldMap();
 
   const getFieldValue = (name: string) => {
-    console.log(name, getValues(), getValues()[name]);
+    //console.log(name, getValues(), getValues()[name]);
     return getValues()[name];
   };
   const handleChange = (
     name: string,
     value: string | number | boolean | Array<any>
   ) => {
-    console.log(name, value);
+   // console.log(name, value);
     addValue(name, value);
   };
 
@@ -78,7 +78,7 @@ export default function PropertyInformation() {
               placeholder="Please select category"
               className={"required"}
               value={getFieldValue("categoryId")}
-              optionList={[{ label: "label", value: "8" }]}
+              optionList={fieldOptions?.Category}
               onChange={(value: string) => handleChange("categoryId", value)}
               position="popper"
             />
@@ -99,7 +99,7 @@ export default function PropertyInformation() {
               placeholder="Please select Subcategory"
               value={getFieldValue("subCategoryId")}
               className={"required"}
-              optionList={[{ label: "label", value: "1" }]}
+              optionList={fieldOptions?.subcategories}
               onChange={(value: string) => handleChange("subCategoryId", value)}
               position="popper"
             />
@@ -119,7 +119,7 @@ export default function PropertyInformation() {
               label="Ownership Type"
               placeholder="Please select a ownership type"
               value={getFieldValue("ownershipTypeId")}
-              optionList={[{ label: "label", value: "2" }]}
+              optionList={fieldOptions?.OwnershipType}
               onChange={(value: string) =>
                 handleChange("ownershipTypeId", value)
               }
@@ -142,7 +142,7 @@ export default function PropertyInformation() {
               placeholder="Please select a transaction type"
               className={"required"}
               value={getFieldValue("transactionTypeId")}
-              optionList={[{ label: "label", value: "3" }]}
+              optionList={fieldOptions?.TransactionType}
               onChange={(value: string) =>
                 handleChange("transactionTypeId", value)
               }
@@ -165,7 +165,7 @@ export default function PropertyInformation() {
               placeholder="Please select a property status"
               value={getFieldValue("propertyStatusId")}
               className={"required"}
-              optionList={[{ label: "label", value: "4" }]}
+              optionList={fieldOptions?.propertyStatuses}
               onChange={(value: string) =>
                 handleChange("propertyStatusId", value)
               }
@@ -187,7 +187,7 @@ export default function PropertyInformation() {
               label="Building Permit"
               placeholder="Please select a building permit"
               value={getFieldValue("buildingPermitId")}
-              optionList={[{ label: "label", value: "5" }]}
+              optionList={fieldOptions?.BuildingPermit}
               onChange={(value: string) =>
                 handleChange("buildingPermitId", value)
               }
@@ -292,7 +292,7 @@ export default function PropertyInformation() {
               label="Zone"
               placeholder="Select zone"
               value={getFieldValue("zone")}
-              optionList={[{ label: "label", value: "2" }]}
+              optionList={fieldOptions?.Zone}
               onChange={(value: string) => handleChange("zone", value)}
               position="popper"
             />
@@ -308,13 +308,14 @@ export default function PropertyInformation() {
             <InputField
               id="mapLink"
               gap="3"
+              type="link"
               key="mapLink"
               label="Google map link"
               placeholder="Enter google map link"
               className={"required"}
-              value={getFieldValue("transactionTypeId")}
+              value={getFieldValue("mapLink")}
               onChange={(value: string) =>
-                handleChange("transactionTypeId", value)
+                handleChange("mapLink", value)
               }
             />
           </Flex>
@@ -334,7 +335,7 @@ export default function PropertyInformation() {
               placeholder="Please select Road access"
               value={getFieldValue("roadAccess")}
               className={"required"}
-              optionList={[{ label: "label", value: "4" }]}
+              optionList={fieldOptions?.RoadAccess}
               onChange={(value: string) => handleChange("roadAccess", value)}
               position="popper"
             />
@@ -424,7 +425,7 @@ export default function PropertyInformation() {
               placeholder="Please select land size"
               className={"required"}
               value={getFieldValue("landSizeId")}
-              optionList={[{ label: "label", value: "8" }]}
+              optionList={fieldOptions?.LandSize}
               onChange={(value: string) => handleChange("landSizeId", value)}
               position="popper"
             />
@@ -624,7 +625,7 @@ export default function PropertyInformation() {
               label="Furnishing"
               placeholder="Furnishing"
               value={getFieldValue("furnishingId")}
-              optionList={[{ label: "label", value: "8" }]}
+              optionList={fieldOptions?.Furnishing}
               onChange={(value: string) => handleChange("furnishingId", value)}
               position="popper"
             />
@@ -645,7 +646,7 @@ export default function PropertyInformation() {
               label="Parking Space"
               placeholder="Parking Space"
               value={getFieldValue("parkingSpaceId")}
-              optionList={[{ label: "label", value: "8" }]}
+              optionList={fieldOptions?.ParkingSpace}
               onChange={(value: string) =>
                 handleChange("parkingSpaceId", value)
               }
@@ -653,28 +654,6 @@ export default function PropertyInformation() {
             />
           </Flex>
 
-          <Flex
-            gap={"3"}
-            direction={"column"}
-            style={{
-              maxWidth: "calc(33% - 20px)",
-              flex: "0 0 calc(33% - 20px)",
-            }}
-          >
-            <Select
-              id="parkingSpaceId"
-              gap="3"
-              key="parkingSpaceId"
-              label="Parking Space"
-              placeholder="Parking Space"
-              value={getFieldValue("parkingSpaceId")}
-              optionList={[{ label: "label", value: "8" }]}
-              onChange={(value: string) =>
-                handleChange("parkingSpaceId", value)
-              }
-              position="popper"
-            />
-          </Flex>
 
           <Flex
             gap={"3"}
@@ -756,7 +735,7 @@ export default function PropertyInformation() {
               label="Pool Type"
               placeholder="Pool Type"
               value={getFieldValue("poolTypeId")}
-              optionList={[{ label: "label", value: "1" }]}
+              optionList={fieldOptions?.PoolType}
               onChange={(value: string) => handleChange("poolTypeId", value)}
               position="popper"
             />

@@ -4,6 +4,8 @@ import axiosInstance from "../../utils/axios";
 export const retrievePropertyOptions = async () => {
   try {
     const response = await axiosInstance.get("/properties/options");
+    console.log("÷÷÷", response.data);
+    
     return response.data; // Return the response data
   } catch (error: any) {
     console.log(error);
@@ -36,7 +38,7 @@ export const createDraftPropertyService = async (propertyData: object) => {
 export const retrievePropertyData = async (id: string) => {
   try {
     const response = await axiosInstance.get(`/properties/${id}`);
-
+console.log(response)
     return response.data; // Return the response data
   } catch (error: any) {
     console.log(error);
