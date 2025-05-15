@@ -41,6 +41,10 @@ export const prepareFilterData = (data: any, fetchProperty?: any) => {
         value: categoryId || "",
         options: [
           {
+            name: "Please select a category",
+            id: "defaultCategory",
+          },
+          {
             name: "Residential",
             id: 1,
           },
@@ -69,64 +73,104 @@ export const prepareFilterData = (data: any, fetchProperty?: any) => {
         value: subcategoryId,
         options: [
           {
+            name: "Please select a Subcategory",
+            id: "defaultSubcategory",
+          },
+          {
             name: "Villa",
             id: 1,
-            hidden: categoryId && ![1].find((cat) => cat == categoryId),
+            hidden:
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![1].find((cat) => cat == categoryId),
           },
           {
             name: "House",
             id: 2,
-            hidden: categoryId && ![1].find((cat) => cat == categoryId),
+            hidden:
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![1].find((cat) => cat == categoryId),
           },
           {
             name: "Apartment",
             id: 3,
-            hidden: categoryId && ![1].find((cat) => cat == categoryId),
+            hidden:
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![1].find((cat) => cat == categoryId),
           },
           {
             name: "Townhouse",
             id: 4,
-            hidden: categoryId && ![1].find((cat) => cat == categoryId),
+            hidden:
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![1].find((cat) => cat == categoryId),
           },
           {
             name: "Development Land",
             id: 5,
-            hidden: categoryId && ![2].find((cat) => cat == categoryId),
+            hidden:
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![2].find((cat) => cat == categoryId),
           },
           {
             name: "Agricultural Land",
             id: 6,
-            hidden: categoryId && ![2].find((cat) => cat == categoryId),
+            hidden:
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![2].find((cat) => cat == categoryId),
           },
           {
             name: "Rice Field",
             id: 7,
-            hidden: categoryId && ![2].find((cat) => cat == categoryId),
+            hidden:
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![2].find((cat) => cat == categoryId),
           },
           {
             name: "Shop",
             id: 8,
-            hidden: categoryId && ![3].find((cat) => cat == categoryId),
+            hidden:
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![3].find((cat) => cat == categoryId),
           },
           {
             name: "Restaurant",
             id: 9,
-            hidden: categoryId && ![3].find((cat) => cat == categoryId),
+            hidden:
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![3].find((cat) => cat == categoryId),
           },
           {
             name: "Cafe",
             id: 10,
-            hidden: categoryId && ![3].find((cat) => cat == categoryId),
+            hidden:
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![3].find((cat) => cat == categoryId),
           },
           {
             name: "Ruko",
             id: 11,
-            hidden: categoryId && ![3].find((cat) => cat == categoryId),
+            hidden:
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![3].find((cat) => cat == categoryId),
           },
           {
             name: "Off-Plan Projects",
             id: 12,
-            hidden: categoryId && ![4].find((cat) => cat == categoryId),
+            hidden:
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![4].find((cat) => cat == categoryId),
           },
         ],
       },
@@ -141,15 +185,24 @@ export const prepareFilterData = (data: any, fetchProperty?: any) => {
         value: transactionTypeId,
         options: [
           {
+            name: "Please select a Transaction Type",
+            id: "defaultTransactionType",
+          },
+          {
             name: "Sale",
             id: 1,
             hidden:
-              categoryId && ![1, 2, 3, 4].find((cat) => cat == categoryId),
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![1, 2, 3, 4].find((cat) => cat == categoryId),
           },
           {
             name: "Rental",
             id: 2,
-            hidden: categoryId && ![1, 2].find((cat) => cat == categoryId),
+            hidden:
+              categoryId &&
+              categoryId !== "defaultCategory" &&
+              ![1, 2].find((cat) => cat == categoryId),
           },
         ],
       },
@@ -188,15 +241,14 @@ const prepareFilter = (filterData: any) => {
   if (filterData.search) {
     filterInfo.search = filterData.search;
   }
-  if (filterData.categoryId) {
+  if (filterData.categoryId && parseInt(filterData.categoryId)) {
     filterInfo.categoryId = parseInt(filterData.categoryId);
   }
-  if (filterData.subcategoryId) {
+  if (filterData.subcategoryId && parseInt(filterData.subcategoryId)) {
     filterInfo.subcategoryId = parseInt(filterData.subcategoryId);
   }
-  if (filterInfo.transactionTypeId) {
-    filterInfo.transactionTypeId =
-      parseInt(filterData.transactionTypeId) || filterData.transactionTypeId;
+  if (filterInfo.transactionTypeId && parseInt(filterData.transactionTypeId)) {
+    filterInfo.transactionTypeId = parseInt(filterData.transactionTypeId);
   }
   if (filterData?.priceRange) {
     filterInfo.totalPriceMin = filterData?.priceRange

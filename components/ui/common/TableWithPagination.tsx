@@ -39,14 +39,14 @@ const properties = [
 export default function TableWithPagination({
   tableData,
   paginationData,
-  setPage,
+  handlePageChange,
   editRowData,
   deleteRowData,
   deleteSelectedProperty,
 }: {
   tableData: any;
   paginationData: any;
-  setPage: Dispatch<SetStateAction<number>>;
+  handlePageChange: any;
   editRowData: any;
   deleteRowData: any;
   deleteSelectedProperty: any;
@@ -55,10 +55,6 @@ export default function TableWithPagination({
     preparePropertyData(tableData)
   );
   const [selectedProperties, setSelectedProperties] = useState<any>([]);
-
-  const handlePageChange = (page: number) => {
-    setPage(page);
-  };
 
   const handleClick = (e: any, id: number) => {
     const isChecked = e.target.getAttribute("data-state") !== "checked";
