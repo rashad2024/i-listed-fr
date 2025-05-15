@@ -295,6 +295,15 @@ export default function CreatePropertyForm({
     addBulkValue({ ...property, ...{ dataReady: !!propertyOptions } });
 
     setPropertyId(property?.id);
+
+    if (isViewMode) {
+      !selectedCategory && setSelectedCategory(property?.categoryId);
+      filterPropertyOptions(
+        "categoryId",
+        property?.categoryId,
+        propertyOptions
+      );
+    }
   }, [propertyOptions]);
 
   return (
@@ -354,18 +363,19 @@ export default function CreatePropertyForm({
         />
       )}
 
-      {(activeStep === 1 || isPreview) && getFieldValue("dataReady") && (
-        <DescriptionMedia
-          handleChange={handleChange}
-          getFieldValue={getFieldValue}
-          errors={errors}
-          isPreview={isViewMode || isPreview}
-          setEditMode={setDescEditMode}
-          editMode={descEditMode}
-        />
-      )}
+      {(activeStep === 1 || isPreview || isViewMode) &&
+        getFieldValue("dataReady") && (
+          <DescriptionMedia
+            handleChange={handleChange}
+            getFieldValue={getFieldValue}
+            errors={errors}
+            isPreview={isViewMode || isPreview}
+            setEditMode={setDescEditMode}
+            editMode={descEditMode}
+          />
+        )}
 
-      {(activeStep === 2 || isPreview) &&
+      {(activeStep === 2 || isPreview || isViewMode) &&
         (selectedCategory == "1" || selectedCategory == "3") &&
         getFieldValue("dataReady") && (
           <ExtrasFeaturePage
