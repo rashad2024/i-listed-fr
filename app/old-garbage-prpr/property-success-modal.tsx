@@ -12,9 +12,11 @@ import ButtonInput from "@/components/ui/common/Button";
 export default function PropertySuccessModal({
   propertyId,
   setShowSuccessModal,
+  mode,
 }: {
   propertyId: string;
   setShowSuccessModal: any;
+  mode?: string;
 }) {
   const router = useRouter();
   const HeadingImage = () => {
@@ -39,7 +41,7 @@ export default function PropertySuccessModal({
             fontFamily: "Inter",
           }}
         >
-          Property Added{" "}
+          Property {mode == "edit" ? "Updated" : "Added"}{" "}
           <Text as="span" color="green">
             Successfully!{" "}
           </Text>{" "}
@@ -83,6 +85,11 @@ export default function PropertySuccessModal({
     router.push(`/property/${propertyId}`);
   };
 
+  const close = () => {
+    setShowSuccessModal(false);
+    router.push("/property");
+  };
+
   const ActionContainer = ({ closeModal }: { closeModal: any }) => {
     return (
       <Flex
@@ -108,7 +115,7 @@ export default function PropertySuccessModal({
           gap={"3"}
           className="btn-primary btn-close"
           direction={"column"}
-          onClick={() => setShowSuccessModal(false)}
+          onClick={() => close()}
           disabled={false}
           styles={{ width: "120px" }}
         >

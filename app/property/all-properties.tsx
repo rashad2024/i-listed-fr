@@ -17,7 +17,6 @@ import Skeleton from "@/components/ui/common/Skeleton";
 import {
   prepareFilterData,
   getProperties,
-  deleteAllProperties,
 } from "@/utils/helpers/property-list";
 
 import "@/styles/pages/property-list.scss";
@@ -72,18 +71,8 @@ export default function AllProperties({ status }: { status?: any }) {
   };
 
   const deleteSelectedProperty = async (selectedProperties: any) => {
-    await deleteAllProperties(selectedProperties)
-      .then((data: any) => {
-        // Do something after store is updated
-        if (data.success) {
-          setPage(page);
-          router.push(`/property${status ? "/drafts" : ""}`); // Redirect to /property-list
-        }
-      })
-      .catch((err: any) => {
-        const { errors } = JSON.parse(err);
-        console.log(errors);
-      });
+    setDeletePropertyId(selectedProperties);
+    setShowDeleteConfirmationModal(true);
   };
 
   const editProperty = (propertyId: string) => {

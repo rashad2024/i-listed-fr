@@ -13,6 +13,13 @@ main {
         }
       }
 
+      .card-header {
+        font-size: 16px !important;
+        font-weight: 500 !important;
+        font-family: var(---inter) !important;
+        line-height: 100% !important;
+      }
+
       .preview-subtitle {
         color: #444444;
         font-size: 14px;
@@ -57,7 +64,7 @@ main {
         background: #fff !important;
         border-radius: 8px !important;
         width: 100%;
-        margin: 24px 0 12px;
+        margin: 12px 0 !important;
         display: flex;
         justify-content: flex-start;
         box-shadow: 0 2px 8px -1px #1b242c14;
@@ -75,13 +82,6 @@ main {
           line-height: 100% !important;
           font-family: var(---inter) !important;
           line-height: 24px !important;
-        }
-
-        .card-header {
-          font-size: 16px !important;
-          font-weight: 500 !important;
-          font-family: var(---inter) !important;
-          line-height: 100% !important;
         }
       }
     }

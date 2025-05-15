@@ -75,7 +75,6 @@ export default function RegisterForm({
       await dispatch(forgotPasswordInitiate({ email }))
         .unwrap()
         .then((data) => {
-          console.log("Success:", data);
           // Do something after store is updated
           if (data.success) {
             setRegisterEmail(email);
@@ -98,7 +97,6 @@ export default function RegisterForm({
       await dispatch(registerInitiate({ email, role }))
         .unwrap()
         .then((data) => {
-          console.log("Success:", data);
           // Do something after store is updated
           if (data.success) {
             setUserRole(role);

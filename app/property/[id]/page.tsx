@@ -26,7 +26,6 @@ const PropertyDetails = () => {
         const propertyInfo = await getPropertyInfo(id as string);
         const propertyData = preparePropertyData(propertyInfo);
 
-        console.log(propertyData);
         setProperty(propertyData);
       } catch (error) {
         console.log(error);

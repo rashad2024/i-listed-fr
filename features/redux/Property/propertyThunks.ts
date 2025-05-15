@@ -5,6 +5,8 @@ import {
   createDraftPropertyService,
   deletePropertyService,
   fetchPropertiesServices,
+  updateDraftPropertyService,
+  updatePropertyService,
 } from "@/features/services/propertyServices";
 
 export const getPropertyOptions = createAsyncThunk(
@@ -43,6 +45,39 @@ export const addPropertyAsDraft = createAsyncThunk(
     }
   }
 );
+
+export const updateProperty = createAsyncThunk(
+  "property/updateProperty",
+  async (
+    { propertyId, propertyData }: { propertyId: string; propertyData: object },
+    { rejectWithValue }
+  ) => {
+    try {
+      // if (!propertyId) return;
+      const data = await updatePropertyService(propertyId, propertyData);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.message); // If an error occurs, return the error message
+    }
+  }
+);
+
+export const updateDraftProperty = createAsyncThunk(
+  "property/updateDraftProperty",
+  async (
+    { propertyId, propertyData }: { propertyId: string; propertyData: object },
+    { rejectWithValue }
+  ) => {
+    try {
+      if (!propertyId) return;
+      const data = await updateDraftPropertyService(propertyId, propertyData); // Call the service to update the property
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.message); // If an error occurs, return the error message
+    }
+  }
+);
+
 export const deletePropertyById = createAsyncThunk(
   "property/addDeleteProperty",
   async (propertyId: string, { rejectWithValue }) => {

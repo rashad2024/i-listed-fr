@@ -3,6 +3,7 @@ import { Text, Flex, Card, Inset, Strong } from "@radix-ui/themes";
 
 import InputField from "@/components/ui/common/Input";
 import Select from "@/components/ui/common/Select";
+import Icon from "@/components/ui/common/Icon";
 
 import { useDynamicFieldMap } from "@/components/ui/common/useDynamicFieldMap";
 import ButtonInput from "@/components/ui/common/Button";
@@ -16,6 +17,8 @@ export default function PropertyInformation({
   errors,
   unitIconName,
   isPreview,
+  setEditMode,
+  editMode,
 }: {
   fieldOptions: any;
   handleChange: any;
@@ -23,13 +26,28 @@ export default function PropertyInformation({
   errors: any;
   unitIconName?: string;
   isPreview?: boolean;
+  setEditMode: any;
+  editMode: boolean;
 }) {
   const { getValues } = useDynamicFieldMap();
   getValues();
 
   return (
     <Flex gap={"3"} direction={"column"}>
-      <Text>Basic info</Text>
+      <Flex gap={"3"} direction={"row"} justify={"between"} align={"center"}>
+        <Text className="card-header">Basic info</Text>
+        {isPreview && (
+          <ButtonInput
+            direction={"row"}
+            gap={"3"}
+            onClick={() => setEditMode(!editMode)}
+            className="btn-secondary btn-edit"
+          >
+            <Icon name={"CustomEditIcon"} size={24} />
+          </ButtonInput>
+        )}
+      </Flex>
+
       <Flex gap={"3"} direction={"row"}>
         <Card
           size="5"
@@ -63,7 +81,7 @@ export default function PropertyInformation({
                 handleChange("title", event.target.value)
               }
               errors={errors?.title}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
 
@@ -87,7 +105,7 @@ export default function PropertyInformation({
               onChange={(value: any) => handleChange("categoryId", value, true)}
               position="popper"
               errors={errors?.categoryId}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
           <Flex
@@ -110,7 +128,7 @@ export default function PropertyInformation({
               onChange={(value: any) => handleChange("subcategoryId", value)}
               position="popper"
               errors={errors?.subcategoryId}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
           <Flex
@@ -131,7 +149,7 @@ export default function PropertyInformation({
               optionList={fieldOptions?.ownershipType}
               onChange={(value: any) => handleChange("ownershipTypeId", value)}
               position="popper"
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
           <Flex
@@ -156,7 +174,7 @@ export default function PropertyInformation({
               }
               position="popper"
               errors={errors?.transactionTypeId}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
           <Flex
@@ -179,7 +197,7 @@ export default function PropertyInformation({
               onChange={(value: any) => handleChange("propertyStatusId", value)}
               position="popper"
               errors={errors?.propertyStatusId}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
           {!(
@@ -206,14 +224,14 @@ export default function PropertyInformation({
                   handleChange("buildingPermitId", value)
                 }
                 position="popper"
-                disabled={isPreview}
+                disabled={editMode ? false : isPreview}
               />
             </Flex>
           )}
         </Card>
       </Flex>
 
-      <Text>Location Information</Text>
+      <Text className="card-header">Location Information</Text>
       <Flex gap={"3"} direction={"row"}>
         <Card
           size="5"
@@ -247,7 +265,7 @@ export default function PropertyInformation({
                 handleChange("address", event.target.value)
               }
               errors={errors?.address}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
 
@@ -272,7 +290,7 @@ export default function PropertyInformation({
                 handleChange("location", event.target.value)
               }
               errors={errors?.location}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
           <Flex
@@ -296,7 +314,7 @@ export default function PropertyInformation({
                 handleChange("zipCode", event.target.value)
               }
               errors={errors?.zipCode}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
           <Flex
@@ -317,7 +335,7 @@ export default function PropertyInformation({
               optionList={fieldOptions?.zone}
               onChange={(value: any) => handleChange("zoneId", value)}
               position="popper"
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
           <Flex
@@ -341,7 +359,7 @@ export default function PropertyInformation({
                 handleChange("googleMapLink", e.target.value)
               }
               errors={errors?.googleMapLink}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
           <Flex
@@ -364,7 +382,7 @@ export default function PropertyInformation({
               onChange={(value: any) => handleChange("roadAccessId", value)}
               position="popper"
               errors={errors?.roadAccessId}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
           <Flex
@@ -380,7 +398,6 @@ export default function PropertyInformation({
                 isPreview && getFieldValue("nearbyPoints")?.length
                   ? getFieldValue("nearbyPoints").map(
                       (point: string, idx: number) => {
-                        console.log(point, idx);
                         return {
                           id: "nearbyPoints",
                           value: point,
@@ -414,13 +431,13 @@ export default function PropertyInformation({
               }}
               // setInputs={setInputs}
               handleChange={handleChange}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
         </Card>
       </Flex>
 
-      <Text>Property Details</Text>
+      <Text className="card-header">Property Details</Text>
       <Flex gap={"3"} direction={"row"}>
         <Card
           size="5"
@@ -453,7 +470,7 @@ export default function PropertyInformation({
               onChange={(value: any) => handleChange("landUnitId", value)}
               position="popper"
               errors={errors?.landUnitId}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
           <Flex
@@ -477,7 +494,7 @@ export default function PropertyInformation({
               iconPosition="right"
               onChange={(e: any) => handleChange("landSize", e.target.value)}
               errors={errors?.landSize}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
           <Flex
@@ -503,7 +520,7 @@ export default function PropertyInformation({
                 handleChange("builtUpArea", event.target.value)
               }
               errors={errors?.builtUpArea}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
 
@@ -522,7 +539,7 @@ export default function PropertyInformation({
               key="pricePerUnit"
               label="Price Per Area Unit"
               placeholder="Price per unit"
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
               value={getFieldValue("pricePerUnit")}
               onChange={(event: any) =>
                 handleChange("pricePerUnit", event.target.value)
@@ -551,7 +568,7 @@ export default function PropertyInformation({
                 handleChange("totalPrice", event.target.value)
               }
               errors={errors?.totalPrice}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
 
@@ -578,7 +595,7 @@ export default function PropertyInformation({
                 onChange={(event: any) =>
                   handleChange("numberOfFloors", event.target.value)
                 }
-                disabled={isPreview}
+                disabled={editMode ? false : isPreview}
               />
             </Flex>
           )}
@@ -606,7 +623,7 @@ export default function PropertyInformation({
                 onChange={(event: any) =>
                   handleChange("pricePerYear", event.target.value)
                 }
-                disabled={isPreview}
+                disabled={editMode ? false : isPreview}
               />
             </Flex>
           )}
@@ -635,7 +652,7 @@ export default function PropertyInformation({
                   onChange={(event: any) =>
                     handleChange("maxRooms", event.target.value)
                   }
-                  disabled={isPreview}
+                  disabled={editMode ? false : isPreview}
                 />
               </Flex>
 
@@ -660,7 +677,7 @@ export default function PropertyInformation({
                     handleChange("beds", event.target.value)
                   }
                   errors={errors?.beds}
-                  disabled={isPreview}
+                  disabled={editMode ? false : isPreview}
                 />
               </Flex>
 
@@ -685,7 +702,7 @@ export default function PropertyInformation({
                     handleChange("baths", event.target.value)
                   }
                   errors={errors?.baths}
-                  disabled={isPreview}
+                  disabled={editMode ? false : isPreview}
                 />
               </Flex>
 
@@ -707,7 +724,7 @@ export default function PropertyInformation({
                   optionList={fieldOptions?.furnishing}
                   onChange={(value: any) => handleChange("furnishingId", value)}
                   position="popper"
-                  disabled={isPreview}
+                  disabled={editMode ? false : isPreview}
                 />
               </Flex>
             </>
@@ -735,7 +752,7 @@ export default function PropertyInformation({
                 optionList={fieldOptions?.parkingSpace}
                 onChange={(value: any) => handleChange("parkingSpaceId", value)}
                 position="popper"
-                disabled={isPreview}
+                disabled={editMode ? false : isPreview}
               />
             </Flex>
           )}
@@ -766,7 +783,7 @@ export default function PropertyInformation({
                   new Date("")
                 }
                 onChange={(value: any) => handleChange("buildingYear", value)}
-                disabled={isPreview}
+                disabled={editMode ? false : isPreview}
               />
             </Flex>
           )}
@@ -792,7 +809,7 @@ export default function PropertyInformation({
               onChange={(val) =>
                 handleChange("availableDate", val?.toISOString())
               }
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
               // value={new Date(getFieldValue("availableDate")) || new Date()}
               // onChange={(value: any) => handleChange("availableDate", value)}
             />
@@ -821,7 +838,7 @@ export default function PropertyInformation({
                   optionList={fieldOptions?.pool}
                   onChange={(value: any) => handleChange("pool", value)}
                   position="popper"
-                  disabled={isPreview}
+                  disabled={editMode ? false : isPreview}
                 />
               </Flex>
 
@@ -847,7 +864,7 @@ export default function PropertyInformation({
                         handleChange("poolTypeId", value)
                       }
                       position="popper"
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                     />
                   </Flex>
 
@@ -870,7 +887,7 @@ export default function PropertyInformation({
                       onChange={(event: any) =>
                         handleChange("poolSize", event.target.value)
                       }
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                     />
                   </Flex>
                 </>

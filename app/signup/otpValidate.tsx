@@ -61,7 +61,6 @@ export default function OtpInput({
       await dispatch(forgotPasswordVerify({ email: registerEmail, code: otp }))
         .unwrap()
         .then((data) => {
-          console.log("Success:", data);
           // Do something after store is updated
           if (data.success) {
             setInvalidOtp("");
@@ -81,7 +80,6 @@ export default function OtpInput({
       await dispatch(registerVerify({ email: registerEmail, code: otp }))
         .unwrap()
         .then((data) => {
-          console.log("Success:", data);
           // Do something after store is updated
           if (data.success) {
             setInvalidOtp("");
@@ -120,7 +118,6 @@ export default function OtpInput({
       await dispatch(forgotPasswordInitiate({ email: registerEmail }))
         .unwrap()
         .then((data) => {
-          console.log("Success:", data);
           // Do something after store is updated
           // if (data.success) setRegisterEmail(email);
         })
@@ -136,7 +133,6 @@ export default function OtpInput({
       await dispatch(registerInitiate({ email: registerEmail, role: "ADMIN" }))
         .unwrap()
         .then((data) => {
-          console.log("Success:", data);
           // Do something after store is updated
           // if (data.success) setRegisterEmail(email);
         })

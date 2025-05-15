@@ -13,17 +13,19 @@ export default function ExtrasFeaturePage({
   getFieldValue,
   errors,
   isPreview,
+  setEditMode,
+  editMode,
 }: {
   handleChange: any;
   getFieldValue: (name: string) => any;
   errors: any;
   isPreview?: boolean;
+  setEditMode: any;
+  editMode: boolean;
 }) {
   const { addValue, getValues }: any = useDynamicFieldMap();
 
   const addMore = (category: string, value: any) => {
-    console.log("Add more input", category, value);
-
     handleChange(
       `${category}Added`,
       value.map((item: any) => {
@@ -32,21 +34,22 @@ export default function ExtrasFeaturePage({
     );
   };
 
-  console.log("dd", getFieldValue("enclosed"));
-
   return (
     <Flex gap="3" direction="column" className="extras-features">
-      <Text> Extras Feature</Text>
-      {isPreview && (
-        <ButtonInput
-          direction={"row"}
-          gap={"3"}
-          onClick={() => {}}
-          className="btn-secondary btn-edit"
-        >
-          <Icon name={"CustomEditIcon"} size={24} />
-        </ButtonInput>
-      )}
+      <Flex gap={"3"} direction={"row"} justify={"between"} align={"center"}>
+        <Text className="card-header"> Extras Feature</Text>
+        {isPreview && (
+          <ButtonInput
+            direction={"row"}
+            gap={"3"}
+            onClick={() => setEditMode(!editMode)}
+            className="btn-secondary btn-edit"
+          >
+            <Icon name={"CustomEditIcon"} size={24} />
+          </ButtonInput>
+        )}
+      </Flex>
+
       <Flex gap={"3"} direction={"row"}>
         <Card
           size={"5"}
@@ -79,7 +82,7 @@ export default function ExtrasFeaturePage({
                       defaultChecked={
                         !!getFieldValue("enclosed") ? true : false
                       }
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"enclosed"}
                       onClick={(e: any) =>
                         handleChange(
@@ -108,7 +111,7 @@ export default function ExtrasFeaturePage({
                       defaultChecked={
                         !!getFieldValue("openPlan") ? true : false
                       }
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"openPlan"}
                       onClick={(e: any) =>
                         handleChange(
@@ -135,7 +138,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"ac"}
                       defaultChecked={!!getFieldValue("ac") ? true : false}
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"ac"}
                       onClick={(e: any) =>
                         handleChange(
@@ -156,7 +159,6 @@ export default function ExtrasFeaturePage({
                 inputGroups={
                   getFieldValue("livingSpaceAdded")?.length > 0
                     ? getFieldValue("livingSpaceAdded").map((item: any) => {
-                        console.log("item", item);
                         return {
                           category: "livingSpace",
                           id: "livingSpace",
@@ -220,7 +222,7 @@ export default function ExtrasFeaturePage({
                       defaultChecked={
                         getFieldValue("fullyEquipped") ? true : false
                       }
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"fullyEquipped"}
                       onClick={(e: any) =>
                         handleChange(
@@ -247,7 +249,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"fridge"}
                       defaultChecked={getFieldValue("fridge") ? true : false}
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"fridge"}
                       onClick={(e: any) =>
                         handleChange(
@@ -274,7 +276,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"oven"}
                       defaultChecked={getFieldValue("oven") ? true : false}
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"oven"}
                       onClick={(e: any) =>
                         handleChange(
@@ -302,7 +304,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"stoves"}
                       defaultChecked={getFieldValue("stoves") ? true : false}
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"stoves"}
                       onClick={(e: any) =>
                         handleChange(
@@ -323,7 +325,6 @@ export default function ExtrasFeaturePage({
                 inputGroups={
                   getFieldValue("kitchenAdded")?.length > 0
                     ? getFieldValue("kitchenAdded").map((item: any) => {
-                        console.log("item", item);
                         return {
                           category: "kitchen",
                           id: "kitchen",
@@ -386,7 +387,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"electric"}
                       defaultChecked={getFieldValue("electric") ? true : false}
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"electric"}
                       onClick={(e: any) =>
                         handleChange(
@@ -413,7 +414,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"water"}
                       defaultChecked={getFieldValue("water") ? true : false}
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"water"}
                       onClick={(e: any) =>
                         handleChange(
@@ -440,7 +441,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"wifi"}
                       defaultChecked={getFieldValue("wifi") ? true : false}
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"wifi"}
                       onClick={(e: any) =>
                         handleChange(
@@ -462,7 +463,6 @@ export default function ExtrasFeaturePage({
                   getFieldValue("utilitiesIncludedAdded")?.length > 0
                     ? getFieldValue("utilitiesIncludedAdded").map(
                         (item: any) => {
-                          console.log("item", item);
                           return {
                             category: "utilitiesIncluded",
                             id: "utilitiesIncluded",
@@ -526,7 +526,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"cleaning"}
                       defaultChecked={getFieldValue("cleaning") ? true : false}
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"cleaning"}
                       onClick={(e: any) =>
                         handleChange(
@@ -553,7 +553,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"abcd"}
                       defaultChecked={getFieldValue("abcd") ? true : false}
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"abcd"}
                       onClick={(e: any) =>
                         handleChange(
@@ -580,7 +580,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"abdc"}
                       defaultChecked={getFieldValue("abdc") ? true : false}
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"abdc"}
                       onClick={(e: any) =>
                         handleChange(
@@ -602,7 +602,6 @@ export default function ExtrasFeaturePage({
                   getFieldValue("servicesIncludedAdded")?.length > 0
                     ? getFieldValue("servicesIncludedAdded").map(
                         (item: any) => {
-                          console.log("item", item);
                           return {
                             category: "servicesIncluded",
                             id: "servicesIncluded",
@@ -667,7 +666,7 @@ export default function ExtrasFeaturePage({
                       defaultChecked={
                         getFieldValue("emergencyExit") ? true : false
                       }
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"emergencyExit"}
                       onClick={(e: any) =>
                         handleChange(
@@ -694,7 +693,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"cctv"}
                       defaultChecked={getFieldValue("cctv") ? true : false}
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"cctv"}
                       onClick={(e: any) =>
                         handleChange(
@@ -723,7 +722,7 @@ export default function ExtrasFeaturePage({
                       defaultChecked={
                         getFieldValue("securityGuard") ? true : false
                       }
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"securityGuard"}
                       onClick={(e: any) =>
                         handleChange(
@@ -751,7 +750,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"balcony"}
                       defaultChecked={getFieldValue("balcony") ? true : false}
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"balcony"}
                       onClick={(e: any) =>
                         handleChange(
@@ -780,7 +779,7 @@ export default function ExtrasFeaturePage({
                       defaultChecked={
                         getFieldValue("laundryService") ? true : false
                       }
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"laundryService"}
                       onClick={(e: any) =>
                         handleChange(
@@ -809,7 +808,7 @@ export default function ExtrasFeaturePage({
                       defaultChecked={
                         getFieldValue("elevatorLift") ? true : false
                       }
-                      disabled={isPreview}
+                      disabled={editMode ? false : isPreview}
                       name={"elevatorLift"}
                       onClick={(e: any) =>
                         handleChange(
@@ -831,7 +830,6 @@ export default function ExtrasFeaturePage({
                   getFieldValue("additionalFeaturesAdded")?.length > 0
                     ? getFieldValue("additionalFeaturesAdded").map(
                         (item: any) => {
-                          console.log("item", item);
                           return {
                             category: "additionalFeatures",
                             id: "additionalFeatures",

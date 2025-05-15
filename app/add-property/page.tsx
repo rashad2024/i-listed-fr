@@ -15,6 +15,8 @@ import { z } from "zod";
 import {
   addPropertyAsDraft,
   addProperty,
+  updateDraftProperty,
+  updateProperty,
 } from "@/features/redux/Property/propertyThunks";
 import {
   getFieldOptions,
@@ -46,6 +48,11 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
     (state: RootState) => state.property
   );
 
+  const [basicEditMode, setBasicEditMode] = useState(false);
+  const [descEditMode, setDescEditMode] = useState(false);
+  const [extrasEditMode, setExtrasEditMode] = useState(false);
+  const [propertyId, setPropertyId] = useState(property?.id);
+
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [unitIconName, setUnitIconName] = useState("");
@@ -73,7 +80,6 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
     shouldFilterOptions: boolean,
     removeChanges: boolean
   ) => {
-    console.log(name, value);
     if (removeChanges) {
       addValue(
         `${name}Added`,
@@ -122,9 +128,9 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
       .unwrap()
       .then((res: any) => {
         // Do something after store is updated
-        console.log(res, res.success);
         if (res.success) {
-          setShowSuccessModal(res?.data?.id); // Redirect to /property-list
+          setPropertyId(res?.data?.id);
+          setShowSuccessModal("add"); // Redirect to /property-list
         }
       })
       .catch((err: any) => {
@@ -139,6 +145,68 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
           });
         });
       });
+  };
+  const updateDraft = async (propertyId: string, formData: any) => {
+    const data = prepareFormData(formData);
+
+    await dispatch(updateDraftProperty({ propertyId, propertyData: data }))
+      .unwrap()
+      .then((res: any) => {
+        // Do something after store is updated
+        if (res.success) {
+          setShowSuccessModal("edit"); // Redirect to /property-list
+          setPropertyId(res?.data?.id);
+        }
+      })
+      .catch((err: any) => {
+        const { errors } = JSON.parse(err);
+
+        errors.map((err: any) => {
+          // if (!Object.keys(formErrors).length) {
+          setErrors({
+            [err?.field]: {
+              message: err.messages.join("."),
+            },
+          });
+        });
+      });
+  };
+  const updateCurrentProperty = async (propertyId: string, formData: any) => {
+    const data = prepareFormData(formData);
+
+    await dispatch(updateProperty({ propertyId, propertyData: data }))
+      .unwrap()
+      .then((res: any) => {
+        // Do something after store is updated
+        if (res.success) {
+          setShowSuccessModal("edit"); // Redirect to /property-list
+          setPropertyId(res?.data?.id);
+          setBasicEditMode(false);
+          setDescEditMode(false);
+          setExtrasEditMode(false);
+        }
+      })
+      .catch((err: any) => {
+        const { errors } = JSON.parse(err);
+
+        errors.map((err: any) => {
+          // if (!Object.keys(formErrors).length) {
+          setErrors({
+            [err?.field]: {
+              message: err.messages.join("."),
+            },
+          });
+        });
+      });
+  };
+
+  const handleUpdateClick = () => {
+    if (!propertyId) return;
+    if (isViewMode) {
+      updateCurrentProperty(propertyId || property.id, getValues());
+    } else {
+      updateDraft(propertyId || property.id, getValues());
+    }
   };
 
   const createProperty = async (formData: any) => {
@@ -176,10 +244,10 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
       setErrors(errors);
       setIsSubmitted(true);
     } else {
-      console.log("formSubmit", type, getValues());
       switch (type) {
         case "Draft":
-          createDrafts(getValues());
+          if (propertyId) updateDraft(propertyId, getValues());
+          else createDrafts(getValues());
           break;
         case "Previous":
           setActiveStep(activeStep - 1);
@@ -193,11 +261,14 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
           break;
         }
         case "Submit":
-          createProperty(getValues());
+          if (propertyId) updateCurrentProperty(propertyId, getValues());
+          else createProperty(getValues());
           break;
         case "Cancel":
           reset();
-          setActiveStep(0);
+          setBasicEditMode(false);
+          setDescEditMode(false);
+          setExtrasEditMode(false);
           break;
       }
       //   if (type === "Next") {
@@ -219,7 +290,7 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
   useEffect(() => {
     addBulkValue({ ...property, ...{ dataReady: !!propertyOptions } });
 
-    console.log("ddd", getValues());
+    setPropertyId(property?.id);
   }, [propertyOptions]);
 
   return (
@@ -274,6 +345,8 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
           errors={errors}
           unitIconName={unitIconName}
           isPreview={isViewMode || isPreview}
+          setEditMode={setBasicEditMode}
+          editMode={basicEditMode}
         />
       )}
 
@@ -283,6 +356,8 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
           getFieldValue={getFieldValue}
           errors={errors}
           isPreview={isViewMode || isPreview}
+          setEditMode={setDescEditMode}
+          editMode={descEditMode}
         />
       )}
 
@@ -294,22 +369,29 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
             getFieldValue={getFieldValue}
             errors={errors}
             isPreview={isViewMode || isPreview}
+            setEditMode={setExtrasEditMode}
+            editMode={extrasEditMode}
           />
         )}
 
-      {!isViewMode && (
+      {(!isViewMode ||
+        ((propertyId || isViewMode) &&
+          (basicEditMode || descEditMode || extrasEditMode))) && (
         <PropertyActions
           activeStep={activeStep}
           setActiveStep={setActiveStep}
           handleClick={(type: string) => formSubmit(type)}
           selectedCategory={selectedCategory}
+          showUpdate={basicEditMode || descEditMode || extrasEditMode}
+          handleUpdateClick={() => handleUpdateClick()}
         />
       )}
 
       {showSuccessModal && (
         <PropertySuccessModal
-          propertyId={showSuccessModal}
+          propertyId={propertyId}
           setShowSuccessModal={setShowSuccessModal}
+          mode={showSuccessModal}
         />
       )}
       {showDeleteConfirmationModal && (

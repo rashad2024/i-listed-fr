@@ -4,15 +4,17 @@ import axiosInstance from "../../utils/axios";
 export const retrievePropertyOptions = async () => {
   try {
     const response = await axiosInstance.get("/properties/options");
-    console.log("÷÷÷", response.data);
-    
+
     return response.data; // Return the response data
   } catch (error: any) {
     console.log(error);
     throw new Error(error.message || "Property options retrieve failed");
   }
 };
-export const createPropertyService = async (propertyData: object) => {
+export const createPropertyService = async (
+  propertyData: object,
+  propertyId?: string
+) => {
   try {
     const response = await axiosInstance.post("/properties", propertyData);
     return response.data; // Return the response data
@@ -25,7 +27,7 @@ export const createPropertyService = async (propertyData: object) => {
 export const createDraftPropertyService = async (propertyData: object) => {
   try {
     const response = await axiosInstance.post(
-      "/properties/drafts",
+      `/properties/drafts`,
       propertyData
     );
     return response.data; // Return the response data
@@ -34,11 +36,40 @@ export const createDraftPropertyService = async (propertyData: object) => {
     throw new Error(error.message || "Property options retrieve failed");
   }
 };
+export const updateDraftPropertyService = async (
+  propertyId: string,
+  propertyData: object
+) => {
+  try {
+    const response = await axiosInstance.put(
+      `/properties/drafts/${propertyId}`,
+      propertyData
+    );
+    return response.data; // Return the response data
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.message || "Draft property update failed");
+  }
+};
+export const updatePropertyService = async (
+  propertyId: string,
+  propertyData: object
+) => {
+  try {
+    const response = await axiosInstance.put(
+      `/properties/${propertyId}`,
+      propertyData
+    );
+    return response.data; // Return the response data
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.message || "Property update failed");
+  }
+};
 
 export const retrievePropertyData = async (id: string) => {
   try {
     const response = await axiosInstance.get(`/properties/${id}`);
-console.log(response)
     return response.data; // Return the response data
   } catch (error: any) {
     console.log(error);

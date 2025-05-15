@@ -13,12 +13,14 @@ export default function PropertyActions({
   setActiveStep,
   handleClick,
   selectedCategory,
+  showUpdate,
+  handleUpdateClick,
   isValid,
   isSubmitting,
 }: any) {
   return (
     <Flex direction={"row"} gap={"3"} style={{ justifyContent: "flex-end" }}>
-      {activeStep > 2 ? (
+      {activeStep > 2 || showUpdate ? (
         <ButtonInput
           gap={"3"}
           direction={"row"}
@@ -28,7 +30,7 @@ export default function PropertyActions({
         >
           <span>Cancel</span>
         </ButtonInput>
-      ) : activeStep !== 0 ? (
+      ) : activeStep !== 0 && !showUpdate ? (
         <ButtonInput
           gap={"3"}
           direction={"row"}
@@ -46,27 +48,46 @@ export default function PropertyActions({
           </span>
         </ButtonInput>
       ) : null}
-      <ButtonInput
-        gap={"3"}
-        type={"button"}
-        direction={"row"}
-        className="btn-secondary btn-draft"
-        onClick={() => handleClick("Draft")}
-        // disabled={}
-      >
-        <span>Save Draft</span>
-      </ButtonInput>
 
-      <ButtonInput
-        gap={"3"}
-        direction={"row"}
-        type={"button"}
-        className="btn-secondary btn-next"
-        onClick={() => handleClick(getButtonText(activeStep, selectedCategory))}
-        disabled={isSubmitting}
-      >
-        {getButtonText(activeStep, selectedCategory)}
-      </ButtonInput>
+      {!showUpdate && (
+        <ButtonInput
+          gap={"3"}
+          type={"button"}
+          direction={"row"}
+          className="btn-secondary btn-draft"
+          onClick={() => handleClick("Draft")}
+          // disabled={}
+        >
+          <span>Save Draft</span>
+        </ButtonInput>
+      )}
+
+      {showUpdate && (
+        <ButtonInput
+          gap={"3"}
+          type={"button"}
+          direction={"row"}
+          className="btn-secondary btn-update"
+          onClick={handleUpdateClick}
+          // disabled={}
+        >
+          <span>Update</span>
+        </ButtonInput>
+      )}
+      {!showUpdate && (
+        <ButtonInput
+          gap={"3"}
+          direction={"row"}
+          type={"button"}
+          className="btn-secondary btn-next"
+          onClick={() =>
+            handleClick(getButtonText(activeStep, selectedCategory))
+          }
+          disabled={isSubmitting}
+        >
+          {getButtonText(activeStep, selectedCategory)}
+        </ButtonInput>
+      )}
     </Flex>
   );
 }

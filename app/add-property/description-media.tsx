@@ -2,7 +2,11 @@
 
 import { Text, TextArea, Flex, Card, Inset, Strong } from "@radix-ui/themes";
 import { useDynamicFieldMap } from "@/components/ui/common/useDynamicFieldMap";
+
 import InputField from "@/components/ui/common/Input";
+import ButtonInput from "@/components/ui/common/Button";
+import Icon from "@/components/ui/common/Icon";
+
 import CustomFileUploader from "@/components/ui/common/CustomFileUploader";
 import UploadedFilePreview from "@/components/ui/common/UploadFilePreview";
 
@@ -11,15 +15,32 @@ export default function DescriptionMedia({
   getFieldValue,
   errors,
   isPreview,
+  setEditMode,
+  editMode,
 }: {
   handleChange: any;
   getFieldValue: (name: string) => string;
   errors: any;
   isPreview?: boolean;
+
+  setEditMode: any;
+  editMode: boolean;
 }) {
   return (
     <Flex gap="3" direction="column">
-      <Text>Description and Media</Text>
+      <Flex gap={"3"} direction={"row"} justify={"between"} align={"center"}>
+        <Text className="card-header">Description and Media</Text>
+        {isPreview && (
+          <ButtonInput
+            direction={"row"}
+            gap={"3"}
+            onClick={() => setEditMode(!editMode)}
+            className="btn-secondary btn-edit"
+          >
+            <Icon name={"CustomEditIcon"} size={24} />
+          </ButtonInput>
+        )}
+      </Flex>
       <Flex gap={"3"} direction={"row"}>
         <Card
           size={"5"}
@@ -46,7 +67,7 @@ export default function DescriptionMedia({
               value={getFieldValue("description") || ""}
               style={{ borderRadius: "4px", minWidth: "100%" }}
               onChange={(e: any) => handleChange("description", e.target.value)}
-              disabled={isPreview}
+              disabled={editMode ? false : isPreview}
             />
           </Flex>
 
@@ -73,10 +94,9 @@ export default function DescriptionMedia({
                   id={"images"}
                   prevFiles={getFieldValue("images") || []}
                   handleChange={(value: any) => {
-                    console.log(value);
                     handleChange("images", value);
                   }}
-                  disabled={isPreview}
+                  disabled={editMode ? false : isPreview}
                 />
               </>
             )}
@@ -114,7 +134,7 @@ export default function DescriptionMedia({
                   label=""
                   placeholder="Video(mp4)"
                   value={getFieldValue("videoLink")}
-                  disabled={isPreview}
+                  disabled={editMode ? false : isPreview}
                   onChange={(event: any) =>
                     handleChange("videoLink", event.target.value)
                   }

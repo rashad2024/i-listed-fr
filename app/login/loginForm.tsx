@@ -68,7 +68,6 @@ export default function LoginForm() {
     await dispatch(login(userData))
       .unwrap()
       .then((data) => {
-        console.log("Success:", data);
         // Do something after store is updated
         if (data.success) {
           router.push("/add-property"); // Redirect to /property-list

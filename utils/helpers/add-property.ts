@@ -1401,7 +1401,7 @@ export const prepareFormData = (data: any) => {
   if (data?.furnishingId) payload.furnishingId = parseInt(data?.furnishingId);
   if (data?.buildingYear) payload.buildingYear = data?.buildingYear;
   if (data?.availableDate) payload.availableDate = data?.availableDate;
-  if (data?.pool === "yes") payload.pool = true;
+  if (data?.pool == "true") payload.pool = true;
   if (data?.poolTypeId) payload.poolTypeId = parseInt(data?.poolTypeId);
   if (data?.poolSize) payload.poolSize = data?.poolSize;
   if (data?.parkingSpaceId)
@@ -1499,6 +1499,7 @@ export const filterPropertyOptions = (
 export const preparePropertyData = (data: any) => {
   const payload: Record<string, any> = {};
 
+  if (data?.id) payload.id = data?.id;
   // Living space options start
   if (data?.livingSpace?.length) {
     data?.livingSpace.map((space: any) => {
@@ -1687,7 +1688,7 @@ export const preparePropertyData = (data: any) => {
   if (data?.furnishingId) payload.furnishingId = parseInt(data?.furnishingId);
   if (data?.buildingYear) payload.buildingYear = data?.buildingYear;
   if (data?.availableDate) payload.availableDate = data?.availableDate;
-  if (data?.pool === "yes") payload.pool = true;
+  if (data?.pool == "true") payload.pool = "true";
   if (data?.poolTypeId) payload.poolTypeId = parseInt(data?.poolTypeId);
   if (data?.poolSize) payload.poolSize = data?.poolSize;
   if (data?.parkingSpaceId)

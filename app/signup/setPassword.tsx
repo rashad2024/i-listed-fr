@@ -65,7 +65,6 @@ export default function SetPassword({
       )
         .unwrap()
         .then((data) => {
-          console.log("Success:", data);
           // Do something after store is updated
           if (data.success) {
             setPasswordMatched(true);
@@ -86,7 +85,6 @@ export default function SetPassword({
       )
         .unwrap()
         .then((data) => {
-          console.log("Success:", data);
           // Do something after store is updated
           if (data.success) {
             setPasswordMatched(true);

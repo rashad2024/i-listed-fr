@@ -33,7 +33,7 @@ const UploadedFilePreview = ({ files, id }: { files: any; id: string }) => {
       {uploadedFiles?.map((file: any, index: number) => {
         const previewUrl =
           baseUrl + (file?.responseURL ? file.responseURL : file);
-        console.log(file, id);
+
         return (
           <div
             key={index}

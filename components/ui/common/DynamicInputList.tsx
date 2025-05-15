@@ -13,7 +13,6 @@ const DynamicInputList = ({
   isPreview,
   data,
 }: any) => {
-  console.log("inputGroups", inputGroups);
   const [inputs, setInputs] = useState(inputGroups);
   const [showPreviewView, setShowPreviewView] = useState(isPreview);
 
@@ -27,22 +26,13 @@ const DynamicInputList = ({
 
     const updated = [...textInputs];
 
-    console.log("textInputs", textInputs, value, id);
-
     inputs[index].value = value;
 
     setInputs(inputs);
 
-    console.log("setInputs", setInputs);
-
     const inputFields = inputs.filter((input: any) => {
       if (input.type === "text") return input;
     });
-
-    // console.log(
-    //   "inputFields",
-    //   inputFields.map((input: any) => (input.value ? input.value : ""))
-    // );
 
     handleChange(
       id,
@@ -58,7 +48,6 @@ const DynamicInputList = ({
   const handleAddInput = (id: string) => {
     const input = inputs[inputs.length - 1];
 
-    console.log("sss", inputs, input?.value, input?.id);
     if (!input?.value?.length && input?.category) return;
 
     if (input?.category) {
@@ -74,62 +63,6 @@ const DynamicInputList = ({
         )
       );
     }
-    // if (input.category) {
-    //   console.log(
-    //     !input.value ||
-    //       (input.value[input.value.length - 1] &&
-    //         !input.value[input.value.length - 1].value)
-    //   );
-
-    //   if (
-    //     !input.value
-    //     // ||
-    //     // (inputValue[inputValue.length - 1] &&
-    //     //   !inputValue[inputValue.length - 1].value)
-    //   ) {
-    //     return;
-    //   }
-    //   // handleChange(
-    //   //   fieldId,
-    //   //   {
-    //   //     id: ⁠ custom-${inputs.length - 1} ⁠,
-    //   //     value: input.value,
-    //   //     isDefault: false,
-    //   //   },
-    //   //   true
-    //   // );
-    // input.disabled = true;
-    // input.iconName = "CustomCrossIcon";
-    // input.iconPosition = "right";
-    // input.iconSize = 12;
-    // input.isSubmitted = true;
-    //   // input.iconClick = (e: any, input: any) => {
-    //   //   handleChange(input.category, input.value, false, true);
-
-    //   //   console.log(
-    //   //     "inputGroups",
-    //   //     input.value,
-
-    //   inputGroups.filter(
-    //     (inputGroup: any) => input.value && input.value !== inputGroup.value
-    //   )
-
-    // setInputs(
-    //   inputGroups.filter(
-    //     (inputGroup: any) =>
-    //       !input.value || input.value !== inputGroup.value
-    //   )
-    // )
-    //   //   );
-    //   // };
-    // setInputs(
-    //   inputGroups.filter(
-    //     (inputGroup: any) => !input.value || input.value !== inputGroup.value
-    //   )
-    // );
-    // }
-
-    // handleChange(input.category, input.value, false, true);
 
     if (onClick) {
       onClick(
@@ -185,7 +118,6 @@ const DynamicInputList = ({
             category,
           } = input;
           fieldId = id || fieldId;
-          console.log("iconName: ", iconName);
 
           if (isPreview && idx === inputs.length - 1 && !value) return;
           // console.log("input", input);
