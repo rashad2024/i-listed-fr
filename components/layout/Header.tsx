@@ -1,7 +1,7 @@
 // components/layout/Header.tsx
 "use client";
 
-import * as React from "react";
+import React, { useState } from "react";
 import { Avatar, Flex } from "@radix-ui/themes";
 
 import InputField from "../ui/common/Input";
@@ -13,6 +13,8 @@ import Image from "next/image";
 import "../../styles/components/_header.scss";
 
 export default function Header() {
+  const [language, setLanguage] = useState("USD");
+  const [currency, setCurrency] = useState("FR");
   return (
     <header className="header-container">
       {/* Search Input */}
@@ -46,21 +48,21 @@ export default function Header() {
               { name: "EN", id: "en" },
               { name: "FR", id: "fr" },
             ]}
-            onChange={() => {}}
-            value={"EN"}
+            onChange={(value: string) => setLanguage(value)}
+            value={language}
             position="popper"
           />
 
           {/* Currency Selector */}
           <SelectField
             gap={"3"}
-            label="USD"
+            label=""
             optionList={[
               { name: "USD", id: "usd" },
               { name: "EUR", id: "eur" },
             ]}
-            onChange={() => {}}
-            value={"USD"}
+            onChange={(value: string) => setCurrency(value)}
+            value={currency}
             position="popper"
           />
         </div>

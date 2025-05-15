@@ -15,45 +15,53 @@
   hr {
     margin: 1rem 0;
   }
-  .menu a,
-  span {
-    display: flex;
-    // margin: 0 0 24px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
+  .menu {
+    height: 100%;
 
-    span.rt-Text {
-      color: #7d7d7d;
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 100%;
-      font-family: var(--font-inter);
+    .accordionRoot {
+      justify-content: space-between;
+      height: 100%;
     }
+    a,
+    span {
+      display: flex;
+      // margin: 0 0 24px;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
 
-    svg {
-      stroke: #7d7d7d;
-    }
-
-    &.active,
-    &.hover {
       span.rt-Text {
-        color: #000000;
+        color: #7d7d7d;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 100%;
+        font-family: var(--font-inter);
       }
+
       svg {
-        stroke: #000;
-        stroke-width: 0.2px;
+        stroke: #7d7d7d;
       }
-      &::before {
-        content: "";
-        height: 4px;
-        width: 24px;
-        display: block;
-        background: #000;
-        position: absolute;
-        left: calc(-50% + -24px);
-        transform: translateX(calc(100% + 50px)) rotate(90deg);
-        border-radius: 8px 8px 0 0;
+
+      &.active,
+      &.hover {
+        span.rt-Text {
+          color: #000000;
+        }
+        svg {
+          stroke: #000;
+          stroke-width: 0.2px;
+        }
+        &::before {
+          content: "";
+          height: 4px;
+          width: 24px;
+          display: block;
+          background: #000;
+          position: absolute;
+          left: calc(-50% + -24px);
+          transform: translateX(calc(100% + 50px)) rotate(90deg);
+          border-radius: 8px 8px 0 0;
+        }
       }
     }
   }

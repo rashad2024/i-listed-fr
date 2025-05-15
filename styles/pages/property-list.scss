@@ -27,4 +27,16 @@
     align-items: center;
     margin: 2rem 0;
   }
+
+  span.rt-Text.card-header {
+    font-weight: 700;
+    font-size: 24px;
+  }
+
+  span.rt-Text.card-content {
+    max-width: 700px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+  }
 }

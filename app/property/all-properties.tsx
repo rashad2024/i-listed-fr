@@ -13,6 +13,7 @@ import PropertyDeleteConfirmationModal from "@/app/old-garbage-prpr/delete-confi
 import CardView from "@/components/ui/common/CardView";
 import TableWithPagination from "@/components/ui/common/TableWithPagination";
 import Skeleton from "@/components/ui/common/Skeleton";
+import NotFoundPage from "@/components/ui/common/NotFound";
 
 import {
   prepareFilterData,
@@ -31,11 +32,16 @@ export default function AllProperties({ status }: { status?: any }) {
     (state: RootState) => state.property
   );
 
+  const [noProperty, setNoProperty] = useState<any>(false);
   const [filterData, setFilterData] = useState<any>({});
   const fetchProperty = async (data: any) => {
     try {
       const propertyInfo = await getProperties(page || 1, data, status);
 
+      if (!propertyInfo?.data?.length) {
+        setNoProperty(true);
+        return;
+      }
       setTableData(propertyInfo.data);
       setPaginationData(propertyInfo.meta?.pagination);
       setPage(1);
@@ -91,50 +97,54 @@ export default function AllProperties({ status }: { status?: any }) {
       justify={"start"}
       className="property-list-container"
     >
-      <Flex
-        direction={"row"}
-        gap={"3"}
-        justify={"between"}
-        className="preview-header"
-      >
-        <Flex direction={"column"} gap={"3"} justify={"start"} className="">
-          <h2>Property List</h2>
-          <Text as="p" className="preview-subtitle">
-            {" "}
-            View and manage property information
-          </Text>
-        </Flex>
-        <Link href="/add-property" className="btn-primary add-property">
-          <Icon name="PlusIcon" size={24} color="white" /> Add Property
-        </Link>
-      </Flex>
-      <Flex
-        direction={"column"}
-        gap={"3"}
-        justify={"between"}
-        style={{ width: "100%", maxWidth: "100%" }}
-        className="info-container filter-container"
-      >
-        <CardView
-          formData={filterInfo}
-          id="filter-card"
-          handleChange={handleChange}
-          data={filterData}
-          cardTitle="Property Filter"
-        />
-        {tableData?.length ? (
-          <TableWithPagination
-            tableData={tableData}
-            paginationData={paginationData}
-            setPage={setPage}
-            editRowData={editProperty}
-            deleteRowData={deleteProperty}
-            deleteSelectedProperty={deleteSelectedProperty}
-          />
-        ) : (
-          <Skeleton />
-        )}
-      </Flex>
+      {tableData?.length ? (
+        <>
+          <Flex
+            direction={"row"}
+            gap={"3"}
+            justify={"between"}
+            className="preview-header"
+          >
+            <Flex direction={"column"} gap={"3"} justify={"start"} className="">
+              <h2>Property List</h2>
+              <Text as="p" className="preview-subtitle">
+                {" "}
+                View and manage property information
+              </Text>
+            </Flex>
+            <Link href="/add-property" className="btn-primary add-property">
+              <Icon name="PlusIcon" size={24} color="white" /> Add Property
+            </Link>
+          </Flex>
+          <Flex
+            direction={"column"}
+            gap={"3"}
+            justify={"between"}
+            style={{ width: "100%", maxWidth: "100%" }}
+            className="info-container filter-container"
+          >
+            <CardView
+              formData={filterInfo}
+              id="filter-card"
+              handleChange={handleChange}
+              data={filterData}
+              cardTitle="Property Filter"
+            />
+            <TableWithPagination
+              tableData={tableData}
+              paginationData={paginationData}
+              setPage={setPage}
+              editRowData={editProperty}
+              deleteRowData={deleteProperty}
+              deleteSelectedProperty={deleteSelectedProperty}
+            />
+          </Flex>
+        </>
+      ) : noProperty ? (
+        <NotFoundPage />
+      ) : (
+        <Skeleton />
+      )}
       {showDeleteConfirmationModal && (
         <PropertyDeleteConfirmationModal
           propertyId={deletePropertyId}

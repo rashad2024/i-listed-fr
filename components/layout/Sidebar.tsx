@@ -34,7 +34,6 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
     await dispatch(logout())
       .unwrap()
       .then((data) => {
-        console.log("Success:", data);
         // Do something after store is updated
 
         if (data) {
@@ -52,7 +51,6 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
       <div className="logo">iListed</div>
       <hr />
 
-      <div className="menu"></div>
       <div className="menu ">
         <Accordion.Root
           type="multiple"
