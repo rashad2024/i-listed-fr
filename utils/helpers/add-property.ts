@@ -1512,12 +1512,19 @@ export const preparePropertyData = (data: any) => {
       }
       if (space.value && !space.isDefault) {
         payload.livingSpaceAdded = payload.livingSpaceAdded || [];
+        payload.livingSpace = payload.livingSpace || [];
 
         payload.livingSpaceAdded.push({
           value: space.value,
           isSubmitted: true,
           isDefault: false,
         });
+
+        // payload.livingSpace.push({
+        //   value: space.value,
+        //   isSubmitted: true,
+        //   isDefault: false,
+        // });
       }
     });
   }
@@ -1685,7 +1692,9 @@ export const preparePropertyData = (data: any) => {
     payload.parkingSpaceId = parseInt(data?.parkingSpaceId);
   if (data?.description) payload.description = data?.description;
   if (Array.isArray(data?.images) && data?.images.length)
-    payload.images = data?.images.map((image: any) => image.responseURL);
+    payload.images = data?.images.map((image: any) => {
+      return { responseURL: image, name: image?.split("/")[2] };
+    });
   if (data?.videoLink) payload.videoLink = data?.videoLink;
   // if (livingSpace) payload.livingSpace = livingSpace;
   // if (kitchen) payload.kitchen = kitchen;

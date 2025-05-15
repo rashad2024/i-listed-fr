@@ -206,7 +206,7 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
   }, []);
 
   useEffect(() => {
-    addBulkValue(property);
+    addBulkValue({ ...property, ...{ dataReady: true } });
 
     console.log("ddd", getValues());
   }, [property]);
@@ -276,7 +276,8 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
       )}
 
       {(activeStep === 2 || isPreview) &&
-        (selectedCategory == "1" || selectedCategory == "3") && (
+        (selectedCategory == "1" || selectedCategory == "3") &&
+        getFieldValue("dataReady") && (
           <ExtrasFeaturePage
             handleChange={handleChange}
             getFieldValue={getFieldValue}
