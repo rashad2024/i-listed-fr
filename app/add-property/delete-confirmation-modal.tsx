@@ -18,15 +18,13 @@ import ButtonInput from "@/components/ui/common/Button";
 export default function PropertyDeleteConfirmationModal({
   propertyId,
   setShowDeleteConfirmationModal,
-  status,
 }: {
   propertyId: string;
   setShowDeleteConfirmationModal: React.Dispatch<SetStateAction<boolean>>;
   status?: string;
 }) {
-  console.log(status);
   const router = useRouter();
-  const params = useParams();
+  const { status } = useParams();
 
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error, data } = useSelector(
@@ -84,7 +82,7 @@ export default function PropertyDeleteConfirmationModal({
         // Do something after store is updated
         if (data.success) {
           setShowDeleteConfirmationModal(false);
-          router.push(`/property/${params.status}`); // Redirect to /property-list
+          router.push(`/${status ? status : "property"}`); // Redirect to /property-list
         }
       })
       .catch((err) => {
