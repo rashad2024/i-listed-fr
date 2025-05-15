@@ -63,10 +63,10 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
           {/* <Accordion.Item value="dashboard" className="accordionItem">
             <Accordion.Header>
               {/* <Accordion.Trigger className="accordionTrigger"> */}
-          <Link href="/dashboard">
+          {/* <Link href="/dashboard">
             <Icon name="CustomDashboardIcon" size={16} />
             <Text>Dashboard</Text>
-          </Link>
+          </Link> */}
           {/* </Accordion.Trigger> */}
           {/* </Accordion.Header>
           </Accordion.Item> */}
