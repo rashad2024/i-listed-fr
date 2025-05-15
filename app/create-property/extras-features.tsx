@@ -77,7 +77,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"enclosed"}
                       defaultChecked={
-                        getFieldValue("enclosed") === "on" ? true : false
+                        !!getFieldValue("enclosed") ? true : false
                       }
                       disabled={isPreview}
                       name={"enclosed"}
@@ -106,7 +106,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"openPlan"}
                       defaultChecked={
-                        getFieldValue("openPlan") === "on" ? true : false
+                        !!getFieldValue("openPlan") ? true : false
                       }
                       disabled={isPreview}
                       name={"openPlan"}
@@ -134,9 +134,7 @@ export default function ExtrasFeaturePage({
                   <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
                     <Checkbox
                       id={"ac"}
-                      defaultChecked={
-                        getFieldValue("ac") === "on" ? true : false
-                      }
+                      defaultChecked={!!getFieldValue("ac") ? true : false}
                       disabled={isPreview}
                       name={"ac"}
                       onClick={(e: any) =>
@@ -220,7 +218,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"fullyEquipped"}
                       defaultChecked={
-                        getFieldValue("fullyEquipped") === "on" ? true : false
+                        getFieldValue("fullyEquipped") ? true : false
                       }
                       disabled={isPreview}
                       name={"fullyEquipped"}
@@ -248,9 +246,7 @@ export default function ExtrasFeaturePage({
                   <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
                     <Checkbox
                       id={"fridge"}
-                      defaultChecked={
-                        getFieldValue("fridge") === "on" ? true : false
-                      }
+                      defaultChecked={getFieldValue("fridge") ? true : false}
                       disabled={isPreview}
                       name={"fridge"}
                       onClick={(e: any) =>
@@ -277,9 +273,7 @@ export default function ExtrasFeaturePage({
                   <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
                     <Checkbox
                       id={"oven"}
-                      defaultChecked={
-                        getFieldValue("oven") === "on" ? true : false
-                      }
+                      defaultChecked={getFieldValue("oven") ? true : false}
                       disabled={isPreview}
                       name={"oven"}
                       onClick={(e: any) =>
@@ -307,9 +301,7 @@ export default function ExtrasFeaturePage({
                   <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
                     <Checkbox
                       id={"stoves"}
-                      defaultChecked={
-                        getFieldValue("stoves") === "on" ? true : false
-                      }
+                      defaultChecked={getFieldValue("stoves") ? true : false}
                       disabled={isPreview}
                       name={"stoves"}
                       onClick={(e: any) =>
@@ -389,9 +381,7 @@ export default function ExtrasFeaturePage({
                   <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
                     <Checkbox
                       id={"electric"}
-                      defaultChecked={
-                        getFieldValue("electric") === "on" ? true : false
-                      }
+                      defaultChecked={getFieldValue("electric") ? true : false}
                       disabled={isPreview}
                       name={"electric"}
                       onClick={(e: any) =>
@@ -418,9 +408,7 @@ export default function ExtrasFeaturePage({
                   <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
                     <Checkbox
                       id={"water"}
-                      defaultChecked={
-                        getFieldValue("water") === "on" ? true : false
-                      }
+                      defaultChecked={getFieldValue("water") ? true : false}
                       disabled={isPreview}
                       name={"water"}
                       onClick={(e: any) =>
@@ -447,9 +435,7 @@ export default function ExtrasFeaturePage({
                   <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
                     <Checkbox
                       id={"wifi"}
-                      defaultChecked={
-                        getFieldValue("wifi") === "on" ? true : false
-                      }
+                      defaultChecked={getFieldValue("wifi") ? true : false}
                       disabled={isPreview}
                       name={"wifi"}
                       onClick={(e: any) =>
@@ -531,9 +517,7 @@ export default function ExtrasFeaturePage({
                   <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
                     <Checkbox
                       id={"cleaning"}
-                      defaultChecked={
-                        getFieldValue("cleaning") === "on" ? true : false
-                      }
+                      defaultChecked={getFieldValue("cleaning") ? true : false}
                       disabled={isPreview}
                       name={"cleaning"}
                       onClick={(e: any) =>
@@ -560,9 +544,7 @@ export default function ExtrasFeaturePage({
                   <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
                     <Checkbox
                       id={"abcd"}
-                      defaultChecked={
-                        getFieldValue("abcd") === "on" ? true : false
-                      }
+                      defaultChecked={getFieldValue("abcd") ? true : false}
                       disabled={isPreview}
                       name={"abcd"}
                       onClick={(e: any) =>
@@ -589,9 +571,7 @@ export default function ExtrasFeaturePage({
                   <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
                     <Checkbox
                       id={"abdc"}
-                      defaultChecked={
-                        getFieldValue("abdc") === "on" ? true : false
-                      }
+                      defaultChecked={getFieldValue("abdc") ? true : false}
                       disabled={isPreview}
                       name={"abdc"}
                       onClick={(e: any) =>
@@ -673,7 +653,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"emergencyExit"}
                       defaultChecked={
-                        getFieldValue("emergencyExit") === "on" ? true : false
+                        getFieldValue("emergencyExit") ? true : false
                       }
                       disabled={isPreview}
                       name={"emergencyExit"}
@@ -701,9 +681,7 @@ export default function ExtrasFeaturePage({
                   <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
                     <Checkbox
                       id={"cctv"}
-                      defaultChecked={
-                        getFieldValue("cctv") === "on" ? true : false
-                      }
+                      defaultChecked={getFieldValue("cctv") ? true : false}
                       disabled={isPreview}
                       name={"cctv"}
                       onClick={(e: any) =>
@@ -731,7 +709,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"securityGuard"}
                       defaultChecked={
-                        getFieldValue("securityGuard") === "on" ? true : false
+                        getFieldValue("securityGuard") ? true : false
                       }
                       disabled={isPreview}
                       name={"securityGuard"}
@@ -760,9 +738,7 @@ export default function ExtrasFeaturePage({
                   <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
                     <Checkbox
                       id={"balcony"}
-                      defaultChecked={
-                        getFieldValue("balcony") === "on" ? true : false
-                      }
+                      defaultChecked={getFieldValue("balcony") ? true : false}
                       disabled={isPreview}
                       name={"balcony"}
                       onClick={(e: any) =>
@@ -790,7 +766,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"laundryService"}
                       defaultChecked={
-                        getFieldValue("laundryService") === "on" ? true : false
+                        getFieldValue("laundryService") ? true : false
                       }
                       disabled={isPreview}
                       name={"laundryService"}
@@ -819,7 +795,7 @@ export default function ExtrasFeaturePage({
                     <Checkbox
                       id={"elevatorLift"}
                       defaultChecked={
-                        getFieldValue("elevatorLift") === "on" ? true : false
+                        getFieldValue("elevatorLift") ? true : false
                       }
                       disabled={isPreview}
                       name={"elevatorLift"}

@@ -51,7 +51,7 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
   const [unitIconName, setUnitIconName] = useState("");
 
   const [selectedCategory, setSelectedCategory] = useState<SetStateAction<any>>(
-    property.categoryId || ""
+    property?.categoryId || ""
   );
   const [propertyOptions, setPropertyOptions] = useState([]);
   const [activeStep, setActiveStep] = useState(0);
