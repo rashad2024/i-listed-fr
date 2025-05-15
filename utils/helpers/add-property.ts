@@ -1386,6 +1386,7 @@ export const prepareFormData = (data: any) => {
   if (data?.roadAccessId) payload.roadAccessId = parseInt(data?.roadAccessId);
   if (data?.nearbyPoints) payload.nearbyPoints = data?.nearbyPoints;
   if (data?.zoneId) payload.zoneId = parseInt(data?.zoneId);
+  if (data?.googleMapLink) payload.googleMapLink = data?.googleMapLink;
   if (data?.landUnitId) payload.landUnitId = parseInt(data?.landUnitId);
   if (data?.landSize) payload.landSize = parseInt(data?.landSize);
   if (data?.builtUpArea) payload.builtUpArea = data?.builtUpArea;
@@ -1671,6 +1672,7 @@ export const preparePropertyData = (data: any) => {
   if (data?.roadAccessId) payload.roadAccessId = parseInt(data?.roadAccessId);
   if (data?.nearbyPoints) payload.nearbyPoints = data?.nearbyPoints;
   if (data?.zoneId) payload.zoneId = parseInt(data?.zoneId);
+  if (data?.googleMapLink) payload.googleMapLink = data?.googleMapLink;
   if (data?.landUnitId) payload.landUnitId = parseInt(data?.landUnitId);
   if (data?.landSize) payload.landSize = parseInt(data?.landSize);
   if (data?.builtUpArea) payload.builtUpArea = data?.builtUpArea;

@@ -255,23 +255,23 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
       )}
 
       {/* {(activeStep === 0 || showBasicInfo) && ( */}
-      {(activeStep === 0 || isPreview) && (
+      {(activeStep === 0 || isPreview) && getFieldValue("dataReady") && (
         <PropertyInformation
           handleChange={handleChange}
           getFieldValue={getFieldValue}
           fieldOptions={propertyOptions}
           errors={errors}
           unitIconName={unitIconName}
-          isPreview={isPreview}
+          isPreview={isViewMode || isPreview}
         />
       )}
 
-      {(activeStep === 1 || isPreview) && (
+      {(activeStep === 1 || isPreview) && getFieldValue("dataReady") && (
         <DescriptionMedia
           handleChange={handleChange}
           getFieldValue={getFieldValue}
           errors={errors}
-          isPreview={isPreview}
+          isPreview={isViewMode || isPreview}
         />
       )}
 
@@ -282,7 +282,7 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
             handleChange={handleChange}
             getFieldValue={getFieldValue}
             errors={errors}
-            isPreview={isPreview}
+            isPreview={isViewMode || isPreview}
           />
         )}
 

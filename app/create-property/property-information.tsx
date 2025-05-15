@@ -301,14 +301,14 @@ export default function PropertyInformation({
             }}
           >
             <Select
-              id="zone"
+              id="zoneId"
               gap="3"
-              key="zone"
+              key="zoneId"
               label="Zone"
               placeholder="Select zone"
-              value={getFieldValue("zone")}
+              value={getFieldValue("zoneId")}
               optionList={fieldOptions?.zone}
-              onChange={(value: any) => handleChange("zone", value)}
+              onChange={(value: any) => handleChange("zoneId", value)}
               position="popper"
               disabled={isPreview}
             />
@@ -322,16 +322,18 @@ export default function PropertyInformation({
             }}
           >
             <InputField
-              id="mapLink"
+              id="googleMapLink"
               gap="3"
               type="text"
-              key="mapLink"
+              key="googleMapLink"
               label="Google map link"
               placeholder="Enter google map link"
               className={"required"}
-              value={getFieldValue("mapLink")}
-              onChange={(e: any) => handleChange("mapLink", e.target.value)}
-              errors={errors?.mapLink}
+              value={getFieldValue("googleMapLink")}
+              onChange={(e: any) =>
+                handleChange("googleMapLink", e.target.value)
+              }
+              errors={errors?.googleMapLink}
               disabled={isPreview}
             />
           </Flex>
@@ -379,7 +381,7 @@ export default function PropertyInformation({
                           key: "nearbyPoints",
                           label: idx < 1 ? "Nearby points of Interest" : "",
                           placeholder: idx < 1 ? "Nearby points" : "",
-                          disabled: { isPreview },
+                          disabled: isPreview,
                         };
                       }
                     )
