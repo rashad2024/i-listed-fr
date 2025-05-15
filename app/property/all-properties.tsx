@@ -76,7 +76,7 @@ export default function AllProperties({ status }: { status?: any }) {
         // Do something after store is updated
         if (data.success) {
           setPage(page);
-          router.push("/property"); // Redirect to /property-list
+          router.push(`/property${status ? "/drafts" : ""}`); // Redirect to /property-list
         }
       })
       .catch((err: any) => {
