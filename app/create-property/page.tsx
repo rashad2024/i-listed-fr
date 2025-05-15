@@ -44,7 +44,7 @@ export default function CreatePropertyForm({
   property,
   isViewMode,
 }: {
-  property: any;
+  property?: any;
   isViewMode?: boolean;
 }) {
   const dispatch = useDispatch<AppDispatch>();
