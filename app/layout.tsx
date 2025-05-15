@@ -30,6 +30,8 @@ const metadata = {
   description: "Your description here",
 };
 
+const PUBLIC_ROUTES = ["/login", "/signup", "/forgot-password"];
+
 export default function RootLayout({
   children,
 }: {
@@ -45,13 +47,13 @@ export default function RootLayout({
   else if (pathname.startsWith("/add-property")) pageType = "add-property";
   else if (pathname.startsWith("/property")) pageType = "property";
   else if (pathname.startsWith("/create-property")) pageType = "add-property";
-  else if (
-    pathname.startsWith("/login") ||
-    pathname.startsWith("/signup") ||
-    pathname.startsWith("/forgot-password")
-  )
-    pageType = "";
+  else if (pathname.startsWith("/login")) pageType = "/login";
+  else if (pathname.startsWith("/signup")) pageType = "/signup";
+  else if (pathname.startsWith("/forgot-password"))
+    pageType = "/forgot-password";
   else pageType = "property";
+
+  const isPublic = PUBLIC_ROUTES.includes(pathname);
 
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
@@ -82,7 +84,7 @@ export default function RootLayout({
               <AuthGuard>
                 <Theme>
                   <main>
-                    {pageType ? (
+                    {!isPublic ? (
                       <>
                         <Sidebar pageType={pageType} />
                         <div className="right-container">

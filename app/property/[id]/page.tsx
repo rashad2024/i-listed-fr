@@ -3,7 +3,7 @@
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import CreatePropertyForm from "@/app/create-property/page";
+import CreatePropertyForm from "@/app/add-property/page";
 import Skeleton from "@/components/ui/common/Skeleton";
 
 import { getPropertyInfo } from "@/utils/helpers/property-list";

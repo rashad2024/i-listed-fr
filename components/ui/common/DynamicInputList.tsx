@@ -58,10 +58,10 @@ const DynamicInputList = ({
   const handleAddInput = (id: string) => {
     const input = inputs[inputs.length - 1];
 
-    console.log("sss", inputs, input.value, input.id);
-    if (!input.value?.length && input.category) return;
+    console.log("sss", inputs, input?.value, input?.id);
+    if (!input?.value?.length && input?.category) return;
 
-    if (input.category) {
+    if (input?.category) {
       input.disabled = true;
       input.iconName = "CustomCrossIcon";
       input.iconPosition = "right";
@@ -140,23 +140,25 @@ const DynamicInputList = ({
       );
     }
 
-    setInputs([...inputs, { id, type: "text" }]);
+    setInputs([...inputs, { id, type: "text", category: input.category }]);
   };
 
   const removeItem = (input: any) => {
     console.log("removeItem", input);
-    handleChange(input.category, input.value, false, true);
+    handleChange(input.category, input.value, null, true);
+
+    // handleChange(`${input.category}Added`, input.value);
 
     setInputs(
       inputGroups.filter(
-        (inputGroup: any) => !input.value || input.value !== inputGroup.value
+        (inputGroup: any) => input.value && input.value !== inputGroup.value
       )
     );
   };
 
-  useEffect(() => {
-    setInputs(inputGroups);
-  }, [inputGroups]);
+  // useEffect(() => {
+  //   setInputs(inputGroups);
+  // }, [inputGroups]);
 
   return (
     <Flex
@@ -206,7 +208,7 @@ const DynamicInputList = ({
             />
           );
         })}
-        {!(disabled || showPreviewView) ? (
+        {!(disabled || showPreviewView || isPreview) ? (
           <ButtonInput
             key={id}
             direction={"row"}

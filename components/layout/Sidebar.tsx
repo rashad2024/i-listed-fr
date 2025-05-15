@@ -31,8 +31,6 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
     // Optional: Clear other storage
     localStorage.clear();
 
-    router.push("/login"); //
-
     await dispatch(logout())
       .unwrap()
       .then((data) => {
@@ -41,6 +39,7 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
 
         if (data) {
           // Purge persisted state
+          router.push("/login"); //
         }
       })
       .catch((err) => {

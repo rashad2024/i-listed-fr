@@ -20,7 +20,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const isPublic = PUBLIC_ROUTES.includes(pathname);
 
-    if (!user && !isPublic) {
+    if (!user?.token && !isPublic) {
       // Not authenticated and trying to access private route
       router.push("/login");
     } else if (user && isPublic) {

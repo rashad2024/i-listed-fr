@@ -10,8 +10,11 @@ import { getButtonText } from "@/utils/helpers/add-property";
 
 export default function PropertyActions({
   activeStep,
+  setActiveStep,
   handleClick,
   selectedCategory,
+  isValid,
+  isSubmitting,
 }: any) {
   return (
     <Flex direction={"row"} gap={"3"} style={{ justifyContent: "flex-end" }}>
@@ -21,6 +24,7 @@ export default function PropertyActions({
           direction={"row"}
           className="btn-secondary btn-previous btn-cancel"
           onClick={() => handleClick(activeStep > 2 ? "Cancel" : "Previous")}
+          disabled={!isValid}
         >
           <span>Cancel</span>
         </ButtonInput>
@@ -30,6 +34,7 @@ export default function PropertyActions({
           direction={"row"}
           className="btn-secondary btn-previous"
           onClick={() => handleClick("Previous")}
+          // disabled={!isValid}
         >
           <span>
             <Icon
@@ -43,10 +48,11 @@ export default function PropertyActions({
       ) : null}
       <ButtonInput
         gap={"3"}
-        type={activeStep > 2 ? "submit" : "button"}
+        type={"button"}
         direction={"row"}
         className="btn-secondary btn-draft"
         onClick={() => handleClick("Draft")}
+        // disabled={}
       >
         <span>Save Draft</span>
       </ButtonInput>
@@ -54,9 +60,10 @@ export default function PropertyActions({
       <ButtonInput
         gap={"3"}
         direction={"row"}
-        type={activeStep > 2 ? "submit" : "button"}
+        type={"button"}
         className="btn-secondary btn-next"
         onClick={() => handleClick(getButtonText(activeStep, selectedCategory))}
+        disabled={isSubmitting}
       >
         {getButtonText(activeStep, selectedCategory)}
       </ButtonInput>
