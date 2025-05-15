@@ -59,7 +59,7 @@ const DynamicInputList = ({
     const input = inputs[inputs.length - 1];
 
     console.log("sss", inputs, input.value, input.id);
-    if (!input.value?.length && !input.category) return;
+    if (!input.value?.length && input.category) return;
 
     if (input.category) {
       input.disabled = true;
