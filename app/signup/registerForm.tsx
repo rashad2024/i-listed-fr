@@ -122,6 +122,7 @@ export default function RegisterForm({
       try {
         const roleInfo = await getRoles();
 
+        console.log(roleInfo);
         setOptionList(roleInfo);
       } catch (error) {
         console.log(error);

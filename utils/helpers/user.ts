@@ -10,5 +10,5 @@ export const getRoles = async () => {
       options.push({ label: name, value: id });
     });
   }
-  return options;
+  return userRoles.data;
 };

@@ -85,14 +85,16 @@ export default function CreatePropertyForm({
     removeChanges: boolean
   ) => {
     if (removeChanges) {
-      addValue(
-        `${name}Added`,
-        getFieldValue(`${name}Added`).filter(
-          (item: any) => item.value !== value
-        )
-      );
+      // addValue(
+      //   `${name}Added`,
+      //   getFieldValue(`${name}Added`).filter(
+      //     (item: any) => item.value !== value
+      //   )
+      // );
       value = getFieldValue(name).filter((item: any) => item !== value);
     }
+
+    console.log(getValues());
 
     addValue(name, value);
 
@@ -221,7 +223,8 @@ export default function CreatePropertyForm({
       .then((res: any) => {
         // Do something after store is updated
         if (res?.data?.id) {
-          setShowSuccessModal(res?.data?.id); // Redirect to /property-list
+          setPropertyId(res?.data?.id);
+          setShowSuccessModal("add"); // Redirect to /property-list
         }
       })
       .catch((err: any) => {
@@ -255,6 +258,9 @@ export default function CreatePropertyForm({
           break;
         case "Previous":
           setActiveStep(activeStep - 1);
+          setBasicEditMode(false);
+          setDescEditMode(false);
+          setExtrasEditMode(false);
           break;
         case "Next":
           setActiveStep(activeStep + 1);
@@ -410,7 +416,7 @@ export default function CreatePropertyForm({
         />
       )}
 
-      {showSuccessModal && propertyId && (
+      {showSuccessModal && (
         <PropertySuccessModal
           propertyId={propertyId}
           setShowSuccessModal={setShowSuccessModal}

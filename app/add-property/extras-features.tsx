@@ -26,12 +26,12 @@ export default function ExtrasFeaturePage({
   const { addValue, getValues }: any = useDynamicFieldMap();
 
   const addMore = (category: string, value: any) => {
-    handleChange(
-      `${category}Added`,
-      value.map((item: any) => {
-        return { isSubmitted: true, value: item, isDefault: false };
-      })
-    );
+    const rrr = value.map((item: any) => {
+      console.log("sdsad: ", item);
+      return { isSubmitted: true, value: item, isDefault: false };
+    });
+    console.log("value", rrr);
+    handleChange(`${category}Added`, rrr);
   };
 
   return (
@@ -183,7 +183,7 @@ export default function ExtrasFeaturePage({
                           key: "livingSpace",
                           label: "",
                           placeholder: "",
-                          value: getFieldValue("livingSpace"),
+                          value: "",
                           onChange: (value: any) =>
                             handleChange("livingSpace", value),
                         },
@@ -350,7 +350,7 @@ export default function ExtrasFeaturePage({
                           label: "",
                           placeholder: "",
                           disabled: isPreview,
-                          value: getFieldValue("kitchen"),
+                          value: "",
                           onChange: (value: any) =>
                             handleChange("kitchen", value),
                         },
@@ -489,7 +489,7 @@ export default function ExtrasFeaturePage({
                           label: "",
                           placeholder: "",
                           disabled: isPreview,
-                          value: getFieldValue("utilitiesIncluded"),
+                          value: "",
                           onChange: (value: any) =>
                             handleChange("utilitiesIncluded", value),
                         },
@@ -627,7 +627,7 @@ export default function ExtrasFeaturePage({
                           key: "servicesIncluded",
                           label: "",
                           placeholder: "",
-                          value: getFieldValue("servicesIncluded"),
+                          value: "",
                           onChange: (value: any) =>
                             handleChange("servicesIncluded", value),
                         },
@@ -856,7 +856,7 @@ export default function ExtrasFeaturePage({
                           label: "",
                           disabled: isPreview,
                           placeholder: "",
-                          value: getFieldValue("additionalFeatures"),
+                          value: "",
                           onChange: (value: any) =>
                             handleChange("additionalFeatures", value),
                         },

@@ -52,7 +52,7 @@
 
       > div {
         &.rt-TextFieldRoot {
-          min-height: 48px;
+          min-height: 48px !important;
         }
       }
 
@@ -67,7 +67,7 @@
         }
 
         &:not(.rt-SelectTrigger) {
-          min-height: 48px;
+          min-height: 48px !important;
           margin-top: 1rem;
         }
       }

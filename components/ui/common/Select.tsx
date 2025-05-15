@@ -28,6 +28,7 @@ export default function SelectField({
     name: string;
     hidden?: boolean;
     symbol?: string;
+    label?: string;
   }>;
   onChange: Function;
   value: any;
@@ -58,7 +59,11 @@ export default function SelectField({
         disabled={disabled}
       >
         <Select.Trigger placeholder={placeholder}>
-          {optionList?.find((option) => option.id.toString() == value)?.name}
+          {optionList?.find((option) => option.id?.toString() == value)
+            ?.symbol ||
+            optionList?.find((option) => option.id?.toString() == value)
+              ?.label ||
+            optionList?.find((option) => option.id?.toString() == value)?.name}
           {/* <SelectItem.Value
             placeholder={placeholder}
             defaultValue={parseInt(value)}
@@ -72,11 +77,11 @@ export default function SelectField({
             (option) =>
               !option.hidden && (
                 <Select.Item
-                  value={option.id.toString()}
-                  key={option.id}
+                  value={option?.id?.toString()}
+                  key={option?.id}
                   className="select-item"
                 >
-                  {option.symbol || option.name}
+                  {option.symbol ? option.symbol : option.label || option.name}
                   {/* <SelectItem.ItemIndicator className="indicator">
                     ✔
                   </SelectItem.ItemIndicator> */}
