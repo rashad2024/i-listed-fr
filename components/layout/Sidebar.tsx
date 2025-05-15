@@ -26,13 +26,13 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
   const router = useRouter();
 
   const logoutUser = async () => {
-     persistor.purge();
+    persistor.purge();
 
-          // Optional: Clear other storage
-          localStorage.clear();
+    // Optional: Clear other storage
+    localStorage.clear();
 
-          router.push("/login"); // 
-    
+    router.push("/login"); //
+
     await dispatch(logout())
       .unwrap()
       .then((data) => {
@@ -60,16 +60,16 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
           className="accordionRoot"
           defaultValue={["property-navigation"]}
         >
-          <Accordion.Item value="dashboard" className="accordionItem">
+          {/* <Accordion.Item value="dashboard" className="accordionItem">
             <Accordion.Header>
               {/* <Accordion.Trigger className="accordionTrigger"> */}
-              <Link href="/dashboard">
-                <Icon name="CustomDashboardIcon" size={16} />
-                <Text>Dashboard</Text>
-              </Link>
-              {/* </Accordion.Trigger> */}
-            </Accordion.Header>
-          </Accordion.Item>
+          <Link href="/dashboard">
+            <Icon name="CustomDashboardIcon" size={16} />
+            <Text>Dashboard</Text>
+          </Link>
+          {/* </Accordion.Trigger> */}
+          {/* </Accordion.Header>
+          </Accordion.Item> */}
           <Accordion.Item
             value="property-navigation"
             className={`accordionItem ${pageType ? "active" : ""}`}

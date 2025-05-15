@@ -39,10 +39,10 @@ const DynamicInputList = ({
       if (input.type === "text") return input;
     });
 
-    console.log(
-      "inputFields",
-      inputFields.map((input: any) => (input.value ? input.value : ""))
-    );
+    // console.log(
+    //   "inputFields",
+    //   inputFields.map((input: any) => (input.value ? input.value : ""))
+    // );
 
     handleChange(
       id,
@@ -140,7 +140,7 @@ const DynamicInputList = ({
       );
     }
 
-    setInputs([...inputs, { id, category: input.category, type: "text" }]);
+    setInputs([...inputs, { id, type: "text" }]);
   };
 
   const removeItem = (input: any) => {
@@ -154,9 +154,9 @@ const DynamicInputList = ({
     );
   };
 
-  useEffect(() => {
-    setInputs(inputGroups);
-  }, [inputGroups]);
+  // useEffect(() => {
+  //   setInputs(inputGroups);
+  // }, [inputGroups]);
 
   return (
     <Flex
