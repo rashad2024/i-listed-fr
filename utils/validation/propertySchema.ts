@@ -20,7 +20,7 @@ export const propertyFormSchema = z
     address: z.string({ required_error: "Please enter a valid address" }),
     location: z.string({ required_error: "Please enter a valid location" }),
     zipCode: z.string({ required_error: "Please enter a valid zip code" }),
-    mapLink: z.string({
+    googleMapLink: z.string({
       required_error: "Please enter a valid google map link",
     }),
     roadAccessId: z.string({

@@ -51,6 +51,7 @@ export default function AllProperties({ status }: { status?: any }) {
   const [tableData, setTableData] = useState<any>([]);
   const [paginationData, setPaginationData] = useState<any>({});
   const [page, setPage] = useState<number>(0);
+  const [pageUpdated, setPageUpdated] = useState(false);
   const [deletePropertyId, setDeletePropertyId] = useState<string>("");
 
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
@@ -92,7 +93,8 @@ export default function AllProperties({ status }: { status?: any }) {
 
   useEffect(() => {
     fetchProperty(filterData);
-  }, [page]);
+    setPageUpdated(false);
+  }, [page, pageUpdated]);
   return (
     <Flex
       direction={"column"}
@@ -148,6 +150,7 @@ export default function AllProperties({ status }: { status?: any }) {
         <PropertyDeleteConfirmationModal
           propertyId={deletePropertyId}
           setShowDeleteConfirmationModal={setShowDeleteConfirmationModal}
+          isUpdated={setPageUpdated}
         />
       )}
     </Flex>

@@ -206,10 +206,10 @@ export default function CreatePropertyForm({ property, isViewMode }: any) {
   }, []);
 
   useEffect(() => {
-    addBulkValue({ ...property, ...{ dataReady: true } });
+    addBulkValue({ ...property, ...{ dataReady: !!propertyOptions } });
 
     console.log("ddd", getValues());
-  }, [property]);
+  }, [propertyOptions]);
 
   return (
     <div className="property-form-container" id="property-form">

@@ -182,27 +182,34 @@ export default function PropertyInformation({
               disabled={isPreview}
             />
           </Flex>
-          <Flex
-            gap={"3"}
-            direction={"column"}
-            style={{
-              maxWidth: "calc(33% - 20px)",
-              flex: "0 0 calc(33% - 20px)",
-            }}
-          >
-            <Select
-              id="buildingPermit"
-              gap="3"
-              key="buildingPermit"
-              label="Building Permit"
-              placeholder="Please select a building permit"
-              value={getFieldValue("buildingPermitId")}
-              optionList={fieldOptions?.buildingPermit}
-              onChange={(value: any) => handleChange("buildingPermitId", value)}
-              position="popper"
-              disabled={isPreview}
-            />
-          </Flex>
+          {!(
+            getFieldValue("categoryId") &&
+            ["2"].find((cat) => cat == getFieldValue("categoryId"))
+          ) && (
+            <Flex
+              gap={"3"}
+              direction={"column"}
+              style={{
+                maxWidth: "calc(33% - 20px)",
+                flex: "0 0 calc(33% - 20px)",
+              }}
+            >
+              <Select
+                id="buildingPermit"
+                gap="3"
+                key="buildingPermit"
+                label="Building Permit"
+                placeholder="Please select a building permit"
+                value={getFieldValue("buildingPermitId")}
+                optionList={fieldOptions?.buildingPermit}
+                onChange={(value: any) =>
+                  handleChange("buildingPermitId", value)
+                }
+                position="popper"
+                disabled={isPreview}
+              />
+            </Flex>
+          )}
         </Card>
       </Flex>
 

@@ -154,9 +154,9 @@ const DynamicInputList = ({
     );
   };
 
-  // useEffect(() => {
-  //   setInputs(inputGroups);
-  // }, [inputGroups]);
+  useEffect(() => {
+    setInputs(inputGroups);
+  }, [inputGroups]);
 
   return (
     <Flex
@@ -185,55 +185,25 @@ const DynamicInputList = ({
           fieldId = id || fieldId;
           console.log("iconName: ", iconName);
 
-          if (isPreview && idx === inputs.length - 1) return;
+          if (isPreview && idx === inputs.length - 1 && !value) return;
           // console.log("input", input);
           return (
-            (type === "checkbox" && (
-              <Flex gap={"3"} direction={"row"} key={id}>
-                <Text as="label" size={"3"}>
-                  <Flex
-                    gap={"2"}
-                    direction={"row"}
-                    justify={"center"}
-                    align={"center"}
-                  >
-                    <Checkbox
-                      id={id}
-                      defaultChecked={value === "on" ? true : false}
-                      disabled={showPreviewView}
-                      name={placeholder}
-                      onClick={(e: any) =>
-                        handleClick(
-                          e.target?.id,
-                          e.target.getAttribute("data-state") === "checked"
-                            ? false
-                            : true
-                        )
-                      }
-                      variant="classic"
-                    />
-                    {placeholder}
-                  </Flex>
-                </Text>
-              </Flex>
-            )) || (
-              <InputField
-                key={`${fieldId}-${idx}`}
-                id={`${fieldId}`}
-                label={inputLabel}
-                gap={"3"}
-                value={value}
-                type={type}
-                onChange={(e: any) => handleChangeEvent(idx, e)}
-                placeholder={placeholder}
-                iconName={iconName}
-                iconPosition={iconPosition}
-                iconClick={(e: any) => removeItem(input)}
-                iconSize={iconSize}
-                size={"3"}
-                disabled={showPreviewView || disabled}
-              />
-            )
+            <InputField
+              key={`${fieldId}-${idx}`}
+              id={`${fieldId}`}
+              label={inputLabel}
+              gap={"3"}
+              value={value}
+              type={type}
+              onChange={(e: any) => handleChangeEvent(idx, e)}
+              placeholder={placeholder}
+              iconName={iconName}
+              iconPosition={iconPosition}
+              iconClick={(e: any) => removeItem(input)}
+              iconSize={iconSize || 12}
+              size={"3"}
+              disabled={showPreviewView || disabled}
+            />
           );
         })}
         {!(disabled || showPreviewView) ? (

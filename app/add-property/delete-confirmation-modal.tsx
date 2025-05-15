@@ -18,10 +18,11 @@ import ButtonInput from "@/components/ui/common/Button";
 export default function PropertyDeleteConfirmationModal({
   propertyId,
   setShowDeleteConfirmationModal,
+  isUpdated,
 }: {
   propertyId: string;
   setShowDeleteConfirmationModal: React.Dispatch<SetStateAction<boolean>>;
-  status?: string;
+  isUpdated?: any;
 }) {
   const router = useRouter();
   const { status } = useParams();
@@ -82,7 +83,8 @@ export default function PropertyDeleteConfirmationModal({
         // Do something after store is updated
         if (data.success) {
           setShowDeleteConfirmationModal(false);
-          router.push(`/${status ? status : "property"}`); // Redirect to /property-list
+          // router.push(`/${status ? status : "property"}`); // Redirect to /property-list
+          isUpdated(true);
         }
       })
       .catch((err) => {

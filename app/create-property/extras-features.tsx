@@ -320,37 +320,41 @@ export default function ExtrasFeaturePage({
               </Flex>
 
               <DynamicInputList
-                inputGroups={[
+                inputGroups={
                   getFieldValue("kitchenAdded")?.length > 0
-                    ? {
-                        ...getFieldValue("kitchenAdded").map((item: any) => {
-                          return {
-                            category: "kitchen",
-                            id: "kitchen",
-                            type: "text",
-                            key: "kitchen",
-                            label: "",
-                            placeholder: "",
-                            value: item.value,
-                            isDefault: item.isDefault,
-                            onChange: (value: any) =>
-                              handleChange("kitchen", value),
-                          };
-                        }),
-                      }
-                    : {
-                        category: "kitchen",
-                        id: "kitchen",
-                        type: "text",
-                        key: "kitchen",
-                        label: "",
-                        placeholder: "",
-                        disabled: isPreview,
-                        value: getFieldValue("kitchen"),
-                        onChange: (value: any) =>
-                          handleChange("kitchen", value),
-                      },
-                ]}
+                    ? getFieldValue("kitchenAdded").map((item: any) => {
+                        console.log("item", item);
+                        return {
+                          category: "kitchen",
+                          id: "kitchen",
+                          type: "text",
+                          key: "kitchen",
+                          label: "",
+                          placeholder: "",
+                          value: item.value,
+                          isDefault: item.isDefault,
+                          iconName: item.isSubmitted ? "CustomCrossIcon" : "",
+                          disabled: item.isSubmitted ? true : false,
+                          iconPosition: "right",
+                          onChange: (value: any) =>
+                            handleChange("kitchen", value),
+                        };
+                      })
+                    : [
+                        {
+                          category: "kitchen",
+                          id: "kitchen",
+                          type: "text",
+                          key: "kitchen",
+                          label: "",
+                          placeholder: "",
+                          disabled: isPreview,
+                          value: getFieldValue("kitchen"),
+                          onChange: (value: any) =>
+                            handleChange("kitchen", value),
+                        },
+                      ]
+                }
                 inputInfo={{
                   type: "button",
                   label: "",
@@ -454,39 +458,43 @@ export default function ExtrasFeaturePage({
               </Flex>
 
               <DynamicInputList
-                inputGroups={[
+                inputGroups={
                   getFieldValue("utilitiesIncludedAdded")?.length > 0
-                    ? {
-                        ...getFieldValue("utilitiesIncludedAdded").map(
-                          (item: any) => {
-                            return {
-                              category: "utilitiesIncluded",
-                              id: "utilitiesIncluded",
-                              type: "text",
-                              key: "utilitiesIncluded",
-                              label: "",
-                              placeholder: "",
-                              value: item.value,
-                              isDefault: item.isDefault,
-                              onChange: (value: any) =>
-                                handleChange("utilitiesIncluded", value),
-                            };
-                          }
-                        ),
-                      }
-                    : {
-                        category: "utilitiesIncluded",
-                        id: "utilitiesIncluded",
-                        type: "text",
-                        key: "utilitiesIncluded",
-                        label: "",
-                        placeholder: "",
-                        disabled: isPreview,
-                        value: getFieldValue("utilitiesIncluded"),
-                        onChange: (value: any) =>
-                          handleChange("utilitiesIncluded", value),
-                      },
-                ]}
+                    ? getFieldValue("utilitiesIncludedAdded").map(
+                        (item: any) => {
+                          console.log("item", item);
+                          return {
+                            category: "utilitiesIncluded",
+                            id: "utilitiesIncluded",
+                            type: "text",
+                            key: "utilitiesIncluded",
+                            label: "",
+                            placeholder: "",
+                            value: item.value,
+                            isDefault: item.isDefault,
+                            iconName: item.isSubmitted ? "CustomCrossIcon" : "",
+                            disabled: item.isSubmitted ? true : false,
+                            iconPosition: "right",
+                            onChange: (value: any) =>
+                              handleChange("utilitiesIncluded", value),
+                          };
+                        }
+                      )
+                    : [
+                        {
+                          category: "utilitiesIncluded",
+                          id: "utilitiesIncluded",
+                          type: "text",
+                          key: "utilitiesIncluded",
+                          label: "",
+                          placeholder: "",
+                          disabled: isPreview,
+                          value: getFieldValue("utilitiesIncluded"),
+                          onChange: (value: any) =>
+                            handleChange("utilitiesIncluded", value),
+                        },
+                      ]
+                }
                 inputInfo={{
                   type: "button",
                   label: "",
@@ -590,38 +598,42 @@ export default function ExtrasFeaturePage({
               </Flex>
 
               <DynamicInputList
-                inputGroups={[
+                inputGroups={
                   getFieldValue("servicesIncludedAdded")?.length > 0
-                    ? {
-                        ...getFieldValue("servicesIncludedAdded").map(
-                          (item: any) => {
-                            return {
-                              category: "servicesIncluded",
-                              id: "servicesIncluded",
-                              type: "text",
-                              key: "servicesIncluded",
-                              label: "",
-                              placeholder: "",
-                              value: item.value,
-                              isDefault: item.isDefault,
-                              onChange: (value: any) =>
-                                handleChange("servicesIncluded", value),
-                            };
-                          }
-                        ),
-                      }
-                    : {
-                        category: "servicesIncluded",
-                        id: "servicesIncluded",
-                        type: "text",
-                        key: "servicesIncluded",
-                        label: "",
-                        placeholder: "",
-                        value: getFieldValue("servicesIncluded"),
-                        onChange: (value: any) =>
-                          handleChange("servicesIncluded", value),
-                      },
-                ]}
+                    ? getFieldValue("servicesIncludedAdded").map(
+                        (item: any) => {
+                          console.log("item", item);
+                          return {
+                            category: "servicesIncluded",
+                            id: "servicesIncluded",
+                            type: "text",
+                            key: "servicesIncluded",
+                            label: "",
+                            placeholder: "",
+                            value: item.value,
+                            isDefault: item.isDefault,
+                            iconName: item.isSubmitted ? "CustomCrossIcon" : "",
+                            disabled: item.isSubmitted ? true : false,
+                            iconPosition: "right",
+                            onChange: (value: any) =>
+                              handleChange("servicesIncluded", value),
+                          };
+                        }
+                      )
+                    : [
+                        {
+                          category: "servicesIncluded",
+                          id: "servicesIncluded",
+                          type: "text",
+                          key: "servicesIncluded",
+                          label: "",
+                          placeholder: "",
+                          value: getFieldValue("servicesIncluded"),
+                          onChange: (value: any) =>
+                            handleChange("servicesIncluded", value),
+                        },
+                      ]
+                }
                 inputInfo={{
                   type: "button",
                   label: "",
@@ -815,39 +827,43 @@ export default function ExtrasFeaturePage({
               </Flex>
 
               <DynamicInputList
-                inputGroups={[
+                inputGroups={
                   getFieldValue("additionalFeaturesAdded")?.length > 0
-                    ? {
-                        ...getFieldValue("additionalFeaturesAdded").map(
-                          (item: any) => {
-                            return {
-                              category: "additionalFeatures",
-                              id: "additionalFeatures",
-                              type: "text",
-                              key: "additionalFeatures",
-                              label: "",
-                              placeholder: "",
-                              value: item.value,
-                              isDefault: item.isDefault,
-                              onChange: (value: any) =>
-                                handleChange("additionalFeatures", value),
-                            };
-                          }
-                        ),
-                      }
-                    : {
-                        category: "additionalFeatures",
-                        id: "additionalFeatures",
-                        type: "text",
-                        key: "additionalFeatures",
-                        label: "",
-                        disabled: isPreview,
-                        placeholder: "",
-                        value: getFieldValue("additionalFeatures"),
-                        onChange: (value: any) =>
-                          handleChange("additionalFeatures", value),
-                      },
-                ]}
+                    ? getFieldValue("additionalFeaturesAdded").map(
+                        (item: any) => {
+                          console.log("item", item);
+                          return {
+                            category: "additionalFeatures",
+                            id: "additionalFeatures",
+                            type: "text",
+                            key: "additionalFeatures",
+                            label: "",
+                            placeholder: "",
+                            value: item.value,
+                            isDefault: item.isDefault,
+                            iconName: item.isSubmitted ? "CustomCrossIcon" : "",
+                            disabled: item.isSubmitted ? true : false,
+                            iconPosition: "right",
+                            onChange: (value: any) =>
+                              handleChange("additionalFeatures", value),
+                          };
+                        }
+                      )
+                    : [
+                        {
+                          category: "additionalFeatures",
+                          id: "additionalFeatures",
+                          type: "text",
+                          key: "additionalFeatures",
+                          label: "",
+                          disabled: isPreview,
+                          placeholder: "",
+                          value: getFieldValue("additionalFeatures"),
+                          onChange: (value: any) =>
+                            handleChange("additionalFeatures", value),
+                        },
+                      ]
+                }
                 inputInfo={{
                   type: "button",
                   label: "",
