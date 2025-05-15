@@ -48,7 +48,11 @@ const PropertyDetails = () => {
   return (
     <main>
       {property ? (
-        <CreatePropertyForm property={property} isViewMode={true} />
+        <CreatePropertyForm
+          property={property}
+          isViewMode={true}
+          shouldEdit={shouldEdit}
+        />
       ) : (
         <Skeleton />
       )}

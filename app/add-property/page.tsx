@@ -42,15 +42,19 @@ import "@/styles/components/_card.scss";
 
 type FormData = z.infer<typeof propertyFormSchema>;
 
-export default function CreatePropertyForm({ property, isViewMode }: any) {
+export default function CreatePropertyForm({
+  property,
+  isViewMode,
+  shouldEdit,
+}: any) {
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error, data } = useSelector(
     (state: RootState) => state.property
   );
 
-  const [basicEditMode, setBasicEditMode] = useState(false);
-  const [descEditMode, setDescEditMode] = useState(false);
-  const [extrasEditMode, setExtrasEditMode] = useState(false);
+  const [basicEditMode, setBasicEditMode] = useState(shouldEdit);
+  const [descEditMode, setDescEditMode] = useState(shouldEdit);
+  const [extrasEditMode, setExtrasEditMode] = useState(shouldEdit);
   const [propertyId, setPropertyId] = useState(property?.id);
 
   const [errors, setErrors] = useState({});
