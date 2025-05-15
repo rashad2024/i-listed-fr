@@ -76,7 +76,9 @@ export default function ExtrasFeaturePage({
                   <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
                     <Checkbox
                       id={"enclosed"}
-                      defaultChecked={true}
+                      defaultChecked={
+                        getFieldValue("enclosed") === "on" ? true : false
+                      }
                       disabled={isPreview}
                       name={"enclosed"}
                       onClick={(e: any) =>

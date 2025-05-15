@@ -40,13 +40,7 @@ import "@/styles/components/_card.scss";
 
 type FormData = z.infer<typeof propertyFormSchema>;
 
-export default function CreatePropertyForm({
-  property,
-  isViewMode,
-}: {
-  property?: any;
-  isViewMode?: boolean;
-}) {
+export default function CreatePropertyForm({ property, isViewMode }: any) {
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error, data } = useSelector(
     (state: RootState) => state.property
