@@ -1499,6 +1499,7 @@ export const filterPropertyOptions = (
 export const preparePropertyData = (data: any) => {
   const payload: Record<string, any> = {};
 
+  console.log("preparePropertyData", data);
   if (data?.id) payload.id = data?.id;
   // Living space options start
   if (data?.livingSpace?.length) {
@@ -1688,7 +1689,7 @@ export const preparePropertyData = (data: any) => {
   if (data?.furnishingId) payload.furnishingId = parseInt(data?.furnishingId);
   if (data?.buildingYear) payload.buildingYear = data?.buildingYear;
   if (data?.availableDate) payload.availableDate = data?.availableDate;
-  if (data?.pool == "true") payload.pool = "true";
+  if (data?.pool) payload.pool = "true";
   if (data?.poolTypeId) payload.poolTypeId = parseInt(data?.poolTypeId);
   if (data?.poolSize) payload.poolSize = data?.poolSize;
   if (data?.parkingSpaceId)
