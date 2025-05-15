@@ -1216,7 +1216,7 @@ export const prepareExtrasFeaturesInfo = (data: any, removeFeature: any) => {
 export const getFieldOptions = async () => {
   const propertyOptions = await retrievePropertyOptions();
   console.log("propertyOptions", propertyOptions);
-  
+
   return propertyOptions.data;
 };
 
@@ -1225,9 +1225,9 @@ export const getButtonText = (activeStep: number, selectedCategory: string) => {
     return "Next";
   }
   if (activeStep === 1) {
-    if (selectedCategory === "1" || selectedCategory === "3") {
+    if (selectedCategory == "1" || selectedCategory == "3") {
       return "Next";
-    } else if (selectedCategory === "2" || selectedCategory === "4") {
+    } else if (selectedCategory == "2" || selectedCategory == "4") {
       return "Preview";
     }
   }
@@ -1260,18 +1260,18 @@ export const prepareFormData = (data: any) => {
   const additionalFeatures = [];
 
   // Living space options start
-  if (data.enclosed) {
+  if (data?.enclosed) {
     livingSpace.push({ value: "Enclosed", isDefault: true });
   }
-  if (data.openPlan) {
+  if (data?.openPlan) {
     livingSpace.push({ value: "Open-Plan", isDefault: true });
   }
-  if (data.ac) {
+  if (data?.ac) {
     livingSpace.push({ value: "AC", isDefault: true });
   }
-  if (data.livingSpace?.length) {
-    data.livingSpace.map((space: any) => {
-      livingSpace.push({ value: space, isDefault: false });
+  if (data?.livingSpaceAdded?.length) {
+    data?.livingSpaceAdded.map((space: any) => {
+      livingSpace.push({ value: space.value, isDefault: false });
     });
   }
 
@@ -1279,22 +1279,22 @@ export const prepareFormData = (data: any) => {
 
   // Kitchen options start
 
-  if (data.fullyEquipped) {
+  if (data?.fullyEquipped) {
     kitchen.push({ value: "Fully equipped", isDefault: true });
   }
-  if (data.fridge) {
+  if (data?.fridge) {
     kitchen.push({ value: "Fridge", isDefault: true });
   }
-  if (data.oven) {
+  if (data?.oven) {
     kitchen.push({ value: "Oven", isDefault: true });
   }
-  if (data.stove) {
+  if (data?.stove) {
     kitchen.push({ value: "Stove", isDefault: true });
   }
 
-  if (data.kitchen?.length) {
-    data.kitchen.map((space: any) => {
-      kitchen.push({ value: space, isDefault: false });
+  if (data?.kitchenAdded?.length) {
+    data?.kitchenAdded.map((space: any) => {
+      kitchen.push({ value: space.value, isDefault: false });
     });
   }
 
@@ -1302,19 +1302,19 @@ export const prepareFormData = (data: any) => {
 
   // Utilities included options start
 
-  if (data.electric) {
-    utilitiesIncluded.push({ value: "Fully equipped", isDefault: true });
+  if (data?.electric) {
+    utilitiesIncluded.push({ value: "Electric", isDefault: true });
   }
-  if (data.water) {
-    utilitiesIncluded.push({ value: "Fridge", isDefault: true });
+  if (data?.water) {
+    utilitiesIncluded.push({ value: "Water", isDefault: true });
   }
-  if (data.wifi) {
-    utilitiesIncluded.push({ value: "Oven", isDefault: true });
+  if (data?.wifi) {
+    utilitiesIncluded.push({ value: "Wifi", isDefault: true });
   }
 
-  if (data.utilitiesIncluded?.length) {
-    data.utilitiesIncluded.map((space: any) => {
-      utilitiesIncluded.push({ value: space, isDefault: false });
+  if (data?.utilitiesIncludedAdded?.length) {
+    data?.utilitiesIncludedAdded.map((space: any) => {
+      utilitiesIncluded.push({ value: space.value, isDefault: false });
     });
   }
 
@@ -1322,19 +1322,19 @@ export const prepareFormData = (data: any) => {
 
   // Services Included options start
 
-  if (data.cleaning) {
-    servicesIncluded.push({ value: "Stove", isDefault: true });
+  if (data?.cleaning) {
+    servicesIncluded.push({ value: "Cleaning", isDefault: true });
   }
-  if (data.abcd) {
-    servicesIncluded.push({ value: "Stove", isDefault: true });
+  if (data?.abcd) {
+    servicesIncluded.push({ value: "Abcd", isDefault: true });
   }
-  if (data.adcb) {
-    servicesIncluded.push({ value: "Stove", isDefault: true });
+  if (data?.adcb) {
+    servicesIncluded.push({ value: "Acdb", isDefault: true });
   }
 
-  if (data.servicesIncluded?.length) {
-    data.servicesIncluded.map((space: any) => {
-      servicesIncluded.push({ value: space, isDefault: false });
+  if (data?.servicesIncludedAdded?.length) {
+    data?.servicesIncludedAdded.map((space: any) => {
+      servicesIncluded.push({ value: space.value, isDefault: false });
     });
   }
 
@@ -1342,71 +1342,73 @@ export const prepareFormData = (data: any) => {
 
   // Additional features options start
 
-  if (data.emergencyExit) {
-    additionalFeatures.push({ value: "Stove", isDefault: true });
+  if (data?.emergencyExit) {
+    additionalFeatures.push({ value: "Emergency  Exit", isDefault: true });
   }
-  if (data.cctv) {
-    additionalFeatures.push({ value: "Stove", isDefault: true });
+  if (data?.cctv) {
+    additionalFeatures.push({ value: "CCTV", isDefault: true });
   }
-  if (data.securityGuard) {
-    additionalFeatures.push({ value: "Stove", isDefault: true });
+  if (data?.securityGuard) {
+    additionalFeatures.push({ value: "Security Guard", isDefault: true });
   }
-  if (data.balcony) {
-    additionalFeatures.push({ value: "Stove", isDefault: true });
+  if (data?.balcony) {
+    additionalFeatures.push({ value: "Balcony", isDefault: true });
   }
-  if (data.laundryService) {
-    additionalFeatures.push({ value: "Stove", isDefault: true });
+  if (data?.laundryService) {
+    additionalFeatures.push({ value: "Laundry Service", isDefault: true });
   }
-  if (data.elevatorLift) {
-    additionalFeatures.push({ value: "Stove", isDefault: true });
+  if (data?.elevatorLift) {
+    additionalFeatures.push({ value: "Elevator Lift", isDefault: true });
   }
 
-  if (data.additionalFeatures?.length) {
-    data.additionalFeatures.map((space: any) => {
-      additionalFeatures.push({ value: space, isDefault: false });
+  if (data?.additionalFeaturesAdded?.length) {
+    data?.additionalFeaturesAdded.map((space: any) => {
+      additionalFeatures.push({ value: space.value, isDefault: false });
     });
   }
   // Additional features options end
 
-  if (data.title) payload.title = data.title;
-  if (data.categoryId) payload.categoryId = parseInt(data.categoryId);
-  if (data.subcategoryId) payload.subcategoryId = parseInt(data.subcategoryId);
-  if (data.ownershipTypeId)
-    payload.ownershipTypeId = parseInt(data.ownershipTypeId);
-  if (data.transactionTypeId)
-    payload.transactionTypeId = parseInt(data.transactionTypeId);
-  if (data.propertyStatusId)
-    payload.propertyStatusId = parseInt(data.propertyStatusId);
-  if (data.buildingPermitId)
-    payload.buildingPermitId = parseInt(data.buildingPermitId);
-  if (data.address) payload.address = data.address;
-  if (data.location) payload.location = data.location;
-  if (data.zipCode) payload.zipCode = data.zipCode;
-  if (data.roadAccessId) payload.roadAccessId = parseInt(data.roadAccessId);
-  if (data.nearbyPoints) payload.nearbyPoints = data.nearbyPoints;
-  if (data.zoneId) payload.zoneId = parseInt(data.zoneId);
-  if (data.landSizeId) payload.landSizeId = parseInt(data.landSizeId);
-  if (data.builtUpArea) payload.builtUpArea = data.builtUpArea;
-  if (data.pricePerUnit) payload.pricePerUnit = parseInt(data.pricePerUnit);
-  if (data.totalPrice) payload.totalPrice = parseInt(data.totalPrice);
-  if (data.pricePerYear) payload.pricePerYear = parseInt(data.pricePerYear);
-  if (data.numberOfFloors)
-    payload.numberOfFloors = parseInt(data.numberOfFloors);
-  if (data.maxRooms) payload.maxRooms = parseInt(data.maxRooms);
-  if (data.beds) payload.beds = parseInt(data.beds);
-  if (data.baths) payload.baths = parseInt(data.baths);
-  if (data.furnishingId) payload.furnishingId = parseInt(data.furnishingId);
-  if (data.buildingYear) payload.buildingYear = data.buildingYear;
-  if (data.availableDate) payload.availableDate = data.availableDate;
-  if (data.pool === "yes") payload.pool = true;
-  if (data.poolTypeId) payload.poolTypeId = parseInt(data.poolTypeId);
-  if (data.poolSize) payload.poolSize = data.poolSize;
-  if (data.parkingSpaceId)
-    payload.parkingSpaceId = parseInt(data.parkingSpaceId);
-  if (data.description) payload.description = data.description;
-  if (Array.isArray(data.images) && data.images.length)
-    payload.images = data.images.map((image: any) => image.responseURL);
-  if (data.videoLink) payload.videoLink = data.videoLink;
+  if (data?.title) payload.title = data?.title;
+  if (data?.categoryId) payload.categoryId = parseInt(data?.categoryId);
+  if (data?.subcategoryId)
+    payload.subcategoryId = parseInt(data?.subcategoryId);
+  if (data?.ownershipTypeId)
+    payload.ownershipTypeId = parseInt(data?.ownershipTypeId);
+  if (data?.transactionTypeId)
+    payload.transactionTypeId = parseInt(data?.transactionTypeId);
+  if (data?.propertyStatusId)
+    payload.propertyStatusId = parseInt(data?.propertyStatusId);
+  if (data?.buildingPermitId)
+    payload.buildingPermitId = parseInt(data?.buildingPermitId);
+  if (data?.address) payload.address = data?.address;
+  if (data?.location) payload.location = data?.location;
+  if (data?.zipCode) payload.zipCode = data?.zipCode;
+  if (data?.roadAccessId) payload.roadAccessId = parseInt(data?.roadAccessId);
+  if (data?.nearbyPoints) payload.nearbyPoints = data?.nearbyPoints;
+  if (data?.zoneId) payload.zoneId = parseInt(data?.zoneId);
+  if (data?.landUnitId) payload.landUnitId = parseInt(data?.landUnitId);
+  if (data?.landSize) payload.landSize = parseInt(data?.landSize);
+  if (data?.builtUpArea) payload.builtUpArea = data?.builtUpArea;
+  if (data?.pricePerUnit) payload.pricePerUnit = parseInt(data?.pricePerUnit);
+  if (data?.totalPrice) payload.totalPrice = parseInt(data?.totalPrice);
+  if (data?.pricePerYear) payload.pricePerYear = parseInt(data?.pricePerYear);
+  if (data?.numberOfFloors)
+    payload.numberOfFloors = parseInt(data?.numberOfFloors);
+  if (data?.maxRooms) payload.maxRooms = parseInt(data?.maxRooms);
+  if (data?.beds) payload.beds = parseInt(data?.beds);
+  if (data?.baths) payload.baths = parseInt(data?.baths);
+  if (data?.furnishingId) payload.furnishingId = parseInt(data?.furnishingId);
+  if (data?.buildingYear) payload.buildingYear = data?.buildingYear;
+  if (data?.availableDate) payload.availableDate = data?.availableDate;
+  if (data?.pool === "yes") payload.pool = true;
+  if (data?.poolTypeId) payload.poolTypeId = parseInt(data?.poolTypeId);
+  if (data?.poolSize) payload.poolSize = data?.poolSize;
+  if (data?.parkingSpaceId)
+    payload.parkingSpaceId = parseInt(data?.parkingSpaceId);
+  if (data?.description) payload.description = data?.description;
+  if (Array.isArray(data?.images) && data?.images.length)
+    payload.images = data?.images.map((image: any) => image.responseURL);
+  if (data?.videoLink) payload.videoLink = data?.videoLink;
   if (livingSpace) payload.livingSpace = livingSpace;
   if (kitchen) payload.kitchen = kitchen;
   if (utilitiesIncluded && utilitiesIncluded.length)
@@ -1419,4 +1421,280 @@ export const prepareFormData = (data: any) => {
   return payload;
 };
 
-export const savePropertyAsDraft = async (payload: any) => {};
+export const validateForm = (formData: any, Schema: any) => {
+  const result = Schema?.safeParse(formData);
+  const validationMessage: any = {};
+
+  if (!result.success) {
+    const errors = result.error.flatten().fieldErrors;
+    Object.keys(errors).forEach((key) => {
+      validationMessage[key] = { message: errors[key][0] };
+    });
+  }
+
+  return validationMessage;
+};
+
+export const filterPropertyOptions = (
+  name: string,
+  value: any,
+  currentOptions: any
+) => {
+  const filteredOptions: any = {};
+  Object.keys(currentOptions).forEach((key) => {
+    console.log("key", key);
+    if (key === "priceRange") return;
+    if (`${key}Id` === name) {
+      filteredOptions[key] = currentOptions[key];
+      console.log("key", filteredOptions[key]);
+    } else {
+      filteredOptions[key] = currentOptions[key]?.map((item: any) => {
+        console.log(
+          "ddd: ",
+          typeof item[`${name}`],
+          item[`${name}`],
+          item[`${name}`] == value
+        );
+        if (
+          item[`${name}`] &&
+          typeof item[`${name}`] == "number" &&
+          item[`${name}`] == value
+        ) {
+          item.hidden = false;
+        } else if (item[`${name}`] && item[`${name}`].length) {
+          item.hidden = !item[`${name}`].filter((i: any) => i == value);
+        } else if (item[`${name}`]) {
+          item.hidden = true;
+        }
+
+        return item;
+      });
+    }
+  });
+
+  console.log("filteredOptions", filteredOptions);
+};
+
+// export const createProperty = async (data: any, dispatch: any) => {
+//   await dispatch(addPropertyAsDraft(data))
+//     .unwrap()
+//     .then((res: any) => {
+//       // Do something after store is updated
+//       console.log(res);
+//       if (res.success) {
+//         return res?.data?.id; // Redirect to /property-list
+//       }
+//     })
+//     .catch((err: any) => {
+//       const { errors } = JSON.parse(err);
+
+//       return errors.map((err: any) => {
+//         // if (!Object.keys(formErrors).length) {
+//         return err;
+//       });
+//     });
+// };
+
+export const preparePropertyData = (data: any) => {
+  const payload: Record<string, any> = {};
+
+  // Living space options start
+  if (data?.livingSpace?.length) {
+    data?.livingSpace.map((space: any) => {
+      if (space.value === "Open-Plan") {
+        payload.openPlan = true;
+      }
+      if (space.value === "Enclosed") {
+        payload.enclosed = "on";
+      }
+      if (space.value === "AC") {
+        payload.ac = true;
+      }
+      if (space.value && !space.isDefault) {
+        payload.livingSpaceAdded = payload.livingSpaceAdded || [];
+
+        payload.livingSpaceAdded.push({
+          value: space.value,
+          isSubmitted: true,
+          isDefault: false,
+        });
+      }
+    });
+  }
+
+  // Living space options end
+
+  // Kitchen options start
+
+  if (data?.kitchen?.length) {
+    data?.kitchen.map((space: any) => {
+      if (space.value === "Fully equipped") {
+        payload.fullyEquipped = true;
+      }
+      if (space.value === "Fridge") {
+        payload.fridge = true;
+      }
+      if (space.value === "Oven") {
+        payload.oven = true;
+      }
+      if (space.value === "Stove") {
+        payload.stove = true;
+      }
+      if (space.value && !space.isDefault) {
+        payload.kitchenAdded = payload.kitchenAdded || [];
+
+        payload.kitchenAdded.push({
+          value: space.value,
+          isSubmitted: true,
+          isDefault: false,
+        });
+      }
+    });
+  }
+
+  // Kitchen options end
+
+  // Utilities included options start
+
+  if (data?.utilitiesIncluded?.length) {
+    data?.utilitiesIncluded.map((space: any) => {
+      if (space.value === "Electric") {
+        payload.electric = true;
+      }
+      if (space.value === "Wifi") {
+        payload.wifi = true;
+      }
+      if (space.value === "Water") {
+        payload.water = true;
+      }
+
+      if (space.value && !space.isDefault) {
+        payload.utilitiesIncludedAdded = payload.utilitiesIncludedAdded || [];
+
+        payload.utilitiesIncludedAdded.push({
+          value: space.value,
+          isSubmitted: true,
+          isDefault: false,
+        });
+      }
+    });
+  }
+  // Utilities included options end
+
+  // Services Included options start
+
+  if (data?.servicesIncluded?.length) {
+    data?.servicesIncluded.map((space: any) => {
+      if (space.value === "Cleaning") {
+        payload.cleaning = true;
+      }
+      if (space.value === "Abcd") {
+        payload.abcd = true;
+      }
+      if (space.value === "adbc") {
+        payload.adbc = true;
+      }
+
+      if (space.value && !space.isDefault) {
+        payload.servicesIncludedAdded = payload.servicesIncludedAdded || [];
+
+        payload.servicesIncludedAdded.push({
+          value: space.value,
+          isSubmitted: true,
+          isDefault: false,
+        });
+      }
+    });
+  }
+
+  // Services Included options end
+
+  // Additional features options start
+
+  if (data?.additionalFeatures?.length) {
+    data?.additionalFeatures.map((space: any) => {
+      if (space.value === "Emergency Exit") {
+        payload.emergencyExit = true;
+      }
+      if (space.value === "CCTV") {
+        payload.cctv = true;
+      }
+      if (space.value === "Security Guard") {
+        payload.securityGuard = true;
+      }
+      if (space.value === "Balcony") {
+        payload.balcony = true;
+      }
+      if (space.value === "Laundry Service") {
+        payload.laundryService = true;
+      }
+      if (space.value === "Elevator Lift") {
+        payload.elevatorLift = true;
+      }
+
+      if (space.value && !space.isDefault) {
+        payload.additionalFeaturesAdded = payload.additionalFeaturesAdded || [];
+
+        payload.additionalFeaturesAdded.push({
+          value: space.value,
+          isSubmitted: true,
+          isDefault: false,
+        });
+      }
+    });
+  }
+
+  // Additional features options end
+
+  if (data?.title) payload.title = data?.title;
+  if (data?.categoryId) payload.categoryId = parseInt(data?.categoryId);
+  if (data?.subcategoryId)
+    payload.subcategoryId = parseInt(data?.subcategoryId);
+  if (data?.ownershipTypeId)
+    payload.ownershipTypeId = parseInt(data?.ownershipTypeId);
+  if (data?.transactionTypeId)
+    payload.transactionTypeId = parseInt(data?.transactionTypeId);
+  if (data?.propertyStatusId)
+    payload.propertyStatusId = parseInt(data?.propertyStatusId);
+  if (data?.buildingPermitId)
+    payload.buildingPermitId = parseInt(data?.buildingPermitId);
+  if (data?.address) payload.address = data?.address;
+  if (data?.location) payload.location = data?.location;
+  if (data?.zipCode) payload.zipCode = data?.zipCode;
+  if (data?.roadAccessId) payload.roadAccessId = parseInt(data?.roadAccessId);
+  if (data?.nearbyPoints) payload.nearbyPoints = data?.nearbyPoints;
+  if (data?.zoneId) payload.zoneId = parseInt(data?.zoneId);
+  if (data?.landUnitId) payload.landUnitId = parseInt(data?.landUnitId);
+  if (data?.landSize) payload.landSize = parseInt(data?.landSize);
+  if (data?.builtUpArea) payload.builtUpArea = data?.builtUpArea;
+  if (data?.pricePerUnit) payload.pricePerUnit = parseInt(data?.pricePerUnit);
+  if (data?.totalPrice) payload.totalPrice = parseInt(data?.totalPrice);
+  if (data?.pricePerYear) payload.pricePerYear = parseInt(data?.pricePerYear);
+  if (data?.numberOfFloors)
+    payload.numberOfFloors = parseInt(data?.numberOfFloors);
+  if (data?.maxRooms) payload.maxRooms = parseInt(data?.maxRooms);
+  if (data?.beds) payload.beds = parseInt(data?.beds);
+  if (data?.baths) payload.baths = parseInt(data?.baths);
+  if (data?.furnishingId) payload.furnishingId = parseInt(data?.furnishingId);
+  if (data?.buildingYear) payload.buildingYear = data?.buildingYear;
+  if (data?.availableDate) payload.availableDate = data?.availableDate;
+  if (data?.pool === "yes") payload.pool = true;
+  if (data?.poolTypeId) payload.poolTypeId = parseInt(data?.poolTypeId);
+  if (data?.poolSize) payload.poolSize = data?.poolSize;
+  if (data?.parkingSpaceId)
+    payload.parkingSpaceId = parseInt(data?.parkingSpaceId);
+  if (data?.description) payload.description = data?.description;
+  if (Array.isArray(data?.images) && data?.images.length)
+    payload.images = data?.images.map((image: any) => image.responseURL);
+  if (data?.videoLink) payload.videoLink = data?.videoLink;
+  // if (livingSpace) payload.livingSpace = livingSpace;
+  // if (kitchen) payload.kitchen = kitchen;
+  // if (utilitiesIncluded && utilitiesIncluded.length)
+  //   payload.utilitiesIncluded = utilitiesIncluded;
+  // if (servicesIncluded && servicesIncluded.length)
+  //   payload.servicesIncluded = servicesIncluded;
+  // if (additionalFeatures && additionalFeatures.length)
+  //   payload.additionalFeatures = additionalFeatures;
+
+  return payload;
+};

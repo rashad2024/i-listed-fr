@@ -15,13 +15,7 @@ const baseUrl =
   process.env.NEXT_PUBLIC_BASE_URL ||
   "https://propertymanagementapi-production-2fa6.up.railway.app/api/v1";
 
-const UploadedFilePreview = ({
-  files,
-  id,
-}: {
-  files: Array<string>[];
-  id: string;
-}) => {
+const UploadedFilePreview = ({ files, id }: { files: any; id: string }) => {
   const [uploadedFiles, setUploadedFiles] = useState<any>(files);
 
   const handleDelete = (index: number) => {
@@ -36,9 +30,9 @@ const UploadedFilePreview = ({
 
   return (
     <div className="previewContainer">
-      {uploadedFiles.map((file: any, index: number) => {
+      {uploadedFiles?.map((file: any, index: number) => {
         const previewUrl =
-          baseUrl + (file.responseURL ? file.responseURL : file);
+          baseUrl + (file?.responseURL ? file.responseURL : file);
         console.log(file, id);
         return (
           <div

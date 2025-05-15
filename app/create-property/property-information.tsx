@@ -11,22 +11,21 @@ import DateInputWithIcon from "@/components/ui/common/DateInput";
 
 export default function PropertyInformation({
   fieldOptions,
+  getFieldValue,
+  handleChange,
+  errors,
+  unitIconName,
+  isPreview,
 }: {
   fieldOptions: any;
+  handleChange: any;
+  getFieldValue: (name: string) => any;
+  errors: any;
+  unitIconName?: string;
+  isPreview?: boolean;
 }) {
-  const { addValue, getValues } = useDynamicFieldMap();
-
-  const getFieldValue = (name: string) => {
-    //console.log(name, getValues(), getValues()[name]);
-    return getValues()[name];
-  };
-  const handleChange = (
-    name: string,
-    value: string | number | boolean | Array<any>
-  ) => {
-    // console.log(name, value);
-    addValue(name, value);
-  };
+  const { getValues } = useDynamicFieldMap();
+  getValues();
 
   return (
     <Flex gap={"3"} direction={"column"}>
@@ -39,8 +38,8 @@ export default function PropertyInformation({
             flexDirection: "row",
             minWidth: "100%",
             gap: "2rem",
-            alignItems: "center",
             flexWrap: "wrap",
+            alignItems: "start",
           }}
         >
           <Flex
@@ -59,10 +58,12 @@ export default function PropertyInformation({
               label="Title"
               className={"required"}
               placeholder="Luxury Villa in Seminyak"
-              value={getFieldValue("title")}
+              value={getFieldValue ? getFieldValue("title") : ""}
               onChange={(event: any) =>
                 handleChange("title", event.target.value)
               }
+              errors={errors?.title}
+              disabled={isPreview}
             />
           </Flex>
 
@@ -82,9 +83,11 @@ export default function PropertyInformation({
               placeholder="Please select category"
               className={"required"}
               value={getFieldValue("categoryId")}
-              optionList={fieldOptions?.Category}
-              onChange={(value: string) => handleChange("categoryId", value)}
+              optionList={fieldOptions?.category}
+              onChange={(value: any) => handleChange("categoryId", value, true)}
               position="popper"
+              errors={errors?.categoryId}
+              disabled={isPreview}
             />
           </Flex>
           <Flex
@@ -96,16 +99,18 @@ export default function PropertyInformation({
             }}
           >
             <Select
-              id="subCategoryId"
+              id="subcategoryId"
               gap="3"
-              key="subCategoryId"
+              key="subcategoryId"
               label="Subcategories"
               placeholder="Please select Subcategory"
-              value={getFieldValue("subCategoryId")}
+              value={getFieldValue("subcategoryId")}
               className={"required"}
-              optionList={fieldOptions?.subcategories}
-              onChange={(value: string) => handleChange("subCategoryId", value)}
+              optionList={fieldOptions?.subcategory}
+              onChange={(value: any) => handleChange("subcategoryId", value)}
               position="popper"
+              errors={errors?.subcategoryId}
+              disabled={isPreview}
             />
           </Flex>
           <Flex
@@ -123,11 +128,10 @@ export default function PropertyInformation({
               label="Ownership Type"
               placeholder="Please select a ownership type"
               value={getFieldValue("ownershipTypeId")}
-              optionList={fieldOptions?.OwnershipType}
-              onChange={(value: string) =>
-                handleChange("ownershipTypeId", value)
-              }
+              optionList={fieldOptions?.ownershipType}
+              onChange={(value: any) => handleChange("ownershipTypeId", value)}
               position="popper"
+              disabled={isPreview}
             />
           </Flex>
           <Flex
@@ -146,11 +150,13 @@ export default function PropertyInformation({
               placeholder="Please select a transaction type"
               className={"required"}
               value={getFieldValue("transactionTypeId")}
-              optionList={fieldOptions?.TransactionType}
-              onChange={(value: string) =>
-                handleChange("transactionTypeId", value)
+              optionList={fieldOptions?.transactionType}
+              onChange={(value: any) =>
+                handleChange("transactionTypeId", value, true)
               }
               position="popper"
+              errors={errors?.transactionTypeId}
+              disabled={isPreview}
             />
           </Flex>
           <Flex
@@ -169,19 +175,19 @@ export default function PropertyInformation({
               placeholder="Please select a property status"
               value={getFieldValue("propertyStatusId")}
               className={"required"}
-              optionList={fieldOptions?.propertyStatuses}
-              onChange={(value: string) =>
-                handleChange("propertyStatusId", value)
-              }
+              optionList={fieldOptions?.propertyStatus}
+              onChange={(value: any) => handleChange("propertyStatusId", value)}
               position="popper"
+              errors={errors?.propertyStatusId}
+              disabled={isPreview}
             />
           </Flex>
           <Flex
             gap={"3"}
             direction={"column"}
             style={{
-              maxWidth: "calc(33% - 12px)",
-              flex: "0 0 calc(33% - 12px)",
+              maxWidth: "calc(33% - 20px)",
+              flex: "0 0 calc(33% - 20px)",
             }}
           >
             <Select
@@ -191,11 +197,10 @@ export default function PropertyInformation({
               label="Building Permit"
               placeholder="Please select a building permit"
               value={getFieldValue("buildingPermitId")}
-              optionList={fieldOptions?.BuildingPermit}
-              onChange={(value: string) =>
-                handleChange("buildingPermitId", value)
-              }
+              optionList={fieldOptions?.buildingPermit}
+              onChange={(value: any) => handleChange("buildingPermitId", value)}
               position="popper"
+              disabled={isPreview}
             />
           </Flex>
         </Card>
@@ -210,8 +215,8 @@ export default function PropertyInformation({
             flexDirection: "row",
             minWidth: "100%",
             gap: "2rem",
-            alignItems: "center",
             flexWrap: "wrap",
+            alignItems: "start",
           }}
         >
           <Flex
@@ -234,6 +239,8 @@ export default function PropertyInformation({
               onChange={(event: any) =>
                 handleChange("address", event.target.value)
               }
+              errors={errors?.address}
+              disabled={isPreview}
             />
           </Flex>
 
@@ -257,6 +264,8 @@ export default function PropertyInformation({
               onChange={(event: any) =>
                 handleChange("location", event.target.value)
               }
+              errors={errors?.location}
+              disabled={isPreview}
             />
           </Flex>
           <Flex
@@ -279,6 +288,8 @@ export default function PropertyInformation({
               onChange={(event: any) =>
                 handleChange("zipCode", event.target.value)
               }
+              errors={errors?.zipCode}
+              disabled={isPreview}
             />
           </Flex>
           <Flex
@@ -296,9 +307,10 @@ export default function PropertyInformation({
               label="Zone"
               placeholder="Select zone"
               value={getFieldValue("zone")}
-              optionList={fieldOptions?.Zone}
-              onChange={(value: string) => handleChange("zone", value)}
+              optionList={fieldOptions?.zone}
+              onChange={(value: any) => handleChange("zone", value)}
               position="popper"
+              disabled={isPreview}
             />
           </Flex>
           <Flex
@@ -312,13 +324,15 @@ export default function PropertyInformation({
             <InputField
               id="mapLink"
               gap="3"
-              type="url"
+              type="text"
               key="mapLink"
               label="Google map link"
               placeholder="Enter google map link"
               className={"required"}
               value={getFieldValue("mapLink")}
-              onChange={(value: string) => handleChange("mapLink", value)}
+              onChange={(e: any) => handleChange("mapLink", e.target.value)}
+              errors={errors?.mapLink}
+              disabled={isPreview}
             />
           </Flex>
           <Flex
@@ -330,69 +344,68 @@ export default function PropertyInformation({
             }}
           >
             <Select
-              id="roadAccess"
+              id="roadAccessId"
               gap="3"
-              key="roadAccess"
+              key="roadAccessId"
               label="Road Access"
               placeholder="Please select Road access"
-              value={getFieldValue("roadAccess")}
+              value={getFieldValue("roadAccessId")}
               className={"required"}
-              optionList={fieldOptions?.RoadAccess}
-              onChange={(value: string) => handleChange("roadAccess", value)}
+              optionList={fieldOptions?.roadAccess}
+              onChange={(value: any) => handleChange("roadAccessId", value)}
               position="popper"
+              errors={errors?.roadAccessId}
+              disabled={isPreview}
             />
           </Flex>
           <Flex
             gap={"3"}
             direction={"row"}
-            // style={{
-            //   maxWidth: "calc(33% - 12px)",
-            //   flex: "0 0 calc(33% - 12px)",
-            // }}
+            style={{
+              maxWidth: "100%",
+              flex: "0 0 100%",
+            }}
           >
-            {/* <InputField
-              id="nearbyPoints"
-              gap="3"
-              key="nearbyPoints"
-              label="Nearby points of Interest"
-              placeholder="Nearby points"
-              value={getFieldValue("nearbyPoints")}
-              onChange={(value: string) => handleChange("nearbyPoints", value)}
-            />
-            <ButtonInput
-              type="button"
-              gap={"3"}
-              className="btn-primary"
-              direction={"column"}
-              onClick={() => {
-                // setShowNearbyPointsModal(true);
-              }}
-              disabled={false}
-              styles={{ width: "120px" }}
-            >
-              <span>+</span>
-            </ButtonInput> */}
             <DynamicInputList
-              inputGroups={[
-                {
-                  id: "nearbyPoints",
-                  type: "text",
-                  key: "nearbyPoints",
-                  label: "Nearby points of Interest",
-                  placeholder: "Nearby points",
-                  value: getFieldValue("nearbyPoints"),
-                  onChange: (value: string) =>
-                    handleChange("nearbyPoints", value),
-                },
-              ]}
+              inputGroups={
+                isPreview && getFieldValue("nearbyPoints")?.length
+                  ? getFieldValue("nearbyPoints").map(
+                      (point: string, idx: number) => {
+                        console.log(point, idx);
+                        return {
+                          id: "nearbyPoints",
+                          value: point,
+                          type: "text",
+                          key: "nearbyPoints",
+                          label: idx < 1 ? "Nearby points of Interest" : "",
+                          placeholder: idx < 1 ? "Nearby points" : "",
+                          disabled: { isPreview },
+                        };
+                      }
+                    )
+                  : [
+                      {
+                        id: "nearbyPoints",
+                        type: "text",
+                        key: "nearbyPoints",
+                        label: "Nearby points of Interest",
+                        placeholder: "Nearby points",
+                        value: getFieldValue("nearbyPoints"),
+
+                        onChange: (value: string) =>
+                          handleChange("nearbyPoints", value),
+                      },
+                    ]
+              }
               inputInfo={{
                 type: "button",
                 label: "",
-                id: "nearByPoints",
+                id: "nearbyPoints",
                 value: "+",
               }}
               // setInputs={setInputs}
               handleChange={handleChange}
+              disabled={isPreview}
             />
           </Flex>
         </Card>
@@ -407,8 +420,8 @@ export default function PropertyInformation({
             flexDirection: "row",
             minWidth: "100%",
             gap: "2rem",
-            alignItems: "center",
             flexWrap: "wrap",
+            alignItems: "start",
           }}
         >
           <Flex
@@ -420,16 +433,18 @@ export default function PropertyInformation({
             }}
           >
             <Select
-              id="landSizeId"
+              id="landUnitId"
               gap="3"
-              key="landSizeId"
-              label="Land Size"
-              placeholder="Please select land size"
+              key="landUnitId"
+              label="Select Unit"
+              placeholder="Please select unit"
               className={"required"}
-              value={getFieldValue("landSizeId")}
-              optionList={fieldOptions?.LandSize}
-              onChange={(value: string) => handleChange("landSizeId", value)}
+              value={getFieldValue("landUnitId")}
+              optionList={fieldOptions?.landUnit}
+              onChange={(value: any) => handleChange("landUnitId", value)}
               position="popper"
+              errors={errors?.landUnitId}
+              disabled={isPreview}
             />
           </Flex>
           <Flex
@@ -440,17 +455,20 @@ export default function PropertyInformation({
               flex: "0 0 calc(33% - 20px)",
             }}
           >
-            <Select
-              id="selectUnit"
+            <InputField
+              id="landSize"
               gap="3"
-              key="selectUnit"
-              label="Select Unit"
-              placeholder="Please select unit"
+              key="landSize"
+              label="Land Size"
+              type="number"
+              placeholder="Enter land size"
               className={"required"}
-              value={getFieldValue("landSizeId")}
-              optionList={fieldOptions?.LandSize}
-              onChange={(value: string) => handleChange("landSizeId", value)}
-              position="popper"
+              value={getFieldValue("landSize")}
+              iconName={unitIconName}
+              iconPosition="right"
+              onChange={(e: any) => handleChange("landSize", e.target.value)}
+              errors={errors?.landSize}
+              disabled={isPreview}
             />
           </Flex>
           <Flex
@@ -469,10 +487,14 @@ export default function PropertyInformation({
               label="Built-Up Area"
               className={"required"}
               placeholder="Built-Up area"
+              iconName={unitIconName}
+              iconPosition="right"
               value={getFieldValue("builtUpArea")}
               onChange={(event: any) =>
                 handleChange("builtUpArea", event.target.value)
               }
+              errors={errors?.builtUpArea}
+              disabled={isPreview}
             />
           </Flex>
 
@@ -491,6 +513,7 @@ export default function PropertyInformation({
               key="pricePerUnit"
               label="Price Per Area Unit"
               placeholder="Price per unit"
+              disabled={isPreview}
               value={getFieldValue("pricePerUnit")}
               onChange={(event: any) =>
                 handleChange("pricePerUnit", event.target.value)
@@ -518,186 +541,226 @@ export default function PropertyInformation({
               onChange={(event: any) =>
                 handleChange("totalPrice", event.target.value)
               }
+              errors={errors?.totalPrice}
+              disabled={isPreview}
             />
           </Flex>
 
-          <Flex
-            gap={"3"}
-            direction={"column"}
-            style={{
-              maxWidth: "calc(33% - 20px)",
-              flex: "0 0 calc(33% - 20px)",
-            }}
-          >
-            <InputField
-              id="numberOfFloors"
-              gap="3"
-              type="number"
-              key="numberOfFloors"
-              label="Number of Floors"
-              placeholder="Total Price"
-              value={getFieldValue("numberOfFloors")}
-              onChange={(event: any) =>
-                handleChange("numberOfFloors", event.target.value)
-              }
-            />
-          </Flex>
-
-          <Flex
-            gap={"3"}
-            direction={"column"}
-            style={{
-              maxWidth: "calc(33% - 20px)",
-              flex: "0 0 calc(33% - 20px)",
-            }}
-          >
-            <InputField
-              id="pricePerYear"
-              gap="3"
-              type="number"
-              key="pricePerYear"
-              label="Price Per Year"
-              placeholder="Price Per Year"
-              value={getFieldValue("pricePerYear")}
-              onChange={(event: any) =>
-                handleChange("pricePerYear", event.target.value)
-              }
-            />
-          </Flex>
-
-          <Flex
-            gap={"3"}
-            direction={"column"}
-            style={{
-              maxWidth: "calc(33% - 20px)",
-              flex: "0 0 calc(33% - 20px)",
-            }}
-          >
-            <InputField
-              id="maxRooms"
-              gap="3"
-              type="number"
-              key="maxRooms"
-              label="Max Rooms"
-              placeholder="Total Price"
-              value={getFieldValue("numberOfFloors")}
-              onChange={(event: any) =>
-                handleChange("numberOfFloors", event.target.value)
-              }
-            />
-          </Flex>
-
-          <Flex
-            gap={"3"}
-            direction={"column"}
-            style={{
-              maxWidth: "calc(33% - 20px)",
-              flex: "0 0 calc(33% - 20px)",
-            }}
-          >
-            <InputField
-              id="beds"
-              gap="3"
-              type="number"
-              key="beds"
-              label="Beds"
-              placeholder="Beds"
-              className="required"
-              value={getFieldValue("beds")}
-              onChange={(event: any) =>
-                handleChange("beds", event.target.value)
-              }
-            />
-          </Flex>
-
-          <Flex
-            gap={"3"}
-            direction={"column"}
-            style={{
-              maxWidth: "calc(33% - 20px)",
-              flex: "0 0 calc(33% - 20px)",
-            }}
-          >
-            <InputField
-              id="baths"
-              gap="3"
-              type="number"
-              key="baths"
-              label="Baths"
-              placeholder="Baths"
-              className="required"
-              value={getFieldValue("baths")}
-              onChange={(event: any) =>
-                handleChange("baths", event.target.value)
-              }
-            />
-          </Flex>
-
-          <Flex
-            gap={"3"}
-            direction={"column"}
-            style={{
-              maxWidth: "calc(33% - 20px)",
-              flex: "0 0 calc(33% - 20px)",
-            }}
-          >
-            <Select
-              id="furnishingId"
-              gap="3"
-              key="furnishingId"
-              label="Furnishing"
-              placeholder="Furnishing"
-              value={getFieldValue("furnishingId")}
-              optionList={fieldOptions?.Furnishing}
-              onChange={(value: string) => handleChange("furnishingId", value)}
-              position="popper"
-            />
-          </Flex>
-
-          <Flex
-            gap={"3"}
-            direction={"column"}
-            style={{
-              maxWidth: "calc(33% - 20px)",
-              flex: "0 0 calc(33% - 20px)",
-            }}
-          >
-            <Select
-              id="parkingSpaceId"
-              gap="3"
-              key="parkingSpaceId"
-              label="Parking Space"
-              placeholder="Parking Space"
-              value={getFieldValue("parkingSpaceId")}
-              optionList={fieldOptions?.ParkingSpace}
-              onChange={(value: string) =>
-                handleChange("parkingSpaceId", value)
-              }
-              position="popper"
-            />
-          </Flex>
-
-          <Flex
-            gap={"3"}
-            direction={"column"}
-            style={{
-              maxWidth: "calc(33% - 20px)",
-              flex: "0 0 calc(33% - 20px)",
-            }}
-          >
-            <DateInputWithIcon
-              id="buildingYear"
+          {!(
+            getFieldValue("categoryId") &&
+            ["2", "4"].find((cat) => cat == getFieldValue("categoryId"))
+          ) && (
+            <Flex
               gap={"3"}
-              type="date"
-              label="Building Year"
-              placeholder="Building Year"
-              iconName="CalendarIcon"
-              iconPosition="right"
-              size={"3"}
-              value={new Date()}
-              onChange={(value: any) => handleChange("buildingYear", value)}
-            />
-          </Flex>
+              direction={"column"}
+              style={{
+                maxWidth: "calc(33% - 20px)",
+                flex: "0 0 calc(33% - 20px)",
+              }}
+            >
+              <InputField
+                id="numberOfFloors"
+                gap="3"
+                type="number"
+                key="numberOfFloors"
+                label="Number of Floors"
+                placeholder="Number of Floors"
+                value={getFieldValue("numberOfFloors")}
+                onChange={(event: any) =>
+                  handleChange("numberOfFloors", event.target.value)
+                }
+                disabled={isPreview}
+              />
+            </Flex>
+          )}
+
+          {!(
+            getFieldValue("categoryId") &&
+            ["1", "2", "4"].find((cat) => cat == getFieldValue("categoryId"))
+          ) && (
+            <Flex
+              gap={"3"}
+              direction={"column"}
+              style={{
+                maxWidth: "calc(33% - 20px)",
+                flex: "0 0 calc(33% - 20px)",
+              }}
+            >
+              <InputField
+                id="pricePerYear"
+                gap="3"
+                type="number"
+                key="pricePerYear"
+                label="Price Per Year"
+                placeholder="Price Per Year"
+                value={getFieldValue("pricePerYear")}
+                onChange={(event: any) =>
+                  handleChange("pricePerYear", event.target.value)
+                }
+                disabled={isPreview}
+              />
+            </Flex>
+          )}
+
+          {!(
+            getFieldValue("categoryId") &&
+            ["2", "3", "4"].find((cat) => cat == getFieldValue("categoryId"))
+          ) && (
+            <>
+              <Flex
+                gap={"3"}
+                direction={"column"}
+                style={{
+                  maxWidth: "calc(33% - 20px)",
+                  flex: "0 0 calc(33% - 20px)",
+                }}
+              >
+                <InputField
+                  id="maxRooms"
+                  gap="3"
+                  type="number"
+                  key="maxRooms"
+                  label="Max Rooms"
+                  placeholder="Max Rooms"
+                  value={getFieldValue("maxRooms")}
+                  onChange={(event: any) =>
+                    handleChange("maxRooms", event.target.value)
+                  }
+                  disabled={isPreview}
+                />
+              </Flex>
+
+              <Flex
+                gap={"3"}
+                direction={"column"}
+                style={{
+                  maxWidth: "calc(33% - 20px)",
+                  flex: "0 0 calc(33% - 20px)",
+                }}
+              >
+                <InputField
+                  id="beds"
+                  gap="3"
+                  type="number"
+                  key="beds"
+                  label="Beds"
+                  placeholder="Beds"
+                  className="required"
+                  value={getFieldValue("beds")}
+                  onChange={(event: any) =>
+                    handleChange("beds", event.target.value)
+                  }
+                  errors={errors?.beds}
+                  disabled={isPreview}
+                />
+              </Flex>
+
+              <Flex
+                gap={"3"}
+                direction={"column"}
+                style={{
+                  maxWidth: "calc(33% - 20px)",
+                  flex: "0 0 calc(33% - 20px)",
+                }}
+              >
+                <InputField
+                  id="baths"
+                  gap="3"
+                  type="number"
+                  key="baths"
+                  label="Baths"
+                  placeholder="Baths"
+                  className="required"
+                  value={getFieldValue("baths")}
+                  onChange={(event: any) =>
+                    handleChange("baths", event.target.value)
+                  }
+                  errors={errors?.baths}
+                  disabled={isPreview}
+                />
+              </Flex>
+
+              <Flex
+                gap={"3"}
+                direction={"column"}
+                style={{
+                  maxWidth: "calc(33% - 20px)",
+                  flex: "0 0 calc(33% - 20px)",
+                }}
+              >
+                <Select
+                  id="furnishingId"
+                  gap="3"
+                  key="furnishingId"
+                  label="Furnishing"
+                  placeholder="Furnishing"
+                  value={getFieldValue("furnishingId")}
+                  optionList={fieldOptions?.furnishing}
+                  onChange={(value: any) => handleChange("furnishingId", value)}
+                  position="popper"
+                  disabled={isPreview}
+                />
+              </Flex>
+            </>
+          )}
+
+          {!(
+            getFieldValue("categoryId") &&
+            ["2"].find((cat) => cat == getFieldValue("categoryId"))
+          ) && (
+            <Flex
+              gap={"3"}
+              direction={"column"}
+              style={{
+                maxWidth: "calc(33% - 20px)",
+                flex: "0 0 calc(33% - 20px)",
+              }}
+            >
+              <Select
+                id="parkingSpaceId"
+                gap="3"
+                key="parkingSpaceId"
+                label="Parking Space"
+                placeholder="Parking Space"
+                value={getFieldValue("parkingSpaceId")}
+                optionList={fieldOptions?.parkingSpace}
+                onChange={(value: any) => handleChange("parkingSpaceId", value)}
+                position="popper"
+                disabled={isPreview}
+              />
+            </Flex>
+          )}
+
+          {!(
+            getFieldValue("categoryId") &&
+            ["2", "4"].find((cat) => cat == getFieldValue("categoryId"))
+          ) && (
+            <Flex
+              gap={"3"}
+              direction={"column"}
+              style={{
+                maxWidth: "calc(33% - 20px)",
+                flex: "0 0 calc(33% - 20px)",
+              }}
+            >
+              <DateInputWithIcon
+                id="buildingYear"
+                gap={"3"}
+                type="date"
+                label="Building Year"
+                placeholder="Building Year"
+                iconName="CalendarIcon"
+                iconPosition="right"
+                size={"3"}
+                value={
+                  new Date(getFieldValue("buildingYear")?.toString()) ||
+                  new Date("")
+                }
+                onChange={(value: any) => handleChange("buildingYear", value)}
+                disabled={isPreview}
+              />
+            </Flex>
+          )}
 
           <Flex
             gap={"3"}
@@ -716,74 +779,95 @@ export default function PropertyInformation({
               iconName="CalendarIcon"
               iconPosition="right"
               size={"3"}
-              value={new Date()}
-              onChange={(value: any) => handleChange("availableDate", value)}
-            />
-          </Flex>
-
-          <Flex
-            gap={"3"}
-            direction={"column"}
-            style={{
-              maxWidth: "calc(33% - 20px)",
-              flex: "0 0 calc(33% - 20px)",
-            }}
-          >
-            <Select
-              id="pool"
-              gap="3"
-              key="pool"
-              label="Have Pool"
-              placeholder="Have Pool"
-              value={getFieldValue("pool")}
-              optionList={fieldOptions?.HavePool}
-              onChange={(value: string) => handleChange("pool", value)}
-              position="popper"
-            />
-          </Flex>
-
-          <Flex
-            gap={"3"}
-            direction={"column"}
-            style={{
-              maxWidth: "calc(33% - 20px)",
-              flex: "0 0 calc(33% - 20px)",
-            }}
-          >
-            <Select
-              id="poolTypeId"
-              gap="3"
-              key="poolTypeId"
-              label="Pool Type"
-              placeholder="Pool Type"
-              value={getFieldValue("poolTypeId")}
-              optionList={fieldOptions?.PoolType}
-              onChange={(value: string) => handleChange("poolTypeId", value)}
-              position="popper"
-            />
-          </Flex>
-
-          <Flex
-            gap={"3"}
-            direction={"column"}
-            style={{
-              maxWidth: "calc(33% - 20px)",
-              flex: "0 0 calc(33% - 20px)",
-            }}
-          >
-            <InputField
-              id="poolSize"
-              gap="3"
-              type="number"
-              key="poolSize"
-              label="Pool Size"
-              placeholder="Pool Size"
-              value={getFieldValue("poolSize")}
-              onChange={(event: any) =>
-                handleChange("poolSize", event.target.value)
+              value={getFieldValue("availableDate") || ""}
+              onChange={(val) =>
+                handleChange("availableDate", val?.toISOString())
               }
+              disabled={isPreview}
+              // value={new Date(getFieldValue("availableDate")) || new Date()}
+              // onChange={(value: any) => handleChange("availableDate", value)}
             />
           </Flex>
+
+          {!(
+            getFieldValue("categoryId") &&
+            ["2", "4"].find((cat) => cat == getFieldValue("categoryId"))
+          ) && (
+            <>
+              <Flex
+                gap={"3"}
+                direction={"column"}
+                style={{
+                  maxWidth: "calc(33% - 20px)",
+                  flex: "0 0 calc(33% - 20px)",
+                }}
+              >
+                <Select
+                  id="pool"
+                  gap="3"
+                  key="pool"
+                  label="Have Pool"
+                  placeholder="Have Pool"
+                  value={getFieldValue("pool")}
+                  optionList={fieldOptions?.pool}
+                  onChange={(value: any) => handleChange("pool", value)}
+                  position="popper"
+                  disabled={isPreview}
+                />
+              </Flex>
+
+              {getFieldValue("pool") == "true" && (
+                <>
+                  <Flex
+                    gap={"3"}
+                    direction={"column"}
+                    style={{
+                      maxWidth: "calc(33% - 20px)",
+                      flex: "0 0 calc(33% - 20px)",
+                    }}
+                  >
+                    <Select
+                      id="poolTypeId"
+                      gap="3"
+                      key="poolTypeId"
+                      label="Pool Type"
+                      placeholder="Pool Type"
+                      value={getFieldValue("poolTypeId")}
+                      optionList={fieldOptions?.poolType}
+                      onChange={(value: any) =>
+                        handleChange("poolTypeId", value)
+                      }
+                      position="popper"
+                      disabled={isPreview}
+                    />
+                  </Flex>
+
+                  <Flex
+                    gap={"3"}
+                    direction={"column"}
+                    style={{
+                      maxWidth: "calc(33% - 20px)",
+                      flex: "0 0 calc(33% - 20px)",
+                    }}
+                  >
+                    <InputField
+                      id="poolSize"
+                      gap="3"
+                      type="number"
+                      key="poolSize"
+                      label="Pool Size"
+                      placeholder="Pool Size"
+                      value={getFieldValue("poolSize")}
+                      onChange={(event: any) =>
+                        handleChange("poolSize", event.target.value)
+                      }
+                      disabled={isPreview}
+                    />
+                  </Flex>
+                </>
+              )}
+            </>
+          )}
         </Card>
       </Flex>
     </Flex>

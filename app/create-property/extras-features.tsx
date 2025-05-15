@@ -1,33 +1,52 @@
 "use client";
 
 import { Text, TextArea, Checkbox, Flex, Card, Strong } from "@radix-ui/themes";
+
 import { useDynamicFieldMap } from "@/components/ui/common/useDynamicFieldMap";
-import InputField from "@/components/ui/common/Input";
-import CustomFileUploader from "@/components/ui/common/CustomFileUploader";
+
+import ButtonInput from "@/components/ui/common/Button";
+import Icon from "@/components/ui/common/Icon";
 import DynamicInputList from "@/components/ui/common/DynamicInputList";
 
-export default function ExtrasFeaturePage() {
+export default function ExtrasFeaturePage({
+  handleChange,
+  getFieldValue,
+  errors,
+  isPreview,
+}: {
+  handleChange: any;
+  getFieldValue: (name: string) => any;
+  errors: any;
+  isPreview?: boolean;
+}) {
   const { addValue, getValues }: any = useDynamicFieldMap();
 
-  const getFieldValue = (name: string) => {
-    //console.log(name, getValues(), getValues()[name]);
-    return getValues()[name];
-  };
-  const handleChange = (
-    name: string,
-    value: string | number | boolean | Array<any>
-  ) => {
-    // console.log(name, value);
-    addValue(name, value);
+  const addMore = (category: string, value: any) => {
+    console.log("Add more input", category, value);
+
+    handleChange(
+      `${category}Added`,
+      value.map((item: any) => {
+        return { isSubmitted: true, value: item, isDefault: false };
+      })
+    );
   };
 
-  const addMore = () => {
-    console.log("Add more input");
-  };
+  console.log("dd", getFieldValue("enclosed"));
 
   return (
-    <Flex gap="3" direction="column">
+    <Flex gap="3" direction="column" className="extras-features">
       <Text> Extras Feature</Text>
+      {isPreview && (
+        <ButtonInput
+          direction={"row"}
+          gap={"3"}
+          onClick={() => {}}
+          className="btn-secondary btn-edit"
+        >
+          <Icon name={"CustomEditIcon"} size={24} />
+        </ButtonInput>
+      )}
       <Flex gap={"3"} direction={"row"}>
         <Card
           size={"5"}
@@ -45,36 +64,36 @@ export default function ExtrasFeaturePage() {
             direction={"column"}
             style={{ minWidth: "100%", flex: "1 1 100%" }}
           >
-            <Text> Living Space </Text>
-            <Flex
-              gap="3"
-              direction="row"
-              style={{ minWidth: "100%", flexWrap: "wrap" }}
-            >
+            <Text className="form-label"> Living Space </Text>
+            <Flex gap="3" direction="row" style={{ minWidth: "100%" }}>
               <Flex
                 gap={"2"}
                 direction={"row"}
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"enclosed"}
-                  defaultChecked={
-                    getFieldValue("enclosed") === "on" ? true : false
-                  }
-                  disabled={false}
-                  name={"enclosed"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "enclosed",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Enclosed
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"enclosed"}
+                      defaultChecked={
+                        getFieldValue("enclosed") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"enclosed"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "enclosed",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Enclosed
+                  </Flex>
+                </Text>
               </Flex>
               <Flex
                 gap={"2"}
@@ -82,24 +101,28 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"openPlan"}
-                  defaultChecked={
-                    getFieldValue("openPlan") === "on" ? true : false
-                  }
-                  disabled={false}
-                  name={"openPlan"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "openPlan",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Open-Plan
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"openPlan"}
+                      defaultChecked={
+                        getFieldValue("openPlan") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"openPlan"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "openPlan",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Open-Plan
+                  </Flex>
+                </Text>
               </Flex>
               <Flex
                 gap={"2"}
@@ -107,44 +130,74 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"ac"}
-                  defaultChecked={getFieldValue("ac") === "on" ? true : false}
-                  disabled={false}
-                  name={"ac"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "ac",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                AC
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"ac"}
+                      defaultChecked={
+                        getFieldValue("ac") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"ac"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "ac",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    AC
+                  </Flex>
+                </Text>
               </Flex>
 
               <DynamicInputList
-                inputGroups={[
-                  {
-                    id: "custom-field",
-                    type: "text",
-                    key: "custom-field",
-                    label: "",
-                    placeholder: "",
-                    value: getFieldValue("custom-field"),
-                    onChange: (value: string) =>
-                      handleChange("custom-field", value),
-                  },
-                ]}
+                inputGroups={
+                  getFieldValue("livingSpaceAdded")?.length > 0
+                    ? getFieldValue("livingSpaceAdded").map((item: any) => {
+                        console.log("item", item);
+                        return {
+                          category: "livingSpace",
+                          id: "livingSpace",
+                          type: "text",
+                          key: "livingSpace",
+                          label: "",
+                          placeholder: "",
+                          value: item.value,
+                          isDefault: item.isDefault,
+                          iconName: item.isSubmitted ? "CustomCrossIcon" : "",
+                          disabled: item.isSubmitted ? true : false,
+                          iconPosition: "right",
+                          onChange: (value: any) =>
+                            handleChange("livingSpace", value),
+                        };
+                      })
+                    : [
+                        {
+                          category: "livingSpace",
+                          id: "livingSpace",
+                          type: "text",
+                          key: "livingSpace",
+                          label: "",
+                          placeholder: "",
+                          value: getFieldValue("livingSpace"),
+                          onChange: (value: any) =>
+                            handleChange("livingSpace", value),
+                        },
+                      ]
+                }
                 inputInfo={{
                   type: "button",
                   label: "",
-                  id: "custom-field",
+                  id: "livingSpace",
                   value: "+",
+                  onClick: addMore,
                 }}
-                handleChange={addMore}
+                handleChange={handleChange}
+                isPreview={isPreview}
               />
             </Flex>
           </Flex>
@@ -154,36 +207,36 @@ export default function ExtrasFeaturePage() {
             direction={"column"}
             style={{ minWidth: "100%", flex: "1 1 100%" }}
           >
-            <Text> Kitchen </Text>
-            <Flex
-              gap="3"
-              direction="row"
-              style={{ minWidth: "100%", flexWrap: "wrap" }}
-            >
+            <Text className="form-label"> Kitchen </Text>
+            <Flex gap="3" direction="row" style={{ minWidth: "100%" }}>
               <Flex
                 gap={"2"}
                 direction={"row"}
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"fullyEquipped"}
-                  defaultChecked={
-                    getFieldValue("fullyEquipped") === "on" ? true : false
-                  }
-                  disabled={false}
-                  name={"fullyEquipped"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "fullyEquipped",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Fully Equipped
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"fullyEquipped"}
+                      defaultChecked={
+                        getFieldValue("fullyEquipped") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"fullyEquipped"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "fullyEquipped",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Fully Equipped
+                  </Flex>
+                </Text>
               </Flex>
               <Flex
                 gap={"2"}
@@ -191,24 +244,28 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"fridge"}
-                  defaultChecked={
-                    getFieldValue("fridge") === "on" ? true : false
-                  }
-                  disabled={false}
-                  name={"fridge"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "fridge",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Fridge
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"fridge"}
+                      defaultChecked={
+                        getFieldValue("fridge") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"fridge"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "fridge",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Fridge
+                  </Flex>
+                </Text>
               </Flex>
               <Flex
                 gap={"2"}
@@ -216,22 +273,28 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"oven"}
-                  defaultChecked={getFieldValue("oven") === "on" ? true : false}
-                  disabled={false}
-                  name={"oven"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "oven",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Oven
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"oven"}
+                      defaultChecked={
+                        getFieldValue("oven") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"oven"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "oven",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Oven
+                  </Flex>
+                </Text>
               </Flex>
 
               <Flex
@@ -240,46 +303,71 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"stoves"}
-                  defaultChecked={
-                    getFieldValue("stoves") === "on" ? true : false
-                  }
-                  disabled={false}
-                  name={"stoves"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "stoves",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Stoves
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"stoves"}
+                      defaultChecked={
+                        getFieldValue("stoves") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"stoves"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "stoves",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Stoves
+                  </Flex>
+                </Text>
               </Flex>
 
               <DynamicInputList
                 inputGroups={[
-                  {
-                    id: "custom-field",
-                    type: "text",
-                    key: "kitchen",
-                    label: "",
-                    placeholder: "",
-                    value: getFieldValue("custom-field"),
-                    onChange: (value: string) =>
-                      handleChange("custom-field", value),
-                  },
+                  getFieldValue("kitchenAdded")?.length > 0
+                    ? {
+                        ...getFieldValue("kitchenAdded").map((item: any) => {
+                          return {
+                            category: "kitchen",
+                            id: "kitchen",
+                            type: "text",
+                            key: "kitchen",
+                            label: "",
+                            placeholder: "",
+                            value: item.value,
+                            isDefault: item.isDefault,
+                            onChange: (value: any) =>
+                              handleChange("kitchen", value),
+                          };
+                        }),
+                      }
+                    : {
+                        category: "kitchen",
+                        id: "kitchen",
+                        type: "text",
+                        key: "kitchen",
+                        label: "",
+                        placeholder: "",
+                        disabled: isPreview,
+                        value: getFieldValue("kitchen"),
+                        onChange: (value: any) =>
+                          handleChange("kitchen", value),
+                      },
                 ]}
                 inputInfo={{
                   type: "button",
                   label: "",
-                  id: "custom-field",
+                  id: "kitchen",
                   value: "+",
+                  onClick: addMore,
                 }}
-                handleChange={addMore}
+                handleChange={handleChange}
+                isPreview={isPreview}
               />
             </Flex>
           </Flex>
@@ -289,36 +377,36 @@ export default function ExtrasFeaturePage() {
             direction={"column"}
             style={{ minWidth: "100%", flex: "1 1 100%" }}
           >
-            <Text> Utilities Included </Text>
-            <Flex
-              gap="3"
-              direction="row"
-              style={{ minWidth: "100%", flexWrap: "wrap" }}
-            >
+            <Text className="form-label"> Utilities Included </Text>
+            <Flex gap="3" direction="row" style={{ minWidth: "100%" }}>
               <Flex
                 gap={"2"}
                 direction={"row"}
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"electric"}
-                  defaultChecked={
-                    getFieldValue("electric") === "on" ? true : false
-                  }
-                  disabled={false}
-                  name={"electric"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "electric",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Electric
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"electric"}
+                      defaultChecked={
+                        getFieldValue("electric") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"electric"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "electric",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Electric
+                  </Flex>
+                </Text>
               </Flex>
               <Flex
                 gap={"2"}
@@ -326,24 +414,28 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"water"}
-                  defaultChecked={
-                    getFieldValue("water") === "on" ? true : false
-                  }
-                  disabled={false}
-                  name={"water"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "water",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Water
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"water"}
+                      defaultChecked={
+                        getFieldValue("water") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"water"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "water",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Water
+                  </Flex>
+                </Text>
               </Flex>
               <Flex
                 gap={"2"}
@@ -351,44 +443,73 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"wifi"}
-                  defaultChecked={getFieldValue("wifi") === "on" ? true : false}
-                  disabled={false}
-                  name={"wifi"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "wifi",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Wifi
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"wifi"}
+                      defaultChecked={
+                        getFieldValue("wifi") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"wifi"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "wifi",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Wifi
+                  </Flex>
+                </Text>
               </Flex>
 
               <DynamicInputList
                 inputGroups={[
-                  {
-                    id: "custom-field",
-                    type: "text",
-                    key: "custom-field",
-                    label: "",
-                    placeholder: "",
-                    value: getFieldValue("custom-field"),
-                    onChange: (value: string) =>
-                      handleChange("custom-field", value),
-                  },
+                  getFieldValue("utilitiesIncludedAdded")?.length > 0
+                    ? {
+                        ...getFieldValue("utilitiesIncludedAdded").map(
+                          (item: any) => {
+                            return {
+                              category: "utilitiesIncluded",
+                              id: "utilitiesIncluded",
+                              type: "text",
+                              key: "utilitiesIncluded",
+                              label: "",
+                              placeholder: "",
+                              value: item.value,
+                              isDefault: item.isDefault,
+                              onChange: (value: any) =>
+                                handleChange("utilitiesIncluded", value),
+                            };
+                          }
+                        ),
+                      }
+                    : {
+                        category: "utilitiesIncluded",
+                        id: "utilitiesIncluded",
+                        type: "text",
+                        key: "utilitiesIncluded",
+                        label: "",
+                        placeholder: "",
+                        disabled: isPreview,
+                        value: getFieldValue("utilitiesIncluded"),
+                        onChange: (value: any) =>
+                          handleChange("utilitiesIncluded", value),
+                      },
                 ]}
                 inputInfo={{
                   type: "button",
                   label: "",
-                  id: "custom-field",
+                  id: "utilitiesIncluded",
                   value: "+",
+                  onClick: addMore,
                 }}
-                handleChange={addMore}
+                handleChange={handleChange}
+                isPreview={isPreview}
               />
             </Flex>
           </Flex>
@@ -398,36 +519,36 @@ export default function ExtrasFeaturePage() {
             direction={"column"}
             style={{ minWidth: "100%", flex: "1 1 100%" }}
           >
-            <Text> Services Included </Text>
-            <Flex
-              gap="3"
-              direction="row"
-              style={{ minWidth: "100%", flexWrap: "wrap" }}
-            >
+            <Text className="form-label"> Services Included </Text>
+            <Flex gap="3" direction="row" style={{ minWidth: "100%" }}>
               <Flex
                 gap={"2"}
                 direction={"row"}
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"cleaning"}
-                  defaultChecked={
-                    getFieldValue("cleaning") === "on" ? true : false
-                  }
-                  disabled={false}
-                  name={"cleaning"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "cleaning",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Cleaning
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"cleaning"}
+                      defaultChecked={
+                        getFieldValue("cleaning") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"cleaning"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "cleaning",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Cleaning
+                  </Flex>
+                </Text>
               </Flex>
               <Flex
                 gap={"2"}
@@ -435,22 +556,28 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"abcd"}
-                  defaultChecked={getFieldValue("abcd") === "on" ? true : false}
-                  disabled={false}
-                  name={"abcd"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "abcd",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Abcd
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"abcd"}
+                      defaultChecked={
+                        getFieldValue("abcd") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"abcd"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "abcd",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Abcd
+                  </Flex>
+                </Text>
               </Flex>
               <Flex
                 gap={"2"}
@@ -458,44 +585,72 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"abdc"}
-                  defaultChecked={getFieldValue("abdc") === "on" ? true : false}
-                  disabled={false}
-                  name={"abdc"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "abdc",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Abdc
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"abdc"}
+                      defaultChecked={
+                        getFieldValue("abdc") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"abdc"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "abdc",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Abdc
+                  </Flex>
+                </Text>
               </Flex>
 
               <DynamicInputList
                 inputGroups={[
-                  {
-                    id: "custom-field",
-                    type: "text",
-                    key: "custom-field",
-                    label: "",
-                    placeholder: "",
-                    value: getFieldValue("custom-field"),
-                    onChange: (value: string) =>
-                      handleChange("custom-field", value),
-                  },
+                  getFieldValue("servicesIncludedAdded")?.length > 0
+                    ? {
+                        ...getFieldValue("servicesIncludedAdded").map(
+                          (item: any) => {
+                            return {
+                              category: "servicesIncluded",
+                              id: "servicesIncluded",
+                              type: "text",
+                              key: "servicesIncluded",
+                              label: "",
+                              placeholder: "",
+                              value: item.value,
+                              isDefault: item.isDefault,
+                              onChange: (value: any) =>
+                                handleChange("servicesIncluded", value),
+                            };
+                          }
+                        ),
+                      }
+                    : {
+                        category: "servicesIncluded",
+                        id: "servicesIncluded",
+                        type: "text",
+                        key: "servicesIncluded",
+                        label: "",
+                        placeholder: "",
+                        value: getFieldValue("servicesIncluded"),
+                        onChange: (value: any) =>
+                          handleChange("servicesIncluded", value),
+                      },
                 ]}
                 inputInfo={{
                   type: "button",
                   label: "",
-                  id: "custom-field",
+                  id: "servicesIncluded",
                   value: "+",
+                  onClick: addMore,
                 }}
-                handleChange={addMore}
+                handleChange={handleChange}
+                isPreview={isPreview}
               />
             </Flex>
           </Flex>
@@ -505,36 +660,36 @@ export default function ExtrasFeaturePage() {
             direction={"column"}
             style={{ minWidth: "100%", flex: "1 1 100%" }}
           >
-            <Text> Additional Features </Text>
-            <Flex
-              gap="3"
-              direction="row"
-              style={{ minWidth: "100%", flexWrap: "wrap" }}
-            >
+            <Text className="form-label"> Additional Features </Text>
+            <Flex gap="3" direction="row" style={{ minWidth: "100%" }}>
               <Flex
                 gap={"2"}
                 direction={"row"}
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"emergencyExit"}
-                  defaultChecked={
-                    getFieldValue("emergencyExit") === "on" ? true : false
-                  }
-                  disabled={false}
-                  name={"emergencyExit"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "emergencyExit",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Emergency Exit
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"emergencyExit"}
+                      defaultChecked={
+                        getFieldValue("emergencyExit") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"emergencyExit"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "emergencyExit",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Emergency Exit
+                  </Flex>
+                </Text>
               </Flex>
               <Flex
                 gap={"2"}
@@ -542,22 +697,28 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"cctv"}
-                  defaultChecked={getFieldValue("cctv") === "on" ? true : false}
-                  disabled={false}
-                  name={"cctv"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "cctv",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                CCTV
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"cctv"}
+                      defaultChecked={
+                        getFieldValue("cctv") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"cctv"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "cctv",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    CCTV
+                  </Flex>
+                </Text>
               </Flex>
               <Flex
                 gap={"2"}
@@ -565,24 +726,28 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"securityGuard"}
-                  defaultChecked={
-                    getFieldValue("securityGuard") === "on" ? true : false
-                  }
-                  disabled={false}
-                  name={"securityGuard"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "securityGuard",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Security Guard
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"securityGuard"}
+                      defaultChecked={
+                        getFieldValue("securityGuard") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"securityGuard"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "securityGuard",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Security Guard
+                  </Flex>
+                </Text>
               </Flex>
 
               <Flex
@@ -591,24 +756,28 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"balcony"}
-                  defaultChecked={
-                    getFieldValue("balcony") === "on" ? true : false
-                  }
-                  disabled={false}
-                  name={"balcony"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "balcony",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Balcony
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"balcony"}
+                      defaultChecked={
+                        getFieldValue("balcony") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"balcony"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "balcony",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Balcony
+                  </Flex>
+                </Text>
               </Flex>
               <Flex
                 gap={"2"}
@@ -616,24 +785,28 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"laundryService"}
-                  defaultChecked={
-                    getFieldValue("laundryService") === "on" ? true : false
-                  }
-                  disabled={false}
-                  name={"laundryService"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "laundryService",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Laundry Service
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"laundryService"}
+                      defaultChecked={
+                        getFieldValue("laundryService") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"laundryService"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "laundryService",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Laundry Service
+                  </Flex>
+                </Text>
               </Flex>
               <Flex
                 gap={"2"}
@@ -641,46 +814,73 @@ export default function ExtrasFeaturePage() {
                 justify={"center"}
                 align={"center"}
               >
-                <Checkbox
-                  id={"elevatorLift"}
-                  defaultChecked={
-                    getFieldValue("elevatorLift") === "on" ? true : false
-                  }
-                  disabled={false}
-                  name={"elevatorLift"}
-                  onClick={(e: any) =>
-                    handleChange(
-                      "elevatorLift",
-                      e.target.getAttribute("data-state") === "checked"
-                        ? false
-                        : true
-                    )
-                  }
-                  variant="classic"
-                />
-                Elevator Lift
+                <Text as="label" size="3">
+                  <Flex as="span" gap="3" style={{ whiteSpace: "nowrap" }}>
+                    <Checkbox
+                      id={"elevatorLift"}
+                      defaultChecked={
+                        getFieldValue("elevatorLift") === "on" ? true : false
+                      }
+                      disabled={isPreview}
+                      name={"elevatorLift"}
+                      onClick={(e: any) =>
+                        handleChange(
+                          "elevatorLift",
+                          e.target.getAttribute("data-state") === "checked"
+                            ? false
+                            : true
+                        )
+                      }
+                      variant="classic"
+                    />
+                    Elevator Lift
+                  </Flex>
+                </Text>
               </Flex>
 
               <DynamicInputList
                 inputGroups={[
-                  {
-                    id: "custom-field",
-                    type: "text",
-                    key: "custom-field",
-                    label: "",
-                    placeholder: "",
-                    value: getFieldValue("custom-field"),
-                    onChange: (value: string) =>
-                      handleChange("custom-field", value),
-                  },
+                  getFieldValue("additionalFeaturesAdded")?.length > 0
+                    ? {
+                        ...getFieldValue("additionalFeaturesAdded").map(
+                          (item: any) => {
+                            return {
+                              category: "additionalFeatures",
+                              id: "additionalFeatures",
+                              type: "text",
+                              key: "additionalFeatures",
+                              label: "",
+                              placeholder: "",
+                              value: item.value,
+                              isDefault: item.isDefault,
+                              onChange: (value: any) =>
+                                handleChange("additionalFeatures", value),
+                            };
+                          }
+                        ),
+                      }
+                    : {
+                        category: "additionalFeatures",
+                        id: "additionalFeatures",
+                        type: "text",
+                        key: "additionalFeatures",
+                        label: "",
+                        disabled: isPreview,
+                        placeholder: "",
+                        value: getFieldValue("additionalFeatures"),
+                        onChange: (value: any) =>
+                          handleChange("additionalFeatures", value),
+                      },
                 ]}
                 inputInfo={{
                   type: "button",
                   label: "",
-                  id: "custom-field",
+                  id: "additionalFeatures",
                   value: "+",
+                  onClick: addMore,
                 }}
-                handleChange={addMore}
+                handleChange={handleChange}
+                isPreview={isPreview}
               />
             </Flex>
           </Flex>

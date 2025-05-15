@@ -3,14 +3,11 @@
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { Flex } from "@radix-ui/themes";
-
-import PropertyForm from "../../add-property/property-form";
+import CreatePropertyForm from "@/app/create-property/page";
 import Skeleton from "@/components/ui/common/Skeleton";
-import Header from "@/components/layout/Header";
-import Sidebar from "@/components/layout/Sidebar";
 
 import { getPropertyInfo } from "@/utils/helpers/property-list";
+import { preparePropertyData } from "@/utils/helpers/add-property";
 
 import "@/styles/pages/property.scss";
 
@@ -27,8 +24,10 @@ const PropertyDetails = () => {
       try {
         if (!id) return;
         const propertyInfo = await getPropertyInfo(id as string);
+        const propertyData = preparePropertyData(propertyInfo);
 
-        setProperty(propertyInfo);
+        console.log(propertyData);
+        setProperty(propertyData);
       } catch (error) {
         console.log(error);
       }
@@ -37,10 +36,20 @@ const PropertyDetails = () => {
     fetchProperty();
   }, [id]);
 
+  // useEffect(() => {
+  //   const fetchFormOptions = async () => {
+  //     const options = await getFieldOptions();
+
+  //     setPropertyOptions(options);
+  //     return options;
+  //   };
+  //   fetchFormOptions();
+  // }, []);
+
   return (
     <main>
       {property ? (
-        <PropertyForm property={property} previewProperty={!shouldEdit} />
+        <CreatePropertyForm property={property} isViewMode={true} />
       ) : (
         <Skeleton />
       )}

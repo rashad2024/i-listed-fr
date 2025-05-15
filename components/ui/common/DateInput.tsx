@@ -8,7 +8,7 @@ import { Flex, Text } from "@radix-ui/themes";
 import "@/styles/components/_datepicker.scss";
 
 interface DateInputWithIconProps {
-  value: Date | null;
+  value: any;
   onChange: (date: any) => void;
   placeholder?: string;
   label?: string;
@@ -22,6 +22,7 @@ interface DateInputWithIconProps {
   size?: string;
   format?: string;
   disabled?: boolean;
+  dateFormat?: string;
 }
 
 // const CustomInput = forwardRef<HTMLInputElement, any>(
@@ -68,7 +69,7 @@ const CustomInput = forwardRef<HTMLInputElement, any>(
 );
 
 const DateInputWithIcon: React.FC<DateInputWithIconProps> = ({
-  value,
+  value = new Date(),
   onChange,
   label,
   id,
@@ -83,21 +84,24 @@ const DateInputWithIcon: React.FC<DateInputWithIconProps> = ({
   const dateFormat = id === "buildingYear" ? "yyyy" : "dd-MM-YYYY";
   const showYearPicker = id === "buildingYear";
 
+  // const [date, setDate] = useState(new Date());
+
   return (
     <Flex direction="column" gap={gap}>
-      <Text>{label}</Text>
+      <Text className="form-label">{label}</Text>
       <DatePicker
         selected={showYearPicker ? new Date(`${value}-01-01`) : value}
         onChange={(date) =>
-          onChange(showYearPicker ? date?.getFullYear() : date?.toISOString())
+          onChange(showYearPicker ? date?.getFullYear() : date)
         }
         disabled={disabled}
-        placeholderText={placeholder}
+        placeholderText={showYearPicker ? "YYYY" : placeholder}
         customInput={
           <CustomInput
             key={id}
             id={id}
             gap={gap}
+            placeholder={placeholder}
             iconName={iconName}
             iconPosition={iconPosition}
             size={size}
@@ -107,6 +111,7 @@ const DateInputWithIcon: React.FC<DateInputWithIconProps> = ({
         }
         showYearPicker={showYearPicker}
         dateFormat={dateFormat}
+        portalId="property-form"
         // minDate={new Date(1900, 0, 1)}
         // maxDate={new Date()}
       />

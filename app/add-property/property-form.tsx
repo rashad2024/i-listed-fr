@@ -135,9 +135,8 @@ export default function PropertyForm({ property, previewProperty }: any) {
         .unwrap()
         .then((res: any) => {
           // Do something after store is updated
-          console.log(res);
           if (res.success) {
-            setShowSuccessModal(res?.data?.id); // Redirect to /property-list
+            setShowSuccessModal(data?.data?.id); // Redirect to /property-list
           }
         })
         .catch((err: any) => {

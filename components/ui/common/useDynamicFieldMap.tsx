@@ -1,12 +1,19 @@
 import { useState } from "react";
 
 export function useDynamicFieldMap() {
-  const [fieldMap, setFieldMap] = useState<Record<string, any[]>>({});
+  const [fieldMap, setFieldMap] = useState<Record<any, any[]>>({});
 
   const addValue = (key: string, value: any) => {
     setFieldMap((prev) => ({
       ...prev,
       [key]: value,
+    }));
+  };
+
+  const addBulkValue = (data: any) => {
+    setFieldMap((prev) => ({
+      ...prev,
+      ...data,
     }));
   };
 
@@ -18,6 +25,7 @@ export function useDynamicFieldMap() {
     addValue,
     getValues,
     reset,
+    addBulkValue,
     fieldMap, // exposed for real-time display if needed
   };
 }

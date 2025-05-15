@@ -23,7 +23,12 @@ export default function SelectField({
   gap: string;
   label: string;
   name?: string;
-  optionList: Array<{ id: string; name: string; hidden?: boolean }>;
+  optionList: Array<{
+    id: string;
+    name: string;
+    hidden?: boolean;
+    symbol?: string;
+  }>;
   onChange: Function;
   value: any;
   position: "item-aligned" | "popper" | undefined;
@@ -51,8 +56,11 @@ export default function SelectField({
         disabled={disabled}
       >
         <Select.Trigger placeholder={placeholder}>
-          {/* {optionList.find((option) => option.value == value)?.label} */}
-          <SelectItem.Value placeholder="Select a fruit" />
+          {optionList?.find((option) => option.id.toString() == value)?.name}
+          {/* <SelectItem.Value
+            placeholder={placeholder}
+            defaultValue={parseInt(value)}
+          /> */}
           <SelectItem.Icon>
             <Icon name="ChevronDown" />
           </SelectItem.Icon>
@@ -61,8 +69,8 @@ export default function SelectField({
           {optionList?.map(
             (option) =>
               !option.hidden && (
-                <Select.Item value={option.name} key={option.id}>
-                  {option.name}
+                <Select.Item value={option.id.toString()} key={option.id}>
+                  {option.symbol || option.name}
                   {/* <SelectItem.ItemIndicator className="indicator">
                     ✔
                   </SelectItem.ItemIndicator> */}

@@ -4,21 +4,19 @@ import { Text, TextArea, Flex, Card, Inset, Strong } from "@radix-ui/themes";
 import { useDynamicFieldMap } from "@/components/ui/common/useDynamicFieldMap";
 import InputField from "@/components/ui/common/Input";
 import CustomFileUploader from "@/components/ui/common/CustomFileUploader";
+import UploadedFilePreview from "@/components/ui/common/UploadFilePreview";
 
-export default function DescriptionMedia() {
-  const { addValue, getValues }: any = ({} = useDynamicFieldMap());
-
-  const getFieldValue = (name: string) => {
-    //console.log(name, getValues(), getValues()[name]);
-    return getValues()[name] || "";
-  };
-  const handleChange = (
-    name: string,
-    value: string | number | boolean | Array<any>
-  ) => {
-    // console.log(name, value);
-    addValue(name, value);
-  };
+export default function DescriptionMedia({
+  handleChange,
+  getFieldValue,
+  errors,
+  isPreview,
+}: {
+  handleChange: any;
+  getFieldValue: (name: string) => string;
+  errors: any;
+  isPreview?: boolean;
+}) {
   return (
     <Flex gap="3" direction="column">
       <Text>Description and Media</Text>
@@ -39,7 +37,7 @@ export default function DescriptionMedia() {
             direction={"column"}
             style={{ minWidth: "100%", flex: "1 1 100%" }}
           >
-            <Text> Description </Text>
+            <Text className="form-label"> Description </Text>
             <TextArea
               key="description"
               id="description"
@@ -48,7 +46,7 @@ export default function DescriptionMedia() {
               value={getFieldValue("description") || ""}
               style={{ borderRadius: "4px", minWidth: "100%" }}
               onChange={(e: any) => handleChange("description", e.target.value)}
-              disabled={false}
+              disabled={isPreview}
             />
           </Flex>
 
@@ -57,13 +55,31 @@ export default function DescriptionMedia() {
             direction={"column"}
             style={{ minWidth: "100%", flex: "0 0 100%" }}
           >
-            <Text> Media </Text>
-            <CustomFileUploader
-              id={"images"}
-              prevFiles={getFieldValue("images") || []}
-              handleChange={(value: any) => handleChange("images", value)}
-              disabled={false}
-            />
+            {isPreview ? (
+              getFieldValue("images")?.length > 0 && (
+                <>
+                  {" "}
+                  <Text className="form-label">Media</Text>
+                  <UploadedFilePreview
+                    id={"images"}
+                    files={getFieldValue("images")}
+                  />
+                </>
+              )
+            ) : (
+              <>
+                <Text className="form-label"> Media </Text>
+                <CustomFileUploader
+                  id={"images"}
+                  prevFiles={getFieldValue("images") || []}
+                  handleChange={(value: any) => {
+                    console.log(value);
+                    handleChange("images", value);
+                  }}
+                  disabled={isPreview}
+                />
+              </>
+            )}
           </Flex>
 
           <Flex
@@ -71,19 +87,40 @@ export default function DescriptionMedia() {
             direction={"column"}
             style={{ minWidth: "100%", flex: "0 0 100%" }}
           >
-            <Text> Video(mp4) </Text>
-            <InputField
-              id="videoLink"
-              gap="3"
-              type="url"
-              key="videoLink"
-              label=""
-              placeholder="Video(mp4)"
-              value={getFieldValue("videoLink")}
-              onChange={(event: any) =>
-                handleChange("videoLink", event.target.value)
-              }
-            />
+            {(isPreview &&
+              (getFieldValue("videoLink") ? (
+                <Flex
+                  key={"videoLink"}
+                  gap={"3"}
+                  direction={"column"}
+                  className=""
+                >
+                  <Text className="form-label">Video(mp4)</Text>
+                  <UploadedFilePreview
+                    id={"videoLink"}
+                    files={[getFieldValue("videoLink")]}
+                  />
+                </Flex>
+              ) : (
+                ""
+              ))) || (
+              <>
+                <Text className="form-label"> Video(mp4) </Text>
+                <InputField
+                  id="videoLink"
+                  gap="3"
+                  type="url"
+                  key="videoLink"
+                  label=""
+                  placeholder="Video(mp4)"
+                  value={getFieldValue("videoLink")}
+                  disabled={isPreview}
+                  onChange={(event: any) =>
+                    handleChange("videoLink", event.target.value)
+                  }
+                />
+              </>
+            )}
           </Flex>
         </Card>
       </Flex>

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Flex, Strong, TextField, Text } from "@radix-ui/themes";
 
 import Icon from "./Icon";
@@ -12,7 +13,7 @@ export default function InputField({
   onChange,
   placeholder,
   errors,
-  iconName,
+  iconName = "",
   iconPosition,
   iconClick,
   radius = "4px",
@@ -66,6 +67,7 @@ export default function InputField({
       iconClick("EyeNoneIcon");
     }
   };
+
   return (
     <Flex direction="column" gap={gap}>
       {label && (
@@ -78,6 +80,7 @@ export default function InputField({
       )}
       {
         <TextField.Root
+          key={id}
           id={id}
           placeholder={placeholder}
           size={size}
