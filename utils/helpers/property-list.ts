@@ -238,6 +238,7 @@ export const prepareFilterData = (data: any, fetchProperty?: any) => {
 
 const prepareFilter = (filterData: any) => {
   const filterInfo: any = {};
+
   if (filterData.search) {
     filterInfo.search = filterData.search;
   }
@@ -247,7 +248,8 @@ const prepareFilter = (filterData: any) => {
   if (filterData.subcategoryId && parseInt(filterData.subcategoryId)) {
     filterInfo.subcategoryId = parseInt(filterData.subcategoryId);
   }
-  if (filterInfo.transactionTypeId && parseInt(filterData.transactionTypeId)) {
+
+  if (filterData.transactionTypeId && parseInt(filterData.transactionTypeId)) {
     filterInfo.transactionTypeId = parseInt(filterData.transactionTypeId);
   }
   if (filterData?.priceRange) {

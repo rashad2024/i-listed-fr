@@ -303,6 +303,13 @@ export default function CreatePropertyForm({
         property?.categoryId,
         propertyOptions
       );
+
+      console.log();
+      filterPropertyOptions(
+        "transactionTypeId",
+        property?.transactionTypeId,
+        propertyOptions
+      );
     }
   }, [propertyOptions]);
 
@@ -403,16 +410,16 @@ export default function CreatePropertyForm({
         />
       )}
 
-      {showSuccessModal && (
+      {showSuccessModal && propertyId && (
         <PropertySuccessModal
           propertyId={propertyId}
           setShowSuccessModal={setShowSuccessModal}
           mode={showSuccessModal}
         />
       )}
-      {showDeleteConfirmationModal && (
+      {showDeleteConfirmationModal && propertyId && (
         <PropertyDeleteConfirmationModal
-          propertyId={getFieldValue("propertyId")}
+          propertyId={propertyId}
           setShowDeleteConfirmationModal={setShowDeleteConfirmationModal}
         />
       )}

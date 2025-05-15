@@ -71,7 +71,11 @@ export default function SelectField({
           {optionList?.map(
             (option) =>
               !option.hidden && (
-                <Select.Item value={option.id.toString()} key={option.id}>
+                <Select.Item
+                  value={option.id.toString()}
+                  key={option.id}
+                  className="select-item"
+                >
                   {option.symbol || option.name}
                   {/* <SelectItem.ItemIndicator className="indicator">
                     ✔

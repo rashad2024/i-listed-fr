@@ -82,6 +82,7 @@ export default function PropertySuccessModal({
   };
 
   const viewProperty = () => {
+    setShowSuccessModal(false);
     router.push(`/property/${propertyId}`);
   };
 

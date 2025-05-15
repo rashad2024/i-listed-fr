@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch, RootState } from "@/store";
 import { deletePropertyById } from "@/features/redux/Property/propertyThunks";
+import { deleteAllProperties } from "@/utils/helpers/property-list";
 
 import { Flex, Text, Link } from "@radix-ui/themes";
 
@@ -20,7 +21,7 @@ export default function PropertyDeleteConfirmationModal({
   setShowDeleteConfirmationModal,
   isUpdated,
 }: {
-  propertyId: string;
+  propertyId: string | Array<string> | undefined;
   setShowDeleteConfirmationModal: React.Dispatch<SetStateAction<boolean>>;
   isUpdated?: any;
 }) {
@@ -75,21 +76,35 @@ export default function PropertyDeleteConfirmationModal({
   };
 
   const deleteProperty = async () => {
+    console.log("propertyId", propertyId);
     if (!propertyId) return;
 
-    await dispatch(deletePropertyById(propertyId))
-      .unwrap()
-      .then((data) => {
-        // Do something after store is updated
-        if (data.success) {
-          setShowDeleteConfirmationModal(false);
-          // router.push(`/${status ? status : "property"}`); // Redirect to /property-list
-          isUpdated(true);
-        }
-      })
-      .catch((err) => {
-        console.error("Property deletion error:", err);
-      });
+    if (typeof propertyId !== "object" && propertyId) {
+      await dispatch(deletePropertyById(propertyId))
+        .unwrap()
+        .then((data) => {
+          // Do something after store is updated
+          if (data.success) {
+            setShowDeleteConfirmationModal(false);
+            router.push(`/${status ? status : "property"}`); // Redirect to /property-list
+          }
+        })
+        .catch((err) => {
+          console.error("Property deletion error:", err);
+        });
+    } else if (typeof propertyId === "object" && propertyId) {
+      await deleteAllProperties(propertyId)
+        .then((data: any) => {
+          // Do something after store is updated
+          if (data.success) {
+            isUpdated(true);
+          }
+        })
+        .catch((err: any) => {
+          const { errors } = JSON.parse(err);
+          console.log(errors);
+        });
+    }
   };
 
   const ActionContainer = ({ closeModal }: { closeModal: any }) => {
