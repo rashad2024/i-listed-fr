@@ -13,6 +13,7 @@ import { ChevronDownIcon } from "@radix-ui/react-icons";
 
 import Icon from "../ui/common/Icon";
 import ButtonInput from "@/components/ui/common/Button";
+import CustomToast from "@/components/ui/common/Toast";
 
 import { logout } from "@/features/redux/Auth/authThunks";
 
@@ -26,10 +27,10 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
   const router = useRouter();
 
   const logoutUser = async () => {
-    persistor.purge();
-
     // Optional: Clear other storage
     localStorage.clear();
+
+    persistor.purge();
 
     await dispatch(logout())
       .unwrap()
@@ -38,6 +39,7 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
 
         if (data) {
           // Purge persisted state
+          <CustomToast />;
           router.push("/login"); //
         }
       })

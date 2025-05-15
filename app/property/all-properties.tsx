@@ -44,7 +44,8 @@ export default function AllProperties({ status }: { status?: any }) {
       }
       setTableData(propertyInfo.data);
       setPaginationData(propertyInfo.meta?.pagination);
-      setPage(1);
+      // setPage(1);
+      setPageUpdated(!pageUpdated);
     } catch (error) {
       console.log(error);
     }
@@ -89,7 +90,7 @@ export default function AllProperties({ status }: { status?: any }) {
   useEffect(() => {
     fetchProperty(filterData);
     setPageUpdated(false);
-  }, [page, pageUpdated]);
+  }, [pageUpdated]);
   return (
     <Flex
       direction={"column"}

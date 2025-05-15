@@ -13,8 +13,8 @@ import Image from "next/image";
 import "../../styles/components/_header.scss";
 
 export default function Header() {
-  const [language, setLanguage] = useState("USD");
-  const [currency, setCurrency] = useState("FR");
+  const [language, setLanguage] = useState("en");
+  const [currency, setCurrency] = useState("usd");
   return (
     <header className="header-container">
       {/* Search Input */}

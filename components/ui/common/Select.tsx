@@ -40,12 +40,14 @@ export default function SelectField({
 }) {
   return (
     <Flex direction="column" gap={gap}>
-      <Strong className={`form-label`}>
-        {label}
-        {className === "required" && (
-          <Text as="span" className="required"></Text>
-        )}
-      </Strong>
+      {label && (
+        <Strong className={`form-label`}>
+          {label}
+          {className === "required" && (
+            <Text as="span" className="required"></Text>
+          )}
+        </Strong>
+      )}
       <Select.Root
         key={id}
         size={size}
