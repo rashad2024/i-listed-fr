@@ -44,6 +44,7 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
       })
       .catch((err) => {
         console.error("Registration error:", err);
+        router.push("/login"); //
       });
   };
 
