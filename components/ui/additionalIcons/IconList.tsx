@@ -464,7 +464,6 @@ export const UnitAreaIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
     width="52"
     height="24"
     color="currentColor"
-    {...props}
   >
     <rect width="24" height="25" fill="#FFFFFF"></rect>
     <text

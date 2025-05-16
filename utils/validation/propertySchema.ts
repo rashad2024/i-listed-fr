@@ -30,6 +30,14 @@ export const propertyFormSchema = z
     totalPrice: z.string({
       required_error: "Please enter a valid total price",
     }),
+    pricePerYear: z
+      .number()
+      .min(0, { message: "Price per year cannot be negative" })
+      .optional(),
+    // pricePerUnit: z
+    //   .number()
+    //   .min(0, { message: "Price per unit cannot be negative" })
+    //   .optional(),
     beds: z.string().optional(),
     baths: z.string().optional(),
     showPreview: z.boolean().optional(),

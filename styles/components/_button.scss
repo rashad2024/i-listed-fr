@@ -96,3 +96,12 @@ button[role="checkbox"]:before {
     color: #ffffff !important;
   }
 }
+
+button[role="checkbox"]:before {
+  border-width: unset !important;
+}
+
+.rt-BaseCheckboxRoot:where(.rt-variant-classic):where(:disabled)
+  :where(.rt-BaseCheckboxIndicator) {
+  color: #1e1e1e;
+}

@@ -73,35 +73,43 @@ const DynamicInputList = ({
       );
     }
 
-    setInputs([...inputs, { id, type: "text", category: input.category }]);
+    setInputs([
+      ...inputs,
+      { id, type: "text", category: input?.category || id },
+    ]);
   };
 
   const removeItem = (input: any) => {
+    if (isPreview) return;
     console.log("removeItem", input, inputs, inputGroups);
     handleChange(input.category, input.value, null, true);
 
-    // if (onClick) {
-    //   onClick(
-    //     id,
-    //     inputs.filter((data: any) =>
-    //       data.value && data.type === "text" && data.value !== input.value
-    //         ? data.value
-    //         : false
-    //     )
-    //   );
-    // }
+    if (onClick) {
+      onClick(
+        id,
+        inputs.filter((data: any) =>
+          data.value && data.value !== input.value ? data.value : ""
+        )
+      );
+    }
     // handleChange(`${input.category}Added`, input.value);
 
-    setInputs(
-      inputGroups.filter(
-        (inputGroup: any) => input.value && input.value !== inputGroup.value
-      )
-    );
-    console.log(
-      inputGroups.filter(
-        (inputGroup: any) => input.value && input.value !== inputGroup.value
-      )
-    );
+    // const filteredData = inputGroups.filter(
+    //   (inputGroup: any) => !input.value || input.value != inputGroup.value
+    // );
+
+    // console.log(
+    // inputGroups.filter(
+    //   (inputGroup: any) => !input.value || input.value !== inputGroup.value
+    // )
+    // );
+    if (inputGroups.length) {
+      setInputs(
+        inputGroups.filter(
+          (inputGroup: any) => input.value && input.value !== inputGroup.value
+        )
+      );
+    }
   };
 
   // useEffect(() => {
@@ -131,11 +139,13 @@ const DynamicInputList = ({
             iconSize,
             isDefault,
             category,
+            isSubmitted,
           } = input;
           fieldId = id || fieldId;
 
-          // if (isPreview && idx === inputs.length - 1 && !value) return;
-          // console.log("input", input);
+          if (isPreview && idx === inputs.length - 1 && !value) return;
+          if (isPreview && !isSubmitted) return;
+          console.log("input", input);
           return (
             <InputField
               key={`${fieldId}-${idx}`}
@@ -151,11 +161,11 @@ const DynamicInputList = ({
               iconClick={(e: any) => removeItem(input)}
               iconSize={iconSize || 12}
               size={"3"}
-              disabled={showPreviewView || disabled}
+              disabled={isPreview || disabled}
             />
           );
         })}
-        {!(disabled || showPreviewView || isPreview) ? (
+        {!(disabled || isPreview) ? (
           <ButtonInput
             key={id}
             direction={"row"}

@@ -170,6 +170,7 @@ export default function ExtrasFeaturePage({
                           isDefault: item.isDefault,
                           iconName: item.isSubmitted ? "CustomCrossIcon" : "",
                           disabled: item.isSubmitted ? true : false,
+                          isSubmitted: item.isSubmitted,
                           iconPosition: "right",
                           onChange: (value: any) =>
                             handleChange("livingSpace", value),
@@ -197,7 +198,7 @@ export default function ExtrasFeaturePage({
                   onClick: addMore,
                 }}
                 handleChange={handleChange}
-                isPreview={isPreview}
+                isPreview={editMode ? false : isPreview}
               />
             </Flex>
           </Flex>
@@ -336,6 +337,7 @@ export default function ExtrasFeaturePage({
                           isDefault: item.isDefault,
                           iconName: item.isSubmitted ? "CustomCrossIcon" : "",
                           disabled: item.isSubmitted ? true : false,
+                          isSubmitted: item.isSubmitted,
                           iconPosition: "right",
                           onChange: (value: any) =>
                             handleChange("kitchen", value),
@@ -364,7 +366,7 @@ export default function ExtrasFeaturePage({
                   onClick: addMore,
                 }}
                 handleChange={handleChange}
-                isPreview={isPreview}
+                isPreview={editMode ? false : isPreview}
               />
             </Flex>
           </Flex>
@@ -474,6 +476,7 @@ export default function ExtrasFeaturePage({
                             isDefault: item.isDefault,
                             iconName: item.isSubmitted ? "CustomCrossIcon" : "",
                             disabled: item.isSubmitted ? true : false,
+                            isSubmitted: item.isSubmitted,
                             iconPosition: "right",
                             onChange: (value: any) =>
                               handleChange("utilitiesIncluded", value),
@@ -503,7 +506,7 @@ export default function ExtrasFeaturePage({
                   onClick: addMore,
                 }}
                 handleChange={handleChange}
-                isPreview={isPreview}
+                isPreview={editMode ? false : isPreview}
               />
             </Flex>
           </Flex>
@@ -613,6 +616,7 @@ export default function ExtrasFeaturePage({
                             isDefault: item.isDefault,
                             iconName: item.isSubmitted ? "CustomCrossIcon" : "",
                             disabled: item.isSubmitted ? true : false,
+                            isSubmitted: item.isSubmitted,
                             iconPosition: "right",
                             onChange: (value: any) =>
                               handleChange("servicesIncluded", value),
@@ -641,7 +645,7 @@ export default function ExtrasFeaturePage({
                   onClick: addMore,
                 }}
                 handleChange={handleChange}
-                isPreview={isPreview}
+                isPreview={editMode ? false : isPreview}
               />
             </Flex>
           </Flex>
@@ -841,6 +845,7 @@ export default function ExtrasFeaturePage({
                             isDefault: item.isDefault,
                             iconName: item.isSubmitted ? "CustomCrossIcon" : "",
                             disabled: item.isSubmitted ? true : false,
+                            isSubmitted: item.isSubmitted,
                             iconPosition: "right",
                             onChange: (value: any) =>
                               handleChange("additionalFeatures", value),
@@ -854,7 +859,7 @@ export default function ExtrasFeaturePage({
                           type: "text",
                           key: "additionalFeatures",
                           label: "",
-                          disabled: isPreview,
+                          disabled: editMode ? false : isPreview,
                           placeholder: "",
                           value: "",
                           onChange: (value: any) =>
@@ -870,7 +875,7 @@ export default function ExtrasFeaturePage({
                   onClick: addMore,
                 }}
                 handleChange={handleChange}
-                isPreview={isPreview}
+                isPreview={editMode ? false : isPreview}
               />
             </Flex>
           </Flex>

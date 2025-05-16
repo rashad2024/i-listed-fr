@@ -2,19 +2,20 @@
 "use client";
 
 import React, { useState } from "react";
-import { Avatar, Flex } from "@radix-ui/themes";
+import { Avatar, Flex, Text } from "@radix-ui/themes";
 
 import InputField from "../ui/common/Input";
 import SelectField from "../ui/common/Select";
 import Icon from "../ui/common/Icon";
-
-import Image from "next/image";
+import CustomToast from "../ui/common/Toast";
 
 import "../../styles/components/_header.scss";
 
 export default function Header() {
   const [language, setLanguage] = useState("en");
   const [currency, setCurrency] = useState("usd");
+  const [showToaster, setShowToaster] = useState(false);
+
   return (
     <header className="header-container">
       {/* Search Input */}
@@ -25,7 +26,7 @@ export default function Header() {
           label=""
           value=""
           type="text"
-          onChange={(e) => console.log(e)}
+          onChange={(e) => setShowToaster(true)}
           placeholder="Search here"
           iconName="MagnifyingGlassIcon"
           iconPosition="right"
@@ -36,8 +37,13 @@ export default function Header() {
 
       {/* Icon buttons + selectors + user */}
       <div className="header-profile-notification-container">
-        <Icon name="ChatBubbleIcon" />
-        <Icon name="BellIcon" />
+        <Text as="span" onClick={() => setShowToaster(true)}>
+          {" "}
+          <Icon name="ChatBubbleIcon" />{" "}
+        </Text>
+        <Text as="span" onClick={() => setShowToaster(true)}>
+          <Icon name="BellIcon" />
+        </Text>
 
         {/* Language Selector */}
         <div className="currency-language-selector">
@@ -52,6 +58,8 @@ export default function Header() {
             value={language}
             position="popper"
           />
+
+          {showToaster && <CustomToast onClose={() => setShowToaster(false)} />}
 
           {/* Currency Selector */}
           <SelectField

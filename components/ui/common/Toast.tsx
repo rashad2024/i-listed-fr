@@ -1,39 +1,40 @@
-// components/Toast.tsx
+// components/FeatureNoticeToast.tsx
+import { useEffect } from "react";
 import * as Toast from "@radix-ui/react-toast";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 
-export default function CustomToast() {
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState("");
-  const [type, setType] = useState<"success" | "error">("success");
+import "@/styles/components/_toast.scss";
 
-  const triggerToast = (msg: string, type: "success" | "error") => {
-    setMessage(msg);
-    setType(type);
-    setOpen(true);
-  };
+export default function CustomToast({ onClose }: { onClose: () => void }) {
+  const [open, setOpen] = useState(true);
+
+  // Call parent onClose when toast closes
+  useEffect(() => {
+    if (!open) {
+      onClose?.(); // Safe call if onClose exists
+    }
+  }, [open, onClose]);
 
   return (
     <Toast.Provider swipeDirection="right">
-      <button onClick={() => triggerToast("Saved successfully!", "success")}>
-        Show Success
-      </button>
-      <button onClick={() => triggerToast("Something went wrong!", "error")}>
-        Show Error
-      </button>
-
       <Toast.Root
-        className={`toast ${type}`}
         open={open}
         onOpenChange={setOpen}
-        duration={5000}
+        duration={1000}
+        className="feature-toast"
       >
-        <Toast.Title className="toast-title">
-          {type === "success" ? "✅ Success" : "❌ Error"}
-        </Toast.Title>
-        <Toast.Description className="toast-desc">{message}</Toast.Description>
+        <div className="toast-content">
+          <InfoCircledIcon className="toast-icon" />
+          <div>
+            <div className="toast-title">Notifications Coming Soon</div>
+            <div className="toast-desc">
+              This feature is currently under development and will be available
+              in an upcoming update. Stay tuned!
+            </div>
+          </div>
+        </div>
       </Toast.Root>
-
       <Toast.Viewport className="toast-viewport" />
     </Toast.Provider>
   );

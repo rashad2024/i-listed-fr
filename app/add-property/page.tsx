@@ -91,7 +91,7 @@ export default function CreatePropertyForm({
       //     (item: any) => item.value !== value
       //   )
       // );
-      value = getFieldValue(name).filter((item: any) => item !== value);
+      value = getFieldValue(name)?.filter((item: any) => item !== value) || [];
     }
 
     console.log(getValues());

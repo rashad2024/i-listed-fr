@@ -39,7 +39,6 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
 
         if (data) {
           // Purge persisted state
-          <CustomToast />;
           router.push("/login"); //
         }
       })
