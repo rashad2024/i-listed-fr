@@ -99,6 +99,7 @@ export default function PropertyDeleteConfirmationModal({
         .then((data: any) => {
           // Do something after store is updated
           if (data.success) {
+            setShowDeleteConfirmationModal(false);
             isUpdated(true);
           }
         })
