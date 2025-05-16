@@ -410,7 +410,7 @@ export default function CreatePropertyForm({
           handleClick={(type: string) => formSubmit(type)}
           selectedCategory={selectedCategory}
           showUpdate={
-            (propertyId && basicEditMode) || descEditMode || extrasEditMode
+            propertyId && (basicEditMode || descEditMode || extrasEditMode)
           }
           handleUpdateClick={() => handleUpdateClick()}
         />

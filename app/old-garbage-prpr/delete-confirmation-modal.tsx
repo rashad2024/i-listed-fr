@@ -86,7 +86,9 @@ export default function PropertyDeleteConfirmationModal({
           // Do something after store is updated
           if (data.success) {
             setShowDeleteConfirmationModal(false);
-            router.push(`/${status ? status : "property"}`); // Redirect to /property-list
+
+            if (isUpdated) isUpdated(true);
+            else router.push(`/${status ? status : "property"}`); // Redirect to /property-list
           }
         })
         .catch((err) => {

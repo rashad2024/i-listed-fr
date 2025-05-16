@@ -76,7 +76,7 @@ export default function DescriptionMedia({
             direction={"column"}
             style={{ minWidth: "100%", flex: "0 0 100%" }}
           >
-            {isPreview ? (
+            {isPreview && !editMode ? (
               getFieldValue("images")?.length > 0 && (
                 <>
                   {" "}
@@ -108,6 +108,7 @@ export default function DescriptionMedia({
             style={{ minWidth: "100%", flex: "0 0 100%" }}
           >
             {(isPreview &&
+              !editMode &&
               (getFieldValue("videoLink") ? (
                 <Flex
                   key={"videoLink"}
