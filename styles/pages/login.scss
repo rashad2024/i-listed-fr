@@ -1,3 +1,5 @@
+@import "@/styles/utils/_mixins.scss";
+
 .login-page-container {
   display: flex;
   flex-direction: column;
@@ -7,6 +9,12 @@
   align-items: center;
   position: relative;
 
+  form {
+    @include sm {
+      width: calc(100vw - 16px);
+    }
+  }
+
   .page-logo {
     position: absolute;
     top: 70px;
@@ -15,6 +23,11 @@
     font-weight: 900;
     font-family: var(---font-inter);
     line-height: 100%;
+
+    @include sm {
+      left: 16px;
+      top: 16px;
+    }
   }
 
   > svg {
@@ -35,6 +48,12 @@
     position: relative;
     width: 540px;
     height: auto;
+
+    @include sm {
+      width: calc(100% - 32px);
+      padding: 16px;
+      border-radius: 8px;
+    }
 
     h2 {
       margin-top: 0;

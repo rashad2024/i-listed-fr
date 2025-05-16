@@ -70,7 +70,7 @@ export default function LoginForm() {
       .then((data) => {
         // Do something after store is updated
         if (data.success) {
-          router.push("/add-property"); // Redirect to /property-list
+          router.push("/property"); // Redirect to /property-list
         }
       })
       .catch((err) => {

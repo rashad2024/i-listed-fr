@@ -14,12 +14,14 @@ interface AuthState {
   loading: boolean;
   error: any | null;
   data: any | null;
+  isLoggedIn: boolean;
 }
 
 const initialState: AuthState = {
   loading: false,
   error: null,
   data: null,
+  isLoggedIn: false,
 };
 
 const authSlice = createSlice({
@@ -37,11 +39,11 @@ const authSlice = createSlice({
       state.data = data;
     },
     // ✅ Optional: Logout
-    // logout: (state) => {
-    //   state.isLoggedIn = false;
-    //   state.data = null;
-    //   localStorage.removeItem("authUser"); // clean localStorage
-    // },
+    logout: (state) => {
+      state.isLoggedIn = false;
+      state.data = null;
+      localStorage.removeItem("authUser"); // clean localStorage
+    },
   },
   extraReducers: (builder) => {
     builder
