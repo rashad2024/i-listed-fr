@@ -75,7 +75,15 @@ const DynamicInputList = ({
 
     setInputs([
       ...inputs,
-      { id, type: "text", category: input?.category || id },
+      {
+        id,
+        type: "text",
+        category: input?.category
+          ? input.category
+          : id !== "nearbyPoints"
+          ? id
+          : "",
+      },
     ]);
   };
 
