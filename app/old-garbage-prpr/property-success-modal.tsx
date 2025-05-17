@@ -13,10 +13,12 @@ export default function PropertySuccessModal({
   propertyId,
   setShowSuccessModal,
   mode,
+  status,
 }: {
   propertyId: string;
   setShowSuccessModal: any;
   mode?: string;
+  status?: string;
 }) {
   const router = useRouter();
   const HeadingImage = () => {
@@ -88,7 +90,7 @@ export default function PropertySuccessModal({
 
   const close = () => {
     setShowSuccessModal(false);
-    router.push("/property");
+    router.push(`${status === "DRAFT" ? "/drafts" : "/property"}`);
   };
 
   const ActionContainer = ({ closeModal }: { closeModal: any }) => {

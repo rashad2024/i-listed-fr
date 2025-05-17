@@ -124,12 +124,17 @@ main {
     .extras-features {
       .input-groups-container {
         .input-groups {
-          margin-left: 2rem;
           .rt-Flex.rt-r-fd-column.rt-r-gap-3:not(:last-child) {
             min-width: 100px;
             max-width: 100px;
           }
         }
+      }
+
+      .rt-Flex.rt-r-fd-row.rt-r-ai-center.rt-r-jc-center.rt-r-gap-2
+        + .input-groups-container
+        .input-groups {
+        margin-left: 2rem;
       }
     }
   }

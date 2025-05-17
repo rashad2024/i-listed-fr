@@ -19,8 +19,8 @@ export const createPropertyService = async (
     const response = await axiosInstance.post("/properties", propertyData);
     return response.data; // Return the response data
   } catch (error: any) {
-    console.log(error);
-    throw new Error(error.message || "Property options retrieve failed");
+    console.log("add: ", error);
+    throw new Error(error.message || "Create property failed");
   }
 };
 

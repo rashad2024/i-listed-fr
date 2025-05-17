@@ -28,7 +28,7 @@ export function setupAxiosInterceptors(getToken: () => string | null) {
       } else {
         // Error in setting up the request
         console.error("Error setting up the request: ", error.message);
-        throw new Error("Request failed. Please try again.");
+        throw new Error(error.message || "Request failed. Please try again.");
       }
     }
   );

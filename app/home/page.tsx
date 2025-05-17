@@ -3,15 +3,16 @@
 import React from "react";
 import AuthGuard from "@/components/ui/auth/authGuard";
 
-import Header from "@/components/layout/Header";
-import Sidebar from "@/components/layout/Sidebar";
+import AllProperties from "@/app/property/all-properties";
 
 import "@/styles/pages/home.scss";
 
-export default function HeaderPage({ pageType }: any) {
+export default function HomePage({ pageType }: any) {
   return (
     <AuthGuard>
-      <main>{/* <Header /> */}</main>
+      <main>
+        <AllProperties />
+      </main>
     </AuthGuard>
   );
 }

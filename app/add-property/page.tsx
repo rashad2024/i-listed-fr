@@ -22,6 +22,7 @@ import {
   getFieldOptions,
   validateForm,
   filterPropertyOptions,
+  handleErrors,
 } from "@/utils/helpers/add-property";
 
 import { useDynamicFieldMap } from "@/components/ui/common/useDynamicFieldMap";
@@ -125,6 +126,10 @@ export default function CreatePropertyForm({
         setErrors(errors);
       }
     }
+
+    // if (isViewMode && !isPreview) {
+    //   shouldEdit = true;
+    // }
   };
 
   const createDrafts = async (formData: any) => {
@@ -141,15 +146,9 @@ export default function CreatePropertyForm({
       })
       .catch((err: any) => {
         const { errors } = JSON.parse(err);
+        const formErrors = handleErrors(errors);
 
-        errors.map((err: any) => {
-          // if (!Object.keys(formErrors).length) {
-          setErrors({
-            [err?.field]: {
-              message: err.messages.join("."),
-            },
-          });
-        });
+        setErrors({ ...errors, ...formErrors });
       });
   };
   const updateDraft = async (propertyId: string, formData: any) => {
@@ -166,15 +165,9 @@ export default function CreatePropertyForm({
       })
       .catch((err: any) => {
         const { errors } = JSON.parse(err);
+        const formErrors = handleErrors(errors);
 
-        errors.map((err: any) => {
-          // if (!Object.keys(formErrors).length) {
-          setErrors({
-            [err?.field]: {
-              message: err.messages.join("."),
-            },
-          });
-        });
+        setErrors({ ...errors, ...formErrors });
       });
   };
   const updateCurrentProperty = async (propertyId: string, formData: any) => {
@@ -194,21 +187,16 @@ export default function CreatePropertyForm({
       })
       .catch((err: any) => {
         const { errors } = JSON.parse(err);
+        const formErrors = handleErrors(errors);
 
-        errors.map((err: any) => {
-          // if (!Object.keys(formErrors).length) {
-          setErrors({
-            [err?.field]: {
-              message: err.messages.join("."),
-            },
-          });
-        });
+        setErrors({ ...errors, ...formErrors });
       });
   };
 
   const handleUpdateClick = () => {
+    console.log(property.publicationStatus);
     if (!propertyId) return;
-    if (isViewMode) {
+    if (isViewMode && property.publicationStatus !== "DRAFT") {
       updateCurrentProperty(propertyId || property.id, getValues());
     } else {
       updateDraft(propertyId || property.id, getValues());
@@ -229,19 +217,14 @@ export default function CreatePropertyForm({
       })
       .catch((err: any) => {
         const { errors } = JSON.parse(err);
+        const formErrors = handleErrors(errors);
 
-        errors.map((err: any) => {
-          // if (!Object.keys(formErrors).length) {
-          setErrors({
-            [err?.field]: {
-              message: err.messages.join("."),
-            },
-          });
-        });
+        setErrors({ ...errors, ...formErrors });
       });
   };
 
   const formSubmit = (type: string) => {
+    console.log("type", type);
     const errors =
       type === "Next" ? validateForm(getValues(), propertyFormSchema) : false;
 
@@ -275,10 +258,12 @@ export default function CreatePropertyForm({
           else createProperty(getValues());
           break;
         case "Cancel":
+          console.log("adrr");
           reset();
           setBasicEditMode(false);
           setDescEditMode(false);
           setExtrasEditMode(false);
+          setActiveStep(0);
           break;
       }
       //   if (type === "Next") {
@@ -421,6 +406,7 @@ export default function CreatePropertyForm({
           propertyId={propertyId}
           setShowSuccessModal={setShowSuccessModal}
           mode={showSuccessModal}
+          status={property?.publicationStatus}
         />
       )}
       {showDeleteConfirmationModal && propertyId && (

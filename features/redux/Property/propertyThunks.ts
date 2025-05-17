@@ -30,6 +30,7 @@ export const addProperty = createAsyncThunk(
       const data = await createPropertyService(propertyData);
       return data;
     } catch (error: any) {
+      console.log(error);
       return rejectWithValue(error.message); // If an error occurs, return the error message
     }
   }

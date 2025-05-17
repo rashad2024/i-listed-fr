@@ -6,6 +6,9 @@ export const propertyFormSchema = z
 
     title: z.string({ required_error: "Please enter a valid title" }),
     categoryId: z.string({ required_error: "Please select a category" }),
+    ownershipTypeId: z.string({
+      required_error: "Please select a valid ownership type",
+    }),
     subcategoryId: z.string({ required_error: "Please select a subcategory" }),
     transactionTypeId: z.string({
       required_error: "Please select a transaction type",

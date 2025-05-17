@@ -24,9 +24,9 @@ export default function PropertyActions({
         <ButtonInput
           gap={"3"}
           direction={"row"}
-          className="btn-secondary btn-previous btn-cancel"
-          onClick={() => handleClick(activeStep > 2 ? "Cancel" : "Previous")}
-          disabled={!isValid}
+          className="btn-secondary btn-cancel"
+          onClick={() => handleClick("Cancel")}
+          // disabled={}
         >
           <span>Cancel</span>
         </ButtonInput>

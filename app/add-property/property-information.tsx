@@ -146,8 +146,10 @@ export default function PropertyInformation({
               label="Ownership Type"
               placeholder="Please select a ownership type"
               value={getFieldValue("ownershipTypeId")}
+              className={"required"}
               optionList={fieldOptions?.ownershipType}
               onChange={(value: any) => handleChange("ownershipTypeId", value)}
+              errors={errors?.ownershipTypeId}
               position="popper"
               disabled={editMode ? false : isPreview}
             />
@@ -544,6 +546,7 @@ export default function PropertyInformation({
               onChange={(event: any) =>
                 handleChange("pricePerUnit", event.target.value)
               }
+              errors={errors?.pricePerUnit}
             />
           </Flex>
 
@@ -596,6 +599,7 @@ export default function PropertyInformation({
                   handleChange("numberOfFloors", event.target.value)
                 }
                 disabled={editMode ? false : isPreview}
+                errors={errors?.numberOfFloors}
               />
             </Flex>
           )}
@@ -624,6 +628,7 @@ export default function PropertyInformation({
                   handleChange("pricePerYear", event.target.value)
                 }
                 disabled={editMode ? false : isPreview}
+                errors={errors?.pricePerYear}
               />
             </Flex>
           )}
@@ -653,6 +658,7 @@ export default function PropertyInformation({
                     handleChange("maxRooms", event.target.value)
                   }
                   disabled={editMode ? false : isPreview}
+                  errors={errors?.maxRooms}
                 />
               </Flex>
 
@@ -888,6 +894,7 @@ export default function PropertyInformation({
                         handleChange("poolSize", event.target.value)
                       }
                       disabled={editMode ? false : isPreview}
+                      errors={errors?.poolSize}
                     />
                   </Flex>
                 </>
