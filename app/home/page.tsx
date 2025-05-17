@@ -9,10 +9,8 @@ import "@/styles/pages/home.scss";
 
 export default function HomePage({ pageType }: any) {
   return (
-    <AuthGuard>
-      <main>
-        <AllProperties />
-      </main>
-    </AuthGuard>
+    <main>
+      <AllProperties />
+    </main>
   );
 }

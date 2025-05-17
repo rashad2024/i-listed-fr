@@ -97,7 +97,7 @@ button[role="checkbox"]:before {
   }
 }
 
-button[role="checkbox"]:before {
+button[role="checkbox"][data-state="checked"]::before {
   background-color: #65558f !important;
   border-color: #65558f !important;
 }

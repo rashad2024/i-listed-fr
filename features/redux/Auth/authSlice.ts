@@ -40,9 +40,8 @@ const authSlice = createSlice({
     },
     // ✅ Optional: Logout
     logout: (state) => {
-      state.isLoggedIn = false;
       state.data = null;
-      localStorage.removeItem("authUser"); // clean localStorage
+      localStorage.removeItem("persist:root"); // clean localStorage
     },
   },
   extraReducers: (builder) => {
