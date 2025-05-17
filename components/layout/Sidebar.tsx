@@ -28,9 +28,10 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
 
   const logoutUser = async () => {
     // Optional: Clear other storage
-    localStorage.clear();
 
     persistor.purge();
+
+    localStorage.clear();
 
     await dispatch(logout())
       .unwrap()

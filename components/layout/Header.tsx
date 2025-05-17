@@ -14,7 +14,7 @@ import "../../styles/components/_header.scss";
 export default function Header() {
   const [language, setLanguage] = useState("en");
   const [currency, setCurrency] = useState("usd");
-  const [showToaster, setShowToaster] = useState(false);
+  const [showToaster, setShowToaster] = useState("");
 
   return (
     <header className="header-container">
@@ -26,7 +26,7 @@ export default function Header() {
           label=""
           value=""
           type="text"
-          onChange={(e) => setShowToaster(true)}
+          onChange={(e) => setShowToaster("Search")}
           placeholder="Search here"
           iconName="MagnifyingGlassIcon"
           iconPosition="right"
@@ -37,11 +37,11 @@ export default function Header() {
 
       {/* Icon buttons + selectors + user */}
       <div className="header-profile-notification-container">
-        <Text as="span" onClick={() => setShowToaster(true)}>
+        <Text as="span" onClick={() => setShowToaster("Messages")}>
           {" "}
           <Icon name="ChatBubbleIcon" />{" "}
         </Text>
-        <Text as="span" onClick={() => setShowToaster(true)}>
+        <Text as="span" onClick={() => setShowToaster("Notifications")}>
           <Icon name="BellIcon" />
         </Text>
 
@@ -58,8 +58,6 @@ export default function Header() {
             value={language}
             position="popper"
           />
-
-          {showToaster && <CustomToast onClose={() => setShowToaster(false)} />}
 
           {/* Currency Selector */}
           <SelectField
@@ -92,6 +90,14 @@ export default function Header() {
           />
         </Flex>
       </div>
+      {showToaster && (
+        <CustomToast
+          onClose={() => setShowToaster("")}
+          headerMessage={`${showToaster} coming soon!`}
+          bodyMessage="This feature is currently under development and will be available
+              in an upcoming update. Stay tuned!"
+        />
+      )}
     </header>
   );
 }

@@ -6,7 +6,15 @@ import { useState } from "react";
 
 import "@/styles/components/_toast.scss";
 
-export default function CustomToast({ onClose }: { onClose: () => void }) {
+export default function CustomToast({
+  onClose,
+  headerMessage,
+  bodyMessage,
+}: {
+  onClose: () => void;
+  headerMessage: string;
+  bodyMessage: string;
+}) {
   const [open, setOpen] = useState(true);
 
   // Call parent onClose when toast closes
@@ -21,17 +29,14 @@ export default function CustomToast({ onClose }: { onClose: () => void }) {
       <Toast.Root
         open={open}
         onOpenChange={setOpen}
-        duration={1000}
+        duration={4000}
         className="feature-toast"
       >
         <div className="toast-content">
           <InfoCircledIcon className="toast-icon" />
           <div>
-            <div className="toast-title">Notifications Coming Soon</div>
-            <div className="toast-desc">
-              This feature is currently under development and will be available
-              in an upcoming update. Stay tuned!
-            </div>
+            <div className="toast-title">{headerMessage}</div>
+            <div className="toast-desc">{bodyMessage}</div>
           </div>
         </div>
       </Toast.Root>

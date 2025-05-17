@@ -3,11 +3,12 @@ header {
   justify-content: flex-end;
   align-items: center;
   background: #ffffff;
-  gap: 16px;
   height: 80px;
-  width: 100%;
+  max-width: 100%;
+  padding: 0 20px;
 
   .search-input {
+    margin: 0 16px;
     .rt-TextFieldRoot {
       border-radius: 12px;
       min-height: 40px;
