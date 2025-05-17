@@ -25,7 +25,7 @@ export const loginService = async (
 
 export const logoutService = async () => {
   try {
-    await axiosInstance.post("/auth/logout");
+    // await axiosInstance.post("/auth/logout");
     return true; // Log out successful
   } catch (error: any) {
     throw new Error(error.message || "Logout failed");
