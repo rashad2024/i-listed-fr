@@ -56,9 +56,11 @@ export default function PropertyActions({
         direction={"row"}
         type={activeStep > 2 ? "submit" : "button"}
         className="btn-secondary btn-next"
-        onClick={() => handleClick(getButtonText(activeStep, selectedCategory))}
+        onClick={() =>
+          handleClick(getButtonText(activeStep, selectedCategory), false)
+        }
       >
-        {getButtonText(activeStep, selectedCategory)}
+        {getButtonText(activeStep, selectedCategory, false)}
       </ButtonInput>
     </Flex>
   );

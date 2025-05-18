@@ -326,7 +326,7 @@ export default function CreatePropertyForm({
               {" "}
               View and manage property information
             </Text>
-            <Link href="/property">
+            <Link href={`${isDraft ? "/drafts" : "/property"}`}>
               <Icon name="ArrowLeftIcon" size={24} color="#444444" /> Back to
               List
             </Link>
