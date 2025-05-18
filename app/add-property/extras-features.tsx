@@ -147,7 +147,7 @@ export default function ExtrasFeaturePage({
             display: "flex",
             flexDirection: "row",
             minWidth: "100%",
-            gap: "2rem",
+            gap: "2rem !important",
             alignItems: "center",
             flexWrap: "wrap",
           }}
@@ -156,7 +156,12 @@ export default function ExtrasFeaturePage({
             <Flex
               gap={"3"}
               direction={"column"}
-              style={{ minWidth: "100%", flex: "1 1 100%" }}
+              style={{
+                minWidth: "100%",
+                flex: "1 1 100%",
+                borderBottom: "1px solid #E9E9E9",
+                paddingBottom: "2rem",
+              }}
             >
               <Text className="form-label"> Living Space </Text>
               <Flex gap="3" direction="row" style={{ minWidth: "100%" }}>
@@ -307,7 +312,12 @@ export default function ExtrasFeaturePage({
             <Flex
               gap={"3"}
               direction={"column"}
-              style={{ minWidth: "100%", flex: "1 1 100%" }}
+              style={{
+                minWidth: "100%",
+                flex: "1 1 100%",
+                borderBottom: "1px solid #E9E9E9",
+                paddingBottom: "2rem",
+              }}
             >
               <Text className="form-label"> Kitchen </Text>
               <Flex gap="3" direction="row" style={{ minWidth: "100%" }}>
@@ -375,7 +385,7 @@ export default function ExtrasFeaturePage({
                   </Flex>
                 )}
 
-                {!!getFieldValue("fridge") && (
+                {showField("oven") && (
                   <Flex
                     gap={"2"}
                     direction={"row"}
@@ -491,7 +501,12 @@ export default function ExtrasFeaturePage({
             <Flex
               gap={"3"}
               direction={"column"}
-              style={{ minWidth: "100%", flex: "1 1 100%" }}
+              style={{
+                minWidth: "100%",
+                flex: "1 1 100%",
+                borderBottom: "1px solid #E9E9E9",
+                paddingBottom: "2rem",
+              }}
             >
               <Text className="form-label"> Utilities Included </Text>
               <Flex gap="3" direction="row" style={{ minWidth: "100%" }}>
@@ -645,7 +660,12 @@ export default function ExtrasFeaturePage({
             <Flex
               gap={"3"}
               direction={"column"}
-              style={{ minWidth: "100%", flex: "1 1 100%" }}
+              style={{
+                minWidth: "100%",
+                flex: "1 1 100%",
+                borderBottom: "1px solid #E9E9E9",
+                paddingBottom: "2rem",
+              }}
             >
               <Text className="form-label"> Services Included </Text>
               <Flex gap="3" direction="row" style={{ minWidth: "100%" }}>
@@ -798,7 +818,12 @@ export default function ExtrasFeaturePage({
             <Flex
               gap={"3"}
               direction={"column"}
-              style={{ minWidth: "100%", flex: "1 1 100%" }}
+              style={{
+                minWidth: "100%",
+                flex: "1 1 100%",
+                borderBottom: "1px solid #E9E9E9",
+                paddingBottom: "2rem",
+              }}
             >
               <Text className="form-label"> Additional Features </Text>
               <Flex gap="3" direction="row" style={{ minWidth: "100%" }}>
