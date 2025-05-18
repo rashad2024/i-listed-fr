@@ -9,7 +9,7 @@ import { AppDispatch, RootState } from "@/store";
 import { Flex, Text, Link } from "@radix-ui/themes";
 
 import Icon from "@/components/ui/common/Icon";
-import PropertyDeleteConfirmationModal from "@/app/old-garbage-prpr/delete-confirmation-modal";
+import PropertyDeleteConfirmationModal from "@/app/add-property/delete-confirmation-modal";
 import CardView from "@/components/ui/common/CardView";
 import TableWithPagination from "@/components/ui/common/TableWithPagination";
 import Skeleton from "@/components/ui/common/Skeleton";

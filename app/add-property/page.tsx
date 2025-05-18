@@ -29,8 +29,8 @@ import { handleErrors } from "@/utils/helpers/common";
 
 import { useDynamicFieldMap } from "@/components/ui/common/useDynamicFieldMap";
 
-import PropertyDeleteConfirmationModal from "@/app/old-garbage-prpr/delete-confirmation-modal";
-import PropertySuccessModal from "@/app/old-garbage-prpr/property-success-modal";
+import PropertyDeleteConfirmationModal from "@/app/add-property/delete-confirmation-modal";
+import PropertySuccessModal from "@/app/add-property/property-success-modal";
 
 import Stages from "@/components/ui/common/Stages";
 import PropertyInformation from "./property-information";
