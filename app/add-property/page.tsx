@@ -347,7 +347,7 @@ export default function CreatePropertyForm({
           </Flex>
         </Flex>
       ) : (
-        <h1>Add Property</h1>
+        <h1 className="page-title">Add Property</h1>
       )}
 
       {!isPreview && (

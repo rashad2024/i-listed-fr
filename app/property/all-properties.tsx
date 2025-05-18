@@ -111,7 +111,7 @@ export default function AllProperties({ status }: { status?: any }) {
         className="preview-header"
       >
         <Flex direction={"column"} gap={"3"} justify={"start"} className="">
-          <h2>Property List</h2>
+          <h2 className="page-title">Property List</h2>
           <Text as="p" className="preview-subtitle">
             {" "}
             View and manage property information
