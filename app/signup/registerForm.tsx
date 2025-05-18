@@ -65,6 +65,12 @@ export default function RegisterForm({
       setValue("email", e.target.value, { shouldValidate: true });
     } else {
       setRole(e);
+      if (e !== "ADMIN") {
+        const roleName =
+          optionList.find((option: any) => option.id === e)?.name || role;
+        setShowToast(roleName);
+        return;
+      }
       setValue("role", e, { shouldValidate: true });
     }
   };
@@ -97,12 +103,6 @@ export default function RegisterForm({
           });
         });
     } else {
-      if (role !== "ADMIN") {
-        const roleName =
-          optionList.find((option: any) => option.id === role)?.name || role;
-        setShowToast(roleName);
-        return;
-      }
       await dispatch(registerInitiate({ email, role }))
         .unwrap()
         .then((data) => {
