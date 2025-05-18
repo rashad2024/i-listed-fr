@@ -22,8 +22,9 @@ import {
   getFieldOptions,
   validateForm,
   filterPropertyOptions,
-  handleErrors,
 } from "@/utils/helpers/add-property";
+
+import { handleErrors } from "@/utils/helpers/common";
 
 import { useDynamicFieldMap } from "@/components/ui/common/useDynamicFieldMap";
 

@@ -16,10 +16,12 @@ import { Text, Link, Spinner } from "@radix-ui/themes";
 import InputField from "@/components/ui/common/Input";
 import SelectField from "@/components/ui/common/Select";
 import ButtonInput from "@/components/ui/common/Button";
+import CustomToast from "@/components/ui/common/Toast";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerFormSchema } from "@/utils/validation/formSchema";
+
 import { z } from "zod";
 
 import "../../styles/pages/signup.scss";
@@ -43,6 +45,7 @@ export default function RegisterForm({
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [optionList, setOptionList] = useState<SetStateAction<any>>([]);
+  const [showToast, setShowToast] = useState("");
   let {
     register,
     setValue,
@@ -94,6 +97,12 @@ export default function RegisterForm({
           });
         });
     } else {
+      if (role !== "ADMIN") {
+        const roleName =
+          optionList.find((option: any) => option.id === role)?.name || role;
+        setShowToast(roleName);
+        return;
+      }
       await dispatch(registerInitiate({ email, role }))
         .unwrap()
         .then((data) => {
@@ -184,6 +193,14 @@ export default function RegisterForm({
           </>
         )}
       </div>
+      {showToast && (
+        <CustomToast
+          onClose={() => setShowToast("")}
+          headerMessage={`${showToast} signup is coming soon!`}
+          bodyMessage="Other role signup is currently under development and will be available
+                    in an upcoming update. Stay tuned!"
+        />
+      )}
     </form>
   );
 }
