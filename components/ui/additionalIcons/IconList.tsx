@@ -477,6 +477,36 @@ export const UnitAreaIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
     </text>
   </svg>
 );
+export const NotFoundIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
+  props
+) => (
+  <svg
+    viewBox="0 0 163 269"
+    fill="none"
+    width="163"
+    height="269"
+    color="currentColor"
+    // {...props}
+  >
+    <ellipse cx="134" cy="134.5" rx="134" ry="134.5" fill="#DFE9F7" />
+  </svg>
+);
+export const NotFound2Icon: React.FC<React.SVGProps<SVGSVGElement>> = (
+  props
+) => (
+  <svg
+    viewBox="0 0 119 60"
+    fill="none"
+    width="119"
+    height="60"
+    color="currentColor"
+    // {...props}
+  >
+    <circle cx="30" cy="30" r="30" fill="#DFE9F7" />
+    <circle cx="104" cy="45" r="15" fill="#DFE9F7" />
+  </svg>
+);
+
 export const NoPropertyIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
   props
 ) => (

@@ -35,6 +35,7 @@ export default function ExtrasFeaturePage({
   };
 
   const hideLivingSpace =
+    !editMode &&
     isPreview &&
     !(
       getFieldValue("livingSpaceAdded")?.length > 0 ||
@@ -43,6 +44,7 @@ export default function ExtrasFeaturePage({
       !!getFieldValue("ac")
     );
   const hideKitchen =
+    !editMode &&
     isPreview &&
     !(
       getFieldValue("kitchenAdded")?.length > 0 ||
@@ -52,6 +54,7 @@ export default function ExtrasFeaturePage({
       !!getFieldValue("stoves")
     );
   const hideUtilitiesIncluded =
+    !editMode &&
     isPreview &&
     !(
       getFieldValue("utilitiesIncludedAdded")?.length > 0 ||
@@ -60,6 +63,7 @@ export default function ExtrasFeaturePage({
       !!getFieldValue("wifi")
     );
   const hideServicesIncluded =
+    !editMode &&
     isPreview &&
     !(
       getFieldValue("serviceIncludedAdded")?.length > 0 ||
@@ -68,6 +72,7 @@ export default function ExtrasFeaturePage({
       !!getFieldValue("abdc")
     );
   const hideAdditionalFeatures =
+    !editMode &&
     isPreview &&
     !(
       getFieldValue("additionalFeaturesAdded")?.length > 0 ||
@@ -476,7 +481,7 @@ export default function ExtrasFeaturePage({
                             key: "kitchen",
                             label: "",
                             placeholder: "",
-                            disabled: isPreview,
+                            disabled: editMode ? false : isPreview,
                             value: "",
                             onChange: (value: any) =>
                               handleChange("kitchen", value),
@@ -635,7 +640,7 @@ export default function ExtrasFeaturePage({
                             key: "utilitiesIncluded",
                             label: "",
                             placeholder: "",
-                            disabled: isPreview,
+                            disabled: editMode ? false : isPreview,
                             value: "",
                             onChange: (value: any) =>
                               handleChange("utilitiesIncluded", value),
@@ -795,6 +800,7 @@ export default function ExtrasFeaturePage({
                             label: "",
                             placeholder: "",
                             value: "",
+                            disabled: editMode ? false : isPreview,
                             onChange: (value: any) =>
                               handleChange("servicesIncluded", value),
                           },

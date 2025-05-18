@@ -90,7 +90,9 @@ export default function PropertySuccessModal({
 
   const close = () => {
     setShowSuccessModal(false);
-    router.push(`${status === "DRAFT" ? "/drafts" : "/property"}`);
+    router.push(
+      `${status === "DRAFT" ? "/property/list/drafts" : "/property"}`
+    );
   };
 
   const ActionContainer = ({ closeModal }: { closeModal: any }) => {

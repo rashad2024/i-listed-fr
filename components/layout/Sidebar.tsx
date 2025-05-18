@@ -89,7 +89,7 @@ export default function Sidebar({ pageType }: { pageType?: string }) {
                 <Text>Add Property</Text>
               </Link>
               <Link
-                href="/drafts"
+                href="/property/list/drafts"
                 className={pageType === "drafts" ? "active" : ""}
               >
                 <Text>Drafts</Text>

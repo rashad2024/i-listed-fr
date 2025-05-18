@@ -41,17 +41,16 @@ export default function RootLayout({
 
   let pageType = "";
 
-  if (pathname.startsWith("/dashboard") || pathname.startsWith("/home"))
-    pageType = "dashboard";
-  else if (pathname.startsWith("/drafts")) pageType = "drafts";
-  else if (pathname.startsWith("/add-property")) pageType = "add-property";
-  else if (pathname.startsWith("/property")) pageType = "property";
-  else if (pathname.startsWith("/create-property")) pageType = "add-property";
-  else if (pathname.startsWith("/login")) pageType = "/login";
-  else if (pathname.startsWith("/signup")) pageType = "/signup";
-  else if (pathname.startsWith("/forgot-password"))
+  if (pathname.match(/\/dashboard$/gi)) pageType = "dashboard";
+  else if (pathname.match(/\/drafts$/gi)) pageType = "drafts";
+  else if (pathname.match(/\/add-property$/gi)) pageType = "add-property";
+  else if (pathname.match(/\/property$/gi)) pageType = "property";
+  else if (pathname.match(/\/login$/gi)) pageType = "/login";
+  else if (pathname.match(/\/signup$/gi)) pageType = "/signup";
+  else if (pathname.match(/(\/$|\/home)/gi)) pageType = "/signup";
+  else if (pathname.match(/\/forgot-password$/gi))
     pageType = "/forgot-password";
-  else pageType = "property";
+  else pageType = "";
 
   const isPublic = PUBLIC_ROUTES.includes(pathname);
 
@@ -84,7 +83,7 @@ export default function RootLayout({
               <AuthGuard>
                 <Theme>
                   <main>
-                    {!isPublic ? (
+                    {!isPublic && pageType ? (
                       <>
                         <Sidebar pageType={pageType} />
                         <div className="right-container">
