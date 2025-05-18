@@ -145,6 +145,7 @@ export default function AllProperties({ status }: { status?: any }) {
             editRowData={editProperty}
             deleteRowData={deleteProperty}
             deleteSelectedProperty={deleteSelectedProperty}
+            status={status}
           />
         </>
       ) : noProperty ? (

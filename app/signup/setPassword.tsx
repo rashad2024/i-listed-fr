@@ -151,7 +151,11 @@ export default function SetPassword({
         onChange={handleChange}
         iconName={passwordIconState}
         iconPosition="right"
-        iconClick={setPasswordIconState}
+        iconClick={() =>
+          setPasswordIconState(
+            passwordIconState === "EyeNoneIcon" ? "EyeOpenIcon" : "EyeNoneIcon"
+          )
+        }
         radius="12px"
       />
 
@@ -197,7 +201,13 @@ export default function SetPassword({
         onChange={handleChange}
         iconName={confirmPasswordIconState}
         iconPosition="right"
-        iconClick={setConfirmPasswordIconState}
+        iconClick={() =>
+          setConfirmPasswordIconState(
+            confirmPasswordIconState === "EyeNoneIcon"
+              ? "EyeOpenIcon"
+              : "EyeNoneIcon"
+          )
+        }
         radius="12px"
       />
       {!passwordMatched && (

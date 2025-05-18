@@ -42,9 +42,9 @@ export default function RootLayout({
   let pageType = "";
 
   if (pathname.match(/\/dashboard$/gi)) pageType = "dashboard";
-  else if (pathname.match(/\/drafts$/gi)) pageType = "drafts";
+  else if (pathname.match(/\/drafts($|\/[0-9])/gi)) pageType = "drafts";
   else if (pathname.match(/\/add-property$/gi)) pageType = "add-property";
-  else if (pathname.match(/\/property$/gi)) pageType = "property";
+  else if (pathname.match(/\/property($|\/[0-9])/gi)) pageType = "property";
   else if (pathname.match(/\/login$/gi)) pageType = "/login";
   else if (pathname.match(/\/signup$/gi)) pageType = "/signup";
   else if (pathname.match(/(\/$|\/home)/gi)) pageType = "/signup";

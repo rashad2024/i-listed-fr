@@ -17,10 +17,11 @@ export default function PropertyActions({
   handleUpdateClick,
   isValid,
   isSubmitting,
+  isDraft,
 }: any) {
   return (
     <Flex direction={"row"} gap={"3"} style={{ justifyContent: "flex-end" }}>
-      {activeStep > 2 || showUpdate ? (
+      {activeStep > 2 || showUpdate || isDraft ? (
         <ButtonInput
           gap={"3"}
           direction={"row"}
@@ -49,7 +50,7 @@ export default function PropertyActions({
         </ButtonInput>
       ) : null}
 
-      {!showUpdate && (
+      {!showUpdate && !isDraft && (
         <ButtonInput
           gap={"3"}
           type={"button"}
@@ -81,11 +82,11 @@ export default function PropertyActions({
           type={"button"}
           className="btn-secondary btn-next"
           onClick={() =>
-            handleClick(getButtonText(activeStep, selectedCategory))
+            handleClick(getButtonText(activeStep, selectedCategory, isDraft))
           }
           disabled={isSubmitting}
         >
-          {getButtonText(activeStep, selectedCategory)}
+          {getButtonText(activeStep, selectedCategory, isDraft)}
         </ButtonInput>
       )}
     </Flex>

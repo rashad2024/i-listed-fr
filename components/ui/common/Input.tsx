@@ -60,14 +60,6 @@ export default function InputField({
   iconSize?: number;
   className?: string;
 }) {
-  const handleClick = () => {
-    if (iconName === "EyeNoneIcon") {
-      iconClick("EyeOpenIcon");
-    } else if (iconName === "EyeOpenIcon") {
-      iconClick("EyeNoneIcon");
-    }
-  };
-
   return (
     <Flex direction="column" gap={gap}>
       {label && (
@@ -96,7 +88,7 @@ export default function InputField({
           {iconName && iconPosition && (
             <TextField.Slot
               side={iconPosition}
-              onClick={(e) => (iconClick ? iconClick(e) : handleClick())}
+              onClick={(e) => iconClick && iconClick(e)}
               style={{ cursor: "pointer" }}
             >
               <Icon name={iconName} size={iconSize} />

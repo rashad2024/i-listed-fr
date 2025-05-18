@@ -20,10 +20,12 @@ export default function PropertyDeleteConfirmationModal({
   propertyId,
   setShowDeleteConfirmationModal,
   isUpdated,
+  isDraft,
 }: {
   propertyId: string | Array<string> | undefined;
   setShowDeleteConfirmationModal: React.Dispatch<SetStateAction<boolean>>;
   isUpdated?: any;
+  isDraft?: string;
 }) {
   const router = useRouter();
   const { status } = useParams();

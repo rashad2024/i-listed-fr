@@ -33,7 +33,7 @@ export default function PropertyInformation({
   getValues();
 
   return (
-    <Flex gap={"3"} direction={"column"}>
+    <Flex direction={"column"}>
       <Flex gap={"3"} direction={"row"} justify={"between"} align={"center"}>
         <Text className="card-header">Basic info</Text>
         {isPreview && (

@@ -319,7 +319,7 @@ export const CustomPencilIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
     height="24"
     viewBox="0 0 24 24"
     fill="none"
-    strokeWidth={1}
+    strokeWidth={0.5}
     stroke="currentColor"
     xmlns="http://www.w3.org/2000/svg"
   >

@@ -14,11 +14,13 @@ export default function PropertySuccessModal({
   setShowSuccessModal,
   mode,
   status,
+  isDraft,
 }: {
   propertyId: string;
   setShowSuccessModal: any;
   mode?: string;
   status?: string;
+  isDraft?: string;
 }) {
   const router = useRouter();
   const HeadingImage = () => {
@@ -85,14 +87,19 @@ export default function PropertySuccessModal({
 
   const viewProperty = () => {
     setShowSuccessModal(false);
-    router.push(`/property/${propertyId}`);
+    router.push(`/${isDraft ? "drafts" : "property"}/${propertyId}`);
   };
 
   const close = () => {
     setShowSuccessModal(false);
-    router.push(
-      `${status === "DRAFT" ? "/property/list/drafts" : "/property"}`
-    );
+    router.push(`${status === "DRAFT" ? "/drafts" : "/property"}`);
+    /*************  ✨ Windsurf Command ⭐  *************/
+    /**
+     * Component to render the action buttons for the success modal.
+     * @param {{ closeModal: () => void }} props
+     * @returns {JSX.Element}
+     */
+    /*******  b7dbe1aa-9919-48d0-bb25-3cd2e92ff8d0  *******/
   };
 
   const ActionContainer = ({ closeModal }: { closeModal: any }) => {

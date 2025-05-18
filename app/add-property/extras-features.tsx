@@ -130,7 +130,7 @@ export default function ExtrasFeaturePage({
   };
 
   return (
-    <Flex gap="3" direction="column" className="extras-features">
+    <Flex direction="column" className="extras-features">
       <Flex gap={"3"} direction={"row"} justify={"between"} align={"center"}>
         <Text className="card-header"> Extras Feature</Text>
         {isPreview && (

@@ -147,13 +147,13 @@ const UploadProgressList = ({ id, handleChange, prevFiles }: any) => {
                   size="2"
                   color="indigo"
                 />
-                {!file.done && (
+                {!file.done && file?.progress && (
                   <Text
                     as="span"
                     size="1"
                     style={{ marginLeft: "16px", fontSize: "12px" }}
                   >
-                    {file.progress.toFixed(0)}%
+                    {file?.progress?.toFixed(0)}%
                   </Text>
                 )}
               </Flex>
@@ -216,7 +216,9 @@ const CustomFileUploader = ({
             alert(`${file.name} is too large! Max size is ${maxSizeMB}MB`);
             return false;
           } else if (!isImageFile(file)) {
-            alert(`${file.name} is not an image file`);
+            alert(
+              `Please try with an image file. Suggested formats: JPG, PNG, JPEG`
+            );
             return false;
           }
           return true;

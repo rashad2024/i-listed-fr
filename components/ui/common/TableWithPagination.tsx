@@ -2,7 +2,7 @@
 import { SetStateAction, useState, Dispatch, useEffect } from "react";
 
 import * as Checkbox from "@radix-ui/react-checkbox";
-import { Link } from "@radix-ui/themes";
+import { Link, Tooltip } from "@radix-ui/themes";
 import Icon from "./Icon";
 import PaginationView from "./PaginationView";
 
@@ -43,6 +43,7 @@ export default function TableWithPagination({
   editRowData,
   deleteRowData,
   deleteSelectedProperty,
+  status,
 }: {
   tableData: any;
   paginationData: any;
@@ -50,6 +51,7 @@ export default function TableWithPagination({
   editRowData: any;
   deleteRowData: any;
   deleteSelectedProperty: any;
+  status?: string;
 }) {
   const [prepareTableData, setPrepareTableData] = useState<any>(
     preparePropertyData(tableData)
@@ -146,7 +148,7 @@ export default function TableWithPagination({
               <td>
                 <div className="property-name">
                   <Link
-                    href={`/property/${property.id}`}
+                    href={`/${status ? "drafts" : "property"}/${property.id}`}
                     style={{
                       border: "none",
                       background: "none",
@@ -177,24 +179,28 @@ export default function TableWithPagination({
               <td>{property.price}</td>
               <td>
                 <div className="actions">
-                  <button
-                    onClick={() => editRowData(property.id)}
-                    style={{
-                      backgroundColor: "#E9E9E966",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <Icon name="CustomPencilIcon" size={24} />
-                  </button>
-                  <button
-                    onClick={() => deleteRowData(property.id)}
-                    style={{
-                      backgroundColor: "#E9E9E966",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <Icon name="CustomDeleteIcon" size={24} color="#444444" />
-                  </button>
+                  <Tooltip content="edit">
+                    <button
+                      onClick={() => editRowData(property.id)}
+                      style={{
+                        backgroundColor: "#E9E9E966",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <Icon name="CustomPencilIcon" size={24} />
+                    </button>
+                  </Tooltip>
+                  <Tooltip content="delete">
+                    <button
+                      onClick={() => deleteRowData(property.id)}
+                      style={{
+                        backgroundColor: "#E9E9E966",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <Icon name="CustomDeleteIcon" size={24} color="#444444" />
+                    </button>
+                  </Tooltip>
                 </div>
               </td>
             </tr>

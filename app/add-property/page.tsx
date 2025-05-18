@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState, SetStateAction, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -48,11 +49,13 @@ export default function CreatePropertyForm({
   property,
   isViewMode,
   shouldEdit,
+  isDraft,
 }: any) {
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error, data } = useSelector(
     (state: RootState) => state.property
   );
+  const router = useRouter();
 
   const [basicEditMode, setBasicEditMode] = useState(shouldEdit);
   const [descEditMode, setDescEditMode] = useState(shouldEdit);
@@ -162,6 +165,9 @@ export default function CreatePropertyForm({
         if (res.success) {
           setShowSuccessModal("edit"); // Redirect to /property-list
           setPropertyId(res?.data?.id);
+          setBasicEditMode(false);
+          setDescEditMode(false);
+          setExtrasEditMode(false);
         }
       })
       .catch((err: any) => {
@@ -259,12 +265,12 @@ export default function CreatePropertyForm({
           else createProperty(getValues());
           break;
         case "Cancel":
-          console.log("adrr");
-          reset();
+          // reset();
           setBasicEditMode(false);
           setDescEditMode(false);
           setExtrasEditMode(false);
           setActiveStep(0);
+          router.push(isDraft ? "/drafts" : "/property");
           break;
       }
       //   if (type === "Next") {
@@ -388,6 +394,7 @@ export default function CreatePropertyForm({
         )}
 
       {(!isViewMode ||
+        isDraft ||
         ((propertyId || isViewMode) &&
           (basicEditMode || descEditMode || extrasEditMode))) && (
         <PropertyActions
@@ -399,6 +406,7 @@ export default function CreatePropertyForm({
             propertyId && (basicEditMode || descEditMode || extrasEditMode)
           }
           handleUpdateClick={() => handleUpdateClick()}
+          isDraft={isDraft}
         />
       )}
 
@@ -408,12 +416,14 @@ export default function CreatePropertyForm({
           setShowSuccessModal={setShowSuccessModal}
           mode={showSuccessModal}
           status={property?.publicationStatus}
+          isDraft={isDraft}
         />
       )}
       {showDeleteConfirmationModal && propertyId && (
         <PropertyDeleteConfirmationModal
           propertyId={propertyId}
           setShowDeleteConfirmationModal={setShowDeleteConfirmationModal}
+          isDraft={isDraft}
         />
       )}
     </div>

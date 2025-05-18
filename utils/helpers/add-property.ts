@@ -1220,7 +1220,12 @@ export const getFieldOptions = async () => {
   return propertyOptions.data;
 };
 
-export const getButtonText = (activeStep: number, selectedCategory: string) => {
+export const getButtonText = (
+  activeStep: number,
+  selectedCategory: string,
+  isDraft?: boolean
+) => {
+  if (isDraft) return "Submit";
   if (activeStep === 0 || !selectedCategory) {
     return "Next";
   }
