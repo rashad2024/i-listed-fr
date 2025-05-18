@@ -117,7 +117,13 @@ export default function LoginForm() {
             onChange={handleChange}
             iconName={passwordIconState}
             iconPosition="right"
-            iconClick={setPasswordIconState}
+            iconClick={() =>
+              setPasswordIconState(
+                passwordIconState === "EyeNoneIcon"
+                  ? "EyeOpenIcon"
+                  : "EyeNoneIcon"
+              )
+            }
             radius="12px"
           />
 
