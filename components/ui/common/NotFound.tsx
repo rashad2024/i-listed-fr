@@ -5,13 +5,7 @@ import ButtonInput from "./Button";
 
 export default function NotFoundPage() {
   return (
-    <Flex
-      gap={"3"}
-      direction={"column"}
-      justify={"center"}
-      align={"center"}
-      style={{ marginTop: "180px" }}
-    >
+    <Flex gap={"3"} direction={"column"} justify={"center"} align={"center"}>
       <Flex gap={"3"} justify={"center"} align={"center"}>
         <Icon name="NoPropertyIcon" size={213} />
       </Flex>

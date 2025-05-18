@@ -138,7 +138,7 @@ export default function SetPassword({
 
   return (
     <div className="set-password-form">
-      <h2>{isForgotPassword ? "Set new password" : "Set your password"}</h2>
+      <h2>{isForgotPassword ? "Set New Password" : "Set your password"}</h2>
 
       <InputField
         id="password"

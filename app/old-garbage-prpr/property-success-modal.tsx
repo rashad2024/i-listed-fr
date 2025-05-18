@@ -120,7 +120,7 @@ export default function PropertySuccessModal({
           disabled={false}
           styles={{ width: "120px" }}
         >
-          <span>View</span>
+          <span>Preview</span>
         </ButtonInput>
         <ButtonInput
           type="button"

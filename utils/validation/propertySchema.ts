@@ -47,10 +47,12 @@ export const propertyFormSchema = z
 
     const requiresBed = !categoryIds.includes(data.categoryId);
 
+    console.log("requiresBed", requiresBed);
+
     if (requiresBed) {
       if (!data.beds) {
         ctx.addIssue({
-          code: "custom",
+          code: z.ZodIssueCode.custom,
           message: "Please enter a valid number of beds",
           path: ["beds"],
         });
@@ -58,8 +60,8 @@ export const propertyFormSchema = z
 
       if (!data.baths) {
         ctx.addIssue({
-          code: "custom",
-          message: "Please enter a valid number of beds",
+          code: z.ZodIssueCode.custom,
+          message: "Please enter a valid number of baths",
           path: ["baths"],
         });
       }

@@ -235,7 +235,7 @@ export default function CreatePropertyForm({
     const errors =
       type === "Next" ? validateForm(getValues(), propertyFormSchema) : false;
 
-    console.log("errors", errors);
+    console.log("errors", errors, propertyFormSchema);
 
     if (Object.keys(errors).length) {
       setErrors(errors);

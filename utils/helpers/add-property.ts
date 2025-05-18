@@ -1429,8 +1429,10 @@ export const prepareFormData = (data: any) => {
 
 export const validateForm = (formData: any, Schema: any) => {
   const result = Schema?.safeParse(formData);
+
   const validationMessage: any = {};
 
+  console.log("result", result.error.format());
   if (!result.success) {
     const errors = result.error.flatten().fieldErrors;
     Object.keys(errors).forEach((key) => {
