@@ -51,7 +51,9 @@ export const propertyFormSchema = z.object({
   beds: z
     .string({ required_error: "Please enter a number of beds" })
     .nonempty("Please enter a valid number of beds"),
-  baths: z.string().nonempty("Please enter a valid number of baths"),
+  baths: z
+    .string({ required_error: "Please enter a number of baths" })
+    .nonempty("Please enter a valid number of baths"),
   showPreview: z.boolean().optional(),
 });
 
