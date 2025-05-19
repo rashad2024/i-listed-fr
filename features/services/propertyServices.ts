@@ -19,7 +19,6 @@ export const createPropertyService = async (
     const response = await axiosInstance.post("/properties", propertyData);
     return response.data; // Return the response data
   } catch (error: any) {
-    console.log("add: ", error);
     throw new Error(error.message || "Create property failed");
   }
 };
@@ -98,7 +97,6 @@ export const fetchPropertiesServices = async (
       ? `/properties/${status}?page=${page}`
       : `/properties/?page=${page}`;
 
-    console.log(url, status);
     const response = await axiosInstance.get(url, {
       params: filterData,
     });
@@ -115,7 +113,6 @@ export const batchDeleteService = async (propertyIds: any) => {
       data: propertyIds,
     });
 
-    console.log(response.data);
     return response.data; // Return the response data
   } catch (error: any) {
     console.log(error);

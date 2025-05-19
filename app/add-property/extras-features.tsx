@@ -27,10 +27,8 @@ export default function ExtrasFeaturePage({
 
   const addMore = (category: string, value: any) => {
     const rrr = value.map((item: any) => {
-      console.log("sdsad: ", item);
       return { isSubmitted: true, value: item, isDefault: false };
     });
-    console.log("value", rrr);
     handleChange(`${category}Added`, rrr);
   };
 

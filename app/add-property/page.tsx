@@ -10,7 +10,10 @@ import { Text, Flex, Link } from "@radix-ui/themes";
 import Icon from "@/components/ui/common/Icon";
 import ButtonInput from "@/components/ui/common/Button";
 
-import { propertyFormSchema } from "@/utils/validation/propertySchema";
+import {
+  propertyFormSchema,
+  validateForm,
+} from "@/utils/validation/propertySchema";
 import { z } from "zod";
 
 import {
@@ -21,7 +24,6 @@ import {
 } from "@/features/redux/Property/propertyThunks";
 import {
   getFieldOptions,
-  validateForm,
   filterPropertyOptions,
 } from "@/utils/helpers/add-property";
 
@@ -79,7 +81,6 @@ export default function CreatePropertyForm({
   const { addValue, getValues, reset, addBulkValue } = useDynamicFieldMap();
 
   const getFieldValue = (name: string): any => {
-    //console.log(name, getValues(), getValues()[name]);
     return getValues()[name];
   };
 
@@ -98,8 +99,6 @@ export default function CreatePropertyForm({
       // );
       value = getFieldValue(name)?.filter((item: any) => item !== value) || [];
     }
-
-    console.log(getValues());
 
     addValue(name, value);
 
@@ -201,7 +200,6 @@ export default function CreatePropertyForm({
   };
 
   const handleUpdateClick = () => {
-    console.log(property.publicationStatus);
     if (!propertyId) return;
     if (isViewMode && property.publicationStatus !== "DRAFT") {
       updateCurrentProperty(propertyId || property.id, getValues());
@@ -231,7 +229,6 @@ export default function CreatePropertyForm({
   };
 
   const formSubmit = (type: string) => {
-    console.log("type", type);
     const errors =
       type === "Next" ? validateForm(getValues(), propertyFormSchema) : false;
 
@@ -302,7 +299,6 @@ export default function CreatePropertyForm({
         propertyOptions
       );
 
-      console.log();
       filterPropertyOptions(
         "transactionTypeId",
         property?.transactionTypeId,

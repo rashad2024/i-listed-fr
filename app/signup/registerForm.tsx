@@ -76,10 +76,6 @@ export default function RegisterForm({
   };
 
   const onSubmit = async (data: FormData) => {
-    // handleSubmit((data) => {
-    //   console.log("Form submitted:", data);
-    // });
-
     if (isForgotPassword) {
       await dispatch(forgotPasswordInitiate({ email }))
         .unwrap()
@@ -87,7 +83,6 @@ export default function RegisterForm({
           // Do something after store is updated
           if (data.success) {
             setRegisterEmail(email);
-            // setUserRole(role);
           }
         })
         .catch((err) => {

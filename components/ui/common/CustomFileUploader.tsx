@@ -61,7 +61,6 @@ const UploadProgressList = ({ id, handleChange, prevFiles }: any) => {
 
   useItemFinishListener((item: any) => {
     const previewUrl = URL.createObjectURL(item.file);
-    console.log(item);
     const uploadedFiles = files.map((f: any) =>
       f.id === item.id
         ? {
@@ -74,8 +73,6 @@ const UploadProgressList = ({ id, handleChange, prevFiles }: any) => {
     );
 
     setFiles(uploadedFiles);
-
-    console.log("prevFiles: ", uploadedFiles);
 
     handleChange(uploadedFiles);
   });

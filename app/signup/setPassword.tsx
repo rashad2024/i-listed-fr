@@ -109,10 +109,7 @@ export default function SetPassword({
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     if (e.target.id === "password") {
-      console.log("e.target.value: ", e.target.value);
       setPassword(e.target.value);
-      // setShowValidation(true);
-
       if (
         !checkSpecialCharacters(e.target.value) ||
         !checkNumberOfCharacters(e.target.value)
@@ -130,10 +127,6 @@ export default function SetPassword({
 
       setPasswordMatched(true);
     }
-
-    console.log("e.target.value: ", e.target.value);
-
-    // setShowValidation(false);
   };
 
   return (

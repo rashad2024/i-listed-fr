@@ -1,4 +1,5 @@
 import { retrievePropertyOptions } from "@/features/services/propertyServices";
+import { z } from "zod";
 
 export const prepareBasicInfo = (data: any) => {
   const {
@@ -1215,7 +1216,6 @@ export const prepareExtrasFeaturesInfo = (data: any, removeFeature: any) => {
 
 export const getFieldOptions = async () => {
   const propertyOptions = await retrievePropertyOptions();
-  console.log("propertyOptions", propertyOptions);
 
   return propertyOptions.data;
 };
@@ -1427,22 +1427,6 @@ export const prepareFormData = (data: any) => {
   return payload;
 };
 
-export const validateForm = (formData: any, Schema: any) => {
-  const result = Schema?.safeParse(formData);
-
-  const validationMessage: any = {};
-
-  console.log("result", result.error.format());
-  if (!result.success) {
-    const errors = result.error.flatten().fieldErrors;
-    Object.keys(errors).forEach((key) => {
-      validationMessage[key] = { message: errors[key][0] };
-    });
-  }
-
-  return validationMessage;
-};
-
 export const filterPropertyOptions = (
   name: string,
   value: any,
@@ -1450,19 +1434,11 @@ export const filterPropertyOptions = (
 ) => {
   const filteredOptions: any = {};
   Object.keys(currentOptions).forEach((key) => {
-    console.log("key", key);
     if (key === "priceRange") return;
     if (`${key}Id` === name) {
       filteredOptions[key] = currentOptions[key];
-      console.log("key", filteredOptions[key]);
     } else {
       filteredOptions[key] = currentOptions[key]?.map((item: any) => {
-        console.log(
-          "ddd: ",
-          typeof item[`${name}`],
-          item[`${name}`],
-          item[`${name}`] == value
-        );
         if (
           item[`${name}`] &&
           typeof item[`${name}`] == "number" &&
@@ -1479,34 +1455,11 @@ export const filterPropertyOptions = (
       });
     }
   });
-
-  console.log("filteredOptions", filteredOptions);
 };
-
-// export const createProperty = async (data: any, dispatch: any) => {
-//   await dispatch(addPropertyAsDraft(data))
-//     .unwrap()
-//     .then((res: any) => {
-//       // Do something after store is updated
-//       console.log(res);
-//       if (res.success) {
-//         return res?.data?.id; // Redirect to /property-list
-//       }
-//     })
-//     .catch((err: any) => {
-//       const { errors } = JSON.parse(err);
-
-//       return errors.map((err: any) => {
-//         // if (!Object.keys(formErrors).length) {
-//         return err;
-//       });
-//     });
-// };
 
 export const preparePropertyData = (data: any) => {
   const payload: Record<string, any> = {};
 
-  console.log("preparePropertyData", data);
   if (data?.id) payload.id = data?.id;
   // Living space options start
   if (data?.livingSpace?.length) {

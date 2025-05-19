@@ -78,7 +78,6 @@ export default function PropertyDeleteConfirmationModal({
   };
 
   const deleteProperty = async () => {
-    console.log("propertyId", propertyId);
     if (!propertyId) return;
 
     if (typeof propertyId !== "object" && propertyId) {

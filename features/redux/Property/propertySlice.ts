@@ -18,7 +18,6 @@ const propertySlice = createSlice({
   initialState,
   reducers: {
     setProperty: (state, action) => {
-      //   console.log(state.data, action);
       state.data = Object.assign({}, state.data, action.payload);
     },
   },

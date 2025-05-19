@@ -40,11 +40,6 @@ const DynamicInputList = ({
     );
   };
 
-  const handleClick = (id: any, value: any) => {
-    handleChange(id, value);
-    // console.log("handleClick", id, value);
-  };
-
   const handleAddInput = (id: string) => {
     const input = inputs[inputs.length - 1];
 
@@ -89,7 +84,6 @@ const DynamicInputList = ({
 
   const removeItem = (input: any) => {
     if (isPreview) return;
-    console.log("removeItem", input, inputs, inputGroups);
     handleChange(input.category, input.value, null, true);
 
     if (onClick) {
@@ -100,17 +94,7 @@ const DynamicInputList = ({
         )
       );
     }
-    // handleChange(`${input.category}Added`, input.value);
 
-    // const filteredData = inputGroups.filter(
-    //   (inputGroup: any) => !input.value || input.value != inputGroup.value
-    // );
-
-    // console.log(
-    // inputGroups.filter(
-    //   (inputGroup: any) => !input.value || input.value !== inputGroup.value
-    // )
-    // );
     if (inputGroups.length) {
       setInputs(
         inputGroups.filter(
@@ -119,10 +103,6 @@ const DynamicInputList = ({
       );
     }
   };
-
-  // useEffect(() => {
-  //   setInputs(inputGroups);
-  // }, [inputGroups]);
 
   return (
     <Flex
@@ -153,7 +133,7 @@ const DynamicInputList = ({
 
           if (isPreview && idx === inputs.length - 1 && !value) return;
           if (isPreview && !isSubmitted) return;
-          console.log("input", input);
+
           return (
             <InputField
               key={`${fieldId}-${idx}`}

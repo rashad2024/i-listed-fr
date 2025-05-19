@@ -291,6 +291,7 @@ export const preparePropertyData = (data: any) => {
       address,
       totalPrice,
       images,
+      landUnit,
     } = property;
 
     return {
@@ -300,6 +301,7 @@ export const preparePropertyData = (data: any) => {
       category: category?.name,
       subcategory: subcategory?.name,
       transactionType: transactionType?.name,
+      landUnit: landUnit?.symbol,
       address: address,
       price: totalPrice,
       image: images[0],

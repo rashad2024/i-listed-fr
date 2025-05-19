@@ -165,7 +165,10 @@ export default function TableWithPagination({
                   </Link>
                 </div>
               </td>
-              <td>{property.size}</td>
+              <td>
+                {property.size}
+                {property.landUnit}
+              </td>
               <td>{property.category}</td>
               <td>{property.subcategory}</td>
               <td>
