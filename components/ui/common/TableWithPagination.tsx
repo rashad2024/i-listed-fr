@@ -154,7 +154,7 @@ export default function TableWithPagination({
               </td>
               <td>{property.address}</td>
               <td>
-                {property.price ? `$${property.price.toLocaleString()}` : ""}
+                {property.price ? `$ ${property.price.toLocaleString()}` : ""}
               </td>
               <td>
                 <div className="actions">
