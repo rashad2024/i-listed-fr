@@ -89,9 +89,9 @@ const DynamicInputList = ({
     if (onClick) {
       onClick(
         id,
-        inputs.filter((data: any) =>
-          data.value && data.value !== input.value ? data.value : ""
-        )
+        inputs.filter((data: any) => {
+          if (data.value && data.value !== input.value) return data.value;
+        })
       );
     }
 
@@ -149,7 +149,7 @@ const DynamicInputList = ({
               iconClick={(e: any) => removeItem(input)}
               iconSize={iconSize || 12}
               size={"3"}
-              disabled={isPreview || disabled}
+              disabled={isPreview || isSubmitted}
             />
           );
         })}
