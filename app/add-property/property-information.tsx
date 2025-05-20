@@ -407,7 +407,7 @@ export default function PropertyInformation({
                           key: "nearbyPoints",
                           label: idx < 1 ? "Nearby points of Interest" : "",
                           placeholder: idx < 1 ? "Nearby points" : "",
-                          disabled: isPreview,
+                          disabled: editMode ? false : isPreview,
                         };
                       }
                     )
