@@ -153,7 +153,9 @@ export default function TableWithPagination({
                 </span>
               </td>
               <td>{property.address}</td>
-              <td>{property.price ? `$${property.price}` : ""}</td>
+              <td>
+                {property.price ? `$${property.price.toLocaleString()}` : ""}
+              </td>
               <td>
                 <div className="actions">
                   <Tooltip content="edit">

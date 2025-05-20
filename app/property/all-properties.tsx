@@ -46,10 +46,12 @@ export default function AllProperties({ status }: { status?: any }) {
       }
       setTableData(propertyInfo.data);
       setPaginationData(propertyInfo.meta?.pagination);
+      setNoProperty(false);
       // setPage(1);
       // setPageUpdated(true);
     } catch (error) {
       console.log(error);
+      setNoProperty(true);
     }
   };
 
