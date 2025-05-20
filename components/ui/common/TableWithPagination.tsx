@@ -11,31 +11,6 @@ import { preparePropertyData } from "@/utils/helpers/property-list";
 import "@/styles/components/_table.scss";
 import ButtonInput from "./Button";
 
-const properties = [
-  {
-    id: 1,
-    name: "Properties Photo & Name",
-    image: "/property1.jpg",
-    size: "1400ft",
-    category: "Residences",
-    subcategory: "Villa",
-    transactionType: "Rent",
-    address: "Bali",
-    price: "$ 60,450",
-  },
-  {
-    id: 2,
-    name: "Properties Photo & Name",
-    image: "/property2.jpg",
-    size: "1400ft",
-    category: "Residences",
-    subcategory: "Villa",
-    transactionType: "Sale",
-    address: "Bali",
-    price: "$ 60,450",
-  },
-];
-
 export default function TableWithPagination({
   tableData,
   paginationData,
@@ -166,8 +141,7 @@ export default function TableWithPagination({
                 </div>
               </td>
               <td>
-                {property.size}
-                {property.landUnit}
+                {property.size ? `${property.size}${property.landUnit}` : ""}
               </td>
               <td>{property.category}</td>
               <td>{property.subcategory}</td>
@@ -179,7 +153,7 @@ export default function TableWithPagination({
                 </span>
               </td>
               <td>{property.address}</td>
-              <td>{property.price}$</td>
+              <td>{property.price ? `${property.price}$` : ""}</td>
               <td>
                 <div className="actions">
                   <Tooltip content="edit">
