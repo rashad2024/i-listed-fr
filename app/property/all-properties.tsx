@@ -8,22 +8,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { Flex, Text, Link } from "@radix-ui/themes";
 
+import { useDynamicFieldMap } from "@/components/ui/common/useDynamicFieldMap";
+
 import Icon from "@/components/ui/common/Icon";
 import PropertyDeleteConfirmationModal from "@/app/add-property/delete-confirmation-modal";
 import CardView from "@/components/ui/common/CardView";
 import TableWithPagination from "@/components/ui/common/TableWithPagination";
 import Skeleton from "@/components/ui/common/Skeleton";
 import NotFoundPage from "@/components/ui/common/NotFound";
+import FilterCard from "./filter-section";
 
 import {
   prepareFilterData,
   getProperties,
 } from "@/utils/helpers/property-list";
+import { filterPropertyOptions } from "@/utils/helpers/add-property";
 
 import "@/styles/pages/property-list.scss";
 import "@/styles/components/_card.scss";
-import { any } from "zod";
-import { NonUndefined } from "react-hook-form";
 
 export default function AllProperties({ status }: { status?: any }) {
   const router = useRouter();
@@ -34,9 +36,14 @@ export default function AllProperties({ status }: { status?: any }) {
 
   const [noProperty, setNoProperty] = useState<any>(false);
   const [filterData, setFilterData] = useState<any>({});
-  const fetchProperty = async (data: any) => {
+
+  const { addValue, getValues } = useDynamicFieldMap();
+  const getFieldValue = (name: string): any => {
+    return getValues()[name];
+  };
+  const fetchProperty = async () => {
     try {
-      const propertyInfo = await getProperties(page || 1, data, status);
+      const propertyInfo = await getProperties(page || 1, getValues(), status);
 
       if (!propertyInfo?.data?.length) {
         // setTableData([]);
@@ -46,7 +53,7 @@ export default function AllProperties({ status }: { status?: any }) {
       }
       setTableData(propertyInfo.data);
       setPaginationData(propertyInfo.meta?.pagination);
-      setNoProperty(false);
+      // setNoProperty(false);
       // setPage(1);
       // setPageUpdated(true);
     } catch (error) {
@@ -67,11 +74,12 @@ export default function AllProperties({ status }: { status?: any }) {
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
     useState(false);
 
-  const handleChange = (id: any, value: any) => {
-    setFilterData({ ...filterData, [id]: value });
-    setFilterInfo(
-      prepareFilterData({ ...filterData, [id]: value }, fetchProperty)
-    );
+  const handleChange = (
+    name: any,
+    value: any,
+    shouldFilterOptions?: boolean
+  ) => {
+    addValue(name, value);
   };
 
   const handlePageChange = (page: number) => {
@@ -96,7 +104,7 @@ export default function AllProperties({ status }: { status?: any }) {
   };
 
   useEffect(() => {
-    fetchProperty(filterData);
+    fetchProperty();
     setPageUpdated(false);
   }, [pageUpdated]);
   return (
@@ -130,12 +138,10 @@ export default function AllProperties({ status }: { status?: any }) {
         style={{ width: "100%", maxWidth: "100%" }}
         className="info-container filter-container"
       >
-        <CardView
-          formData={filterInfo}
-          id="filter-card"
+        <FilterCard
           handleChange={handleChange}
-          data={filterData}
-          cardTitle="Property Filter"
+          getFieldValue={getFieldValue}
+          onClick={fetchProperty}
         />
       </Flex>
       {tableData?.length ? (

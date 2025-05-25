@@ -1455,6 +1455,8 @@ export const filterPropertyOptions = (
       });
     }
   });
+
+  return filteredOptions;
 };
 
 export const preparePropertyData = (data: any) => {

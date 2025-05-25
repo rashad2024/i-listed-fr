@@ -1,6 +1,6 @@
 // SliderRangeWithTooltip.jsx
 import * as Slider from "@radix-ui/react-slider";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import "@/styles/components/_slider.scss";
 
@@ -13,7 +13,7 @@ export default function SliderComponent({
   value: number[];
   onChange: any;
 }) {
-  const [sliderValue, setSliderValue] = useState([20, 10000]);
+  const [sliderValue, setSliderValue] = useState(value);
 
   const [min, max] = value || [0, 10000];
 
@@ -22,6 +22,10 @@ export default function SliderComponent({
     onChange(id, val);
   };
 
+  // useEffect(() => {
+  //   setSliderValue(value);
+  // }, [value]);
+
   return (
     <div className="slider-container">
       {/* Tooltips for each thumb */}
@@ -29,11 +33,11 @@ export default function SliderComponent({
       {/* Range Slider */}
       <Slider.Root
         className="slider-root"
-        value={value || [20, 9900]}
+        value={sliderValue || [20, 9900]}
         onValueChange={handleChange}
-        min={20}
-        max={10000}
-        step={100}
+        min={value[0]}
+        max={value[1]}
+        step={(max - min) / 100}
       >
         <Slider.Track className="slider-track">
           <Slider.Range className="slider-range" />
@@ -42,15 +46,15 @@ export default function SliderComponent({
         <Slider.Thumb className="slider-thumb" aria-label="Maximum value" />
         <div
           className="slider-tooltip min"
-          style={{ left: `calc(${min / 100}%)` }}
+          style={{ left: `calc(${sliderValue[0] / (value[1] / 100)}% + 10px)` }}
         >
-          {min}
+          {sliderValue[0].toFixed()}
         </div>
         <div
           className="slider-tooltip max"
-          style={{ left: `calc(${max / 100}%)` }}
+          style={{ left: `calc(${sliderValue[1] / (value[1] / 100)}%)` }}
         >
-          {max}
+          {sliderValue[1].toFixed()}
         </div>
       </Slider.Root>
     </div>
