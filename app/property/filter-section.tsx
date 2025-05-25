@@ -208,7 +208,7 @@ export default function FilterCard({
                 color: "#fff",
                 justifyContent: "end",
                 width: "160px",
-                marginTop: "0.75rem",
+                marginTop: "1.5rem",
               }}
             >
               <Icon name="CustomFilterIcon" size={24} />
