@@ -179,7 +179,10 @@ export default function FilterCard({
                 id={"priceRange"}
                 value={[
                   propertyOptions?.priceRange?.min || 0,
-                  propertyOptions?.priceRange?.max || 10000,
+                  propertyOptions?.priceRange?.min ===
+                  propertyOptions?.priceRange?.max
+                    ? propertyOptions?.priceRange?.max + 0.4
+                    : propertyOptions?.priceRange?.max || 10000,
                 ]}
                 onChange={(e: any, value: any) => onChange("priceRange", value)}
               />
