@@ -1,9 +1,11 @@
 // features/auth/services/authService.ts
 import axiosInstance from "../../utils/axios";
 
-export const retrievePropertyOptions = async () => {
+export const retrievePropertyOptions = async (status?: string) => {
   try {
-    const response = await axiosInstance.get("/properties/options");
+    const response = await axiosInstance.get(
+      `/properties/options${status ? `?status=${status}` : ""}`
+    );
 
     return response.data; // Return the response data
   } catch (error: any) {

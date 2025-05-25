@@ -1214,8 +1214,8 @@ export const prepareExtrasFeaturesInfo = (data: any, removeFeature: any) => {
   ];
 };
 
-export const getFieldOptions = async () => {
-  const propertyOptions = await retrievePropertyOptions();
+export const getFieldOptions = async (status?: string) => {
+  const propertyOptions = await retrievePropertyOptions(status);
 
   return propertyOptions.data;
 };

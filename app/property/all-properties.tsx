@@ -142,6 +142,7 @@ export default function AllProperties({ status }: { status?: any }) {
           handleChange={handleChange}
           getFieldValue={getFieldValue}
           onClick={fetchProperty}
+          status={status}
         />
       </Flex>
       {tableData?.length ? (

@@ -18,6 +18,7 @@ export default function FilterCard({
   handleChange,
   getFieldValue,
   onClick,
+  status,
 }: any) {
   const [propertyOptions, setPropertyOptions] = useState<any>({});
 
@@ -28,7 +29,7 @@ export default function FilterCard({
 
   useEffect(() => {
     const fetchFormOptions = async () => {
-      const options = await getFieldOptions();
+      const options = await getFieldOptions(status);
 
       setPropertyOptions(options);
       return options;
