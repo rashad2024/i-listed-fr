@@ -49,7 +49,7 @@ export default function SliderComponent({
           className="slider-tooltip min"
           style={{
             left: `calc(${
-              min - max < 1 ? 0 : sliderValue[0] / (value[1] / 100)
+              max - min < 1 ? 0 : sliderValue[0] / (value[1] / 100)
             }% + 10px)`,
           }}
         >
