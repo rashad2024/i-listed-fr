@@ -1215,7 +1215,9 @@ export const prepareExtrasFeaturesInfo = (data: any, removeFeature: any) => {
 };
 
 export const getFieldOptions = async (status?: string) => {
-  const propertyOptions = await retrievePropertyOptions(status);
+  let propertyOptionStatus = "";
+  if (status === "drafts") propertyOptionStatus = "DRAFT";
+  const propertyOptions = await retrievePropertyOptions(propertyOptionStatus);
 
   return propertyOptions.data;
 };
