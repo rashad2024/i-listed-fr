@@ -195,6 +195,7 @@ export default function FilterCard({
             style={{
               maxWidth: "calc(33% - 20px)",
               flex: "0 0 calc(33% - 20px)",
+              alignItems: "end",
             }}
           >
             <ButtonInput
@@ -206,6 +207,8 @@ export default function FilterCard({
               styles={{
                 color: "#fff",
                 justifyContent: "end",
+                width: "160px",
+                // marginTop: "1.5rem",
               }}
             >
               <Icon name="CustomFilterIcon" size={24} />
